@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.sun.jersey:jersey-server:1.9.1" type="repository">
+    <properties maven-id="com.sun.jersey:jersey-server:1.9.1" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-server/1.9.1/jersey-server-1.9.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/asm/asm/3.1/asm-3.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/sun/jersey/jersey-core/1.9.1/jersey-core-1.9.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

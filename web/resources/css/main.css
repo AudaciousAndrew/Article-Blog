@@ -1,0 +1,27 @@
+.radio_btn{
+    margin: 10px;
+}
+
+.btn{
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
+
+#Y{
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
+
+#labelY{
+    margin-top: 12px;
+}
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td{
+    border: 2px solid #4bb6a7;
+    padding: 5px;
+}

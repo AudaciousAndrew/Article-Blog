@@ -1,0 +1,27 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="kursa4:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/kursa4_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="kursa4/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="kursa4" />
+          <element id="jpa-descriptors" facet="kursa4/jpa/JPA" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="JPA 2.0-2.0" />
+          <element id="library" level="project" name="Hibernate 5.2.12-5.2.12" />
+          <element id="library" level="project" name="javax.inject:javax.inject:1" />
+          <element id="library" level="project" name="javax.ws.rs:javax.ws.rs-api:2.1" />
+          <element id="library" level="project" name="com.sun.jersey:jersey-server:1.9.1" />
+          <element id="library" level="project" name="com.sun.jersey:jersey-server:1.9.11" />
+          <element id="library" level="project" name="org.glassfish.jersey:jax-rs-ri:2.0-rc1" />
+          <element id="library" level="project" name="javax.faces:javax.faces-api:2.3" />
+          <element id="library" level="project" name="org.postgresql:jdbc:9.3.jdbc4-SNAPSHOT" />
+          <element id="library" level="project" name="org.postgresql:postgresql:9.2-1002-jdbc4" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="kursa4/ejb/EJB" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="org.postgresql:jdbc:9.3.jdbc4-SNAPSHOT" type="repository">
+    <properties maven-id="org.postgresql:jdbc:9.3.jdbc4-SNAPSHOT" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jdbc-9.3.jdbc4-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

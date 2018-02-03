@@ -16,7 +16,7 @@ public class ArticleController {
     private ArticleDAO service;
 
     @GET
-    @Path("/EJB")
+    @Path("/byuser")
     @Produces(MediaType.TEXT_PLAIN)
     public String check(){
         return service.readByAuthor("user2").toString();

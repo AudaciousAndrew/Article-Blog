@@ -30,6 +30,9 @@ public class UserRolesEntity {
         this.role = role;
     }
 
+    public UserRolesEntity() {
+    }
+
     public int getUser_role_id() {
         return user_role_id;
     }

@@ -21,14 +21,36 @@ public class ArticleEntity {
     private String articleName;
 
     @Basic
+    @Column(name = "article_type" , nullable = false)
+    private String articleType;
+
+    @Basic
     @Column(name = "article_desc" , nullable = false , unique = true)
     private String articleDesc;
+
+    @Basic
+    @Column(name = "rating")
+    private int rating = 0;
 
     @ManyToOne
     @JoinColumn(name = "user_id" , referencedColumnName = "user_id" , nullable = false)
     private UsersEntity userByUserId;
 
+    public String getArticleType() {
+        return articleType;
+    }
 
+    public void setArticleType(String articleType) {
+        this.articleType = articleType;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
 
     public int getArticleId() {
         return articleId;
@@ -65,6 +87,7 @@ public class ArticleEntity {
         this.userByUserId = userByUserId;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,10 +96,10 @@ public class ArticleEntity {
         ArticleEntity that = (ArticleEntity) o;
 
         if (articleId != that.articleId) return false;
+        if (rating != that.rating) return false;
         if (articleName != null ? !articleName.equals(that.articleName) : that.articleName != null) return false;
         if (articleDesc != null ? !articleDesc.equals(that.articleDesc) : that.articleDesc != null) return false;
-
-        return true;
+        return userByUserId != null ? userByUserId.equals(that.userByUserId) : that.userByUserId == null;
     }
 
     @Override
@@ -84,6 +107,8 @@ public class ArticleEntity {
         int result = articleId;
         result = 31 * result + (articleName != null ? articleName.hashCode() : 0);
         result = 31 * result + (articleDesc != null ? articleDesc.hashCode() : 0);
+        result = 31 * result + rating;
+        result = 31 * result + (userByUserId != null ? userByUserId.hashCode() : 0);
         return result;
     }
 
@@ -93,6 +118,7 @@ public class ArticleEntity {
                 "articleId=" + articleId +
                 ", articleName='" + articleName + '\'' +
                 ", articleDesc='" + articleDesc + '\'' +
+                ", rating=" + rating +
                 ", userByUserId=" + userByUserId +
                 '}';
     }

@@ -46,6 +46,14 @@ public class UsersEntity {
     @Column(name = "description")
     private String description;
 
+    public UsersEntity() {
+    }
+
+    public UsersEntity(String login, String password, String email) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+    }
 
     public int getUserId() {
         return userId;

@@ -5,17 +5,8 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>kursa4.Entities.ArticleEntity</class>
-        <class>kursa4.Entities.BookEntity</class>
-        <class>kursa4.Entities.CharacterEntity</class>
-        <class>kursa4.Entities.CharacterTypeEntity</class>
-        <class>kursa4.Entities.EpisodeEntity</class>
-        <class>kursa4.Entities.MagicEntity</class>
-        <class>kursa4.Entities.MagicSkillsEntity</class>
-        <class>kursa4.Entities.NationEntity</class>
-        <class>kursa4.Entities.OrganizationEntity</class>
-        <class>kursa4.Entities.PlaceEntity</class>
-        <class>kursa4.Entities.TechnologyEntity</class>
         <class>kursa4.Entities.UsersEntity</class>
+        <class>kursa4.Entities.UserRolesEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>

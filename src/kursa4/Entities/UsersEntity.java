@@ -1,6 +1,7 @@
 package kursa4.Entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users", schema = "public", catalog = "postgres")
@@ -8,7 +9,7 @@ import javax.persistence.*;
         @NamedQuery(name = "Users.readAll" , query = "Select p from UsersEntity p") ,
         @NamedQuery(name = "Users.deleteAll" , query = "delete from UsersEntity p")
 })
-public class UsersEntity {
+public class UsersEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", updatable = false, nullable = false, unique = true)

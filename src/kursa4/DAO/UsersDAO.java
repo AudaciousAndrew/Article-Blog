@@ -2,12 +2,13 @@ package kursa4.DAO;
 
 import kursa4.Entities.UsersEntity;
 
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import java.util.List;
 
 
-
+@Stateful
 public class UsersDAO {
 
 
@@ -20,11 +21,50 @@ public class UsersDAO {
     public UsersDAO() {
     }
 
-    public List<UsersEntity> readByLogin(String name){
+    public boolean authorization(String login , String password){
+        try{
+        UsersEntity usersEntity = readByLogin(login);
+        if(usersEntity != null) {
+            if (usersEntity.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        }catch (NoResultException e){
+            return false;
+        }
+        return false;
+    }
+
+    public boolean existsByLogin(String login){
+        try {
+            UsersEntity usersEntity = readByLogin(login);
+            return true;
+        }catch (NoResultException e){
+            return false;
+        }
+    }
+
+    public boolean existsByEmail(String email){
+        try {
+            UsersEntity usersEntity = readByEmail(email);
+            return true;
+        }catch (NoResultException e){
+            return false;
+        }
+    }
+
+    public UsersEntity readByLogin(String name){
         TypedQuery<UsersEntity> query = em.createQuery(
                 "select p from UsersEntity p where p.login ='"+name+"'"
                 ,UsersEntity.class);
-        return query.getResultList();
+        return query.getSingleResult();
+    }
+
+    public UsersEntity readByEmail(String email){
+        TypedQuery<UsersEntity> query = em.createQuery(
+                "select p from UsersEntity p where p.email ='"+email+"'"
+                ,UsersEntity.class);
+        return query.getSingleResult();
     }
 
     public List<UsersEntity> readByRating(int rating){
@@ -35,7 +75,9 @@ public class UsersDAO {
     }
 
     public UsersEntity create(UsersEntity user){
+        em.getTransaction().begin();
         em.persist(user);
+        em.getTransaction().commit();
         return user;
     }
 

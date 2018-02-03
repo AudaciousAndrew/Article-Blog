@@ -25,6 +25,14 @@ public class ArticleDAO {
         em.getTransaction().commit();
     }
 
+    public List<ArticleEntity> readByType(String type){
+        TypedQuery<ArticleEntity> query = em.createQuery(
+                "select p from ArticleEntity p where p.articleType ='" + type+"'"
+                ,ArticleEntity.class);
+        List<ArticleEntity> articles = query.getResultList();
+        return articles;
+    }
+
     public List<ArticleEntity> readByAuthor(String author){
         TypedQuery<ArticleEntity> query = em.createQuery(
                 "SELECT p from ArticleEntity p join p.userByUserId " +

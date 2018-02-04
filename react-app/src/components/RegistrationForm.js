@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Menu from './Menu';
 import '../css/SignUp.css';
+import axios from 'axios';
+
+const apiPath='http://localhost:8080/kursa4_war_exploded/rest/user/register';
 
 class RegistrationForm extends Component{
   constructor(props){
@@ -21,6 +24,37 @@ class RegistrationForm extends Component{
     this.emailCheck = this.emailCheck.bind(this);
     this.loginCheck = this.loginCheck.bind(this);
     this.passwordCheck = this.passwordCheck.bind(this);
+    this.loadFromServer = this.loadFromServer.bind(this);
+    this.createUser = this.createUser.bind(this);
+  }
+
+  loadFromServer() {
+      return new Promise((resolve, reject) => {
+          axios
+              .get(apiPath)
+              .then((response) => {
+                  console.log(response);
+                  resolve();
+              });
+      });
+  }
+
+  createUser(){
+    axios({
+      method:'post',
+      url: apiPath,
+      data: {
+        login: this.state.login,
+        password: this.state.password,
+        email: this.state.email
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+    }).catch(error => {
+      console.log(error.message);
+    });
+
   }
 
   emailCheck(){
@@ -76,8 +110,9 @@ class RegistrationForm extends Component{
       console.log('not submitted')
       return;
     }
+    this.createUser();
     console.log('submitted');
-    this.props.history.push("/regsuccess");
+    //this.props.history.push("/regsuccess");
   }
 
   handleEmailChange(event){

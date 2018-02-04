@@ -20,7 +20,7 @@ class LoginForm extends Component{
   handleSubmit(event){
     event.preventDefault();
     console.log('submitted');
-    cookieFunctions.setCookie('user', this.state.login, 1);
+    cookieFunctions.setCookie('user', '', 1);
     alert(document.cookie);
     this.props.history.push("/");
   }

@@ -3,6 +3,7 @@ package kursa4.Controllers;
 import kursa4.DAO.ArticleDAO;
 import kursa4.DAO.UsersDAO;
 import kursa4.Entities.ArticleEntity;
+import kursa4.Entities.UsersEntity;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -25,6 +26,14 @@ public class SecuredController {
     @Produces(MediaType.TEXT_PLAIN)
     public String checkRoles(){
         return "Hi admin";
+    }
+
+    @GET
+    @Path("/user/{login}")
+    @RolesAllowed("USER")
+    @Produces(MediaType.APPLICATION_JSON)
+    public UsersEntity getUser(@PathParam("login") String login){
+        return usersService.readByLogin(login);
     }
 
     @POST

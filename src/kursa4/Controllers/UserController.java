@@ -1,5 +1,7 @@
 package kursa4.Controllers;
 
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 import kursa4.DAO.UserRolesDAO;
 import kursa4.DAO.UsersDAO;
 import kursa4.Entities.UserRolesEntity;
@@ -12,10 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import com.sun.jersey.core.util.Base64;
 import kursa4.models.AuthorizationResponse;
 import kursa4.models.RegistrationResponse;
 
+import java.io.*;
 import java.util.List;
 
 @Path("/user")
@@ -26,6 +31,43 @@ public class UserController {
 
     @EJB
     private UserRolesDAO rolesService;
+//
+//    @POST
+//    @Path("/load")
+//    @Consumes(MediaType.MULTIPART_FORM_DATA)
+//    public Response upload(
+//            @FormDataParam("file") InputStream uploadedInputStream ,
+//            @FormDataParam("file") FormDataContentDisposition fileDetail){
+//        String uploadedFileLocation = "/home/andrew/Desktop/kursa4/web/resources/img"
+//                + fileDetail.getFileName();
+//        writeToFile(uploadedInputStream , uploadedFileLocation);
+//        String resp = "uploaded to: "+uploadedFileLocation;
+//        return Response.status(200).entity(resp).build();
+//    }
+//
+//    private void writeToFile(InputStream uploadedInputStream,
+//                             String uploadedFileLocation) {
+//
+//        try {
+//            OutputStream out = new FileOutputStream(new File(
+//                    uploadedFileLocation));
+//            int read = 0;
+//            byte[] bytes = new byte[1024];
+//
+//            out = new FileOutputStream(new File(uploadedFileLocation));
+//            while ((read = uploadedInputStream.read(bytes)) != -1) {
+//                out.write(bytes, 0, read);
+//            }
+//            out.flush();
+//            out.close();
+//        } catch (IOException e) {
+//
+//            e.printStackTrace();
+//        }
+//
+//    }
+
+
 
     @POST
     @Path("/register")

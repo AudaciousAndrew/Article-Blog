@@ -1,6 +1,7 @@
 package kursa4.Entities;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 @Entity
@@ -9,6 +10,7 @@ import java.io.Serializable;
         @NamedQuery(name = "Users.readAll" , query = "Select p from UsersEntity p") ,
         @NamedQuery(name = "Users.deleteAll" , query = "delete from UsersEntity p")
 })
+@XmlRootElement
 public class UsersEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

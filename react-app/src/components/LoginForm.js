@@ -3,6 +3,9 @@ import Menu from './Menu';
 import '../css/SignUp.css';
 import  { cookieFunctions } from '../cookieFunctions';
 import { Link } from 'react-router-dom';
+import { axios } from 'axios';
+
+const apiPath='http://localhost:8080/kursa4_war_exploded/rest/user/login';
 
 class LoginForm extends Component{
   constructor(props){
@@ -16,14 +19,30 @@ class LoginForm extends Component{
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLoginChange = this.handleLoginChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.login = this.login.bind(this);
+  }
+
+  login(){
+    axios({
+      method:'post',
+      url: apiPath,
+      data: {
+        login: this.state.login,
+        password: this.state.password
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+    }).catch(error => {
+      console.log(error.message);
+    });
   }
 
   handleSubmit(event){
     event.preventDefault();
     console.log('submitted');
-    cookieFunctions.setCookie('user', '', 1);
-    alert(document.cookie);
-    this.props.history.push("/");
+    this.login();
+    //this.props.history.push("/");
   }
 
   handleLoginChange(event){

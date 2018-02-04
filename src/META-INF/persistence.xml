@@ -11,7 +11,7 @@
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
-            <property name="hibernate.connection.password" value="489052369"/>
+            <property name="hibernate.connection.password" value="123"/>
             <property name="hibernate.connection.username" value="postgres"/>
 
             <property name="show_sql" value="true"/>

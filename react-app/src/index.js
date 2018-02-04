@@ -7,6 +7,7 @@ import News from './components/News';
 import RegistrationForm from './components/RegistrationForm';
 import LoginForm from './components/LoginForm';
 import RegistrationSuccessful from './components/RegistrationSuccessful';
+import Footer from './components/Footer';
 
 import { BrowserRouter, Route } from 'react-router-dom';
 
@@ -40,4 +41,8 @@ ReactDOM.render(
       </div>
     </BrowserRouter>
     </Provider>,
-  document.getElementById('root'));
+document.getElementById('root'));
+
+ReactDOM.render(
+  <Footer />,
+document.getElementById('footer'));

@@ -4,6 +4,7 @@ import kursa4.DAO.ArticleDAO;
 import kursa4.DAO.UsersDAO;
 import kursa4.Entities.ArticleEntity;
 import kursa4.Entities.UsersEntity;
+import kursa4.models.articleName;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -33,16 +34,12 @@ public class SecuredController {
     @Path("/article/add")
     @RolesAllowed({"USER" , "ADMIN" , "MODERATOR"})
     @Produces(MediaType.TEXT_PLAIN)
-    public String addArticle(
-            @FormParam("article_name") String article_name ,
-            @FormParam("article_type") String article_type ,
-            @FormParam("article_desc") String article_desc ,
-            @FormParam("author") String login
-    ){
+    public String addArticle(ArticleEntity article){
         try{
-        articleService.create(
-                new ArticleEntity(article_name , article_type , article_desc ,
-                       usersService.readByLogin(login) ));
+//        articleService.create(
+//                new ArticleEntity(article_name , article_type , article_desc ,
+//                       usersService.readByLogin(login) ));
+            articleService.create(article);
         return "true";
         }catch (Exception e){
             return "false";
@@ -70,9 +67,9 @@ public class SecuredController {
     @Path("/article/update")
     @RolesAllowed({"MODERATOR" , "ADMIN"})
     @Produces(MediaType.TEXT_PLAIN)
-    public String updateVerified(@FormParam("name") String name){
+    public String updateVerified(articleName name){
         try{
-        articleService.updateVerified(name);
+        articleService.updateVerified(name.getName());
         return "true";
         }catch (Exception e){
             return "Error on server side";

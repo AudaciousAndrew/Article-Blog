@@ -33,40 +33,41 @@ public class UserController {
     @EJB
     private UserRolesDAO rolesService;
 
-//    @POST
-//    @Path("/load")
-//    @Consumes(MediaType.MULTIPART_FORM_DATA)
-//    public Response upload(
-//            @FormDataParam("file") InputStream uploadedInputStream ,
-//            @FormDataParam("file") FormDataContentDisposition fileDetail){
-//        String uploadedFileLocation = "/home/andrew/Desktop/kursa4/web/resources/img"
-//                + fileDetail.getFileName();
-//        writeToFile(uploadedInputStream , uploadedFileLocation);
-//        String resp = "uploaded to: "+uploadedFileLocation;
-//        return Response.status(200).entity(resp).build();
-//    }
-//
-//    private void writeToFile(InputStream uploadedInputStream,
-//                             String uploadedFileLocation) {
-//
-//        try {
-//            OutputStream out = new FileOutputStream(new File(
-//                    uploadedFileLocation));
-//            int read = 0;
-//            byte[] bytes = new byte[1024];
-//
-//            out = new FileOutputStream(new File(uploadedFileLocation));
-//            while ((read = uploadedInputStream.read(bytes)) != -1) {
-//                out.write(bytes, 0, read);
-//            }
-//            out.flush();
-//            out.close();
-//        } catch (IOException e) {
-//
-//            e.printStackTrace();
-//        }
-//
-//    }
+    @POST
+    @Path("/load")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response upload(
+            @FormDataParam("file") InputStream uploadedInputStream ,
+            @FormDataParam("file") FormDataContentDisposition fileDetail
+    ){
+       // String uploadedFileLocation = "/home/andrew/Desktop/kursa4/web/resources/img"
+       //         + fileDetail.getFileName();
+       // writeToFile(uploadedInputStream , uploadedFileLocation);
+       // String resp = "uploaded to: "+uploadedFileLocation;
+        return Response.status(200).entity("hi").build();
+    }
+
+    private void writeToFile(InputStream uploadedInputStream,
+                             String uploadedFileLocation) {
+
+        try {
+            OutputStream out = new FileOutputStream(new File(
+                    uploadedFileLocation));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            out = new FileOutputStream(new File(uploadedFileLocation));
+            while ((read = uploadedInputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+    }
 
 
 
@@ -81,15 +82,15 @@ public class UserController {
                 if(!service.existsByEmail(user.getEmail())){
                     service.create(user);
                     rolesService.create(userRolesEntity);
-                    registrationResponse = new RegistrationResponse( true , "null");
+                    registrationResponse = new RegistrationResponse( 1 , "null");
                     return registrationResponse;
 
                 } else  {
-                    registrationResponse = new RegistrationResponse( false , "email exists");
+                    registrationResponse = new RegistrationResponse( 0 , "email exists");
                     return  registrationResponse;
                 }
             } else {
-                registrationResponse = new RegistrationResponse(false , "login exists");
+                registrationResponse = new RegistrationResponse(0 , "login exists");
                 return registrationResponse;
             }
     }
@@ -101,10 +102,10 @@ public class UserController {
         AuthorizationResponse authorizationResponse;
         if(service.authorization(credentials.getLogin(),credentials.getPassword())) {
             String token = new String( Base64.encode(credentials.getLogin()+":"+credentials.getPassword()) , "UTF8");
-            authorizationResponse = new AuthorizationResponse(true , token);
+            authorizationResponse = new AuthorizationResponse(1 , token);
         return authorizationResponse;
         } else{
-            authorizationResponse = new AuthorizationResponse(false ,"null");
+            authorizationResponse = new AuthorizationResponse(0 ,"null");
             return authorizationResponse;
         }
 

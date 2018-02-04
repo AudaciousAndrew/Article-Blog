@@ -5,13 +5,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class RegistrationResponse {
 
-    private boolean Registration;
+    private int Registration;
     private String errorMsg;
 
     public RegistrationResponse() {
     }
 
-    public RegistrationResponse(boolean registration, String errorMsg) {
+    public RegistrationResponse(int registration, String errorMsg) {
         Registration = registration;
         this.errorMsg = errorMsg;
     }
@@ -24,11 +24,11 @@ public class RegistrationResponse {
         this.errorMsg = errorMsg;
     }
 
-    public boolean isRegistration() {
+    public int getRegistration() {
         return Registration;
     }
 
-    public void setRegistration(boolean registration) {
+    public void setRegistration(int registration) {
         Registration = registration;
     }
 }

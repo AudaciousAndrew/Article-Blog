@@ -5,19 +5,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class AuthorizationResponse {
 
-    private boolean Authorization;
+    private int Authorization;
     private String Token;
 
-    public AuthorizationResponse(boolean authorization, String token) {
+    public AuthorizationResponse() {
+    }
+
+    public AuthorizationResponse(int authorization, String token) {
         Authorization = authorization;
         Token = token;
     }
 
-    public boolean isAuthorization() {
+    public int getAuthorization() {
         return Authorization;
     }
 
-    public void setAuthorization(boolean authorization) {
+    public void setAuthorization(int authorization) {
         Authorization = authorization;
     }
 

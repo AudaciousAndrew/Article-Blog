@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import com.sun.jersey.core.util.Base64;
 import kursa4.models.AuthorizationResponse;
+import kursa4.models.RegistrationResponse;
 
 import java.util.List;
 
@@ -28,24 +29,28 @@ public class UserController {
 
     @POST
     @Path("/register")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String register(@FormParam("login") String login
+    @Produces(MediaType.APPLICATION_JSON)
+    public RegistrationResponse register(@FormParam("login") String login
                         , @FormParam("password") String password
                         , @FormParam("email") String email){
-        try {
+
             UsersEntity user = new UsersEntity(login, password, email);
             UserRolesEntity userRolesEntity = new UserRolesEntity(user , "USER");
+            RegistrationResponse registrationResponse;
             if(!service.existsByLogin(login)){
                 if(!service.existsByEmail(email)){
                     service.create(user);
                     rolesService.create(userRolesEntity);
-                    return "user "+login+" created";
-                } else  return "email exists";
-            } else return "login exists";
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return "smth wrong";
+                    registrationResponse = new RegistrationResponse( true , "null");
+                    return registrationResponse;
+                } else  {
+                    registrationResponse = new RegistrationResponse( false , "email exists");
+                    return  registrationResponse;
+                }
+            } else {
+                registrationResponse = new RegistrationResponse(false , "login exists");
+                return registrationResponse;
+            }
     }
 
     @POST

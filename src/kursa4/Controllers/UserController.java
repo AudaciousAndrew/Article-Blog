@@ -67,77 +67,36 @@ public class UserController {
 //
 //    }
 
-    @POST
-    @Path("/test")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String test(@FormParam("test") String test){
-        return test;
-    }
+
 
 
     @POST
     @Path("/register")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response register(@FormParam("login") String login
-                        , @FormParam("password") String password
-                        , @FormParam("email") String email){
-
-            UsersEntity user = new UsersEntity(login, password, email);
+    @Produces(MediaType.APPLICATION_JSON)
+    public RegistrationResponse register(UsersEntity user){
             UserRolesEntity userRolesEntity = new UserRolesEntity(user , "USER");
             RegistrationResponse registrationResponse;
-            if(!service.existsByLogin(login)){
-                if(!service.existsByEmail(email)){
+            if(!service.existsByLogin(user.getLogin())){
+                if(!service.existsByEmail(user.getEmail())){
                     service.create(user);
                     rolesService.create(userRolesEntity);
                     registrationResponse = new RegistrationResponse( true , "null");
-                  //  return registrationResponse;
-                    return Response
-                            .status(200)
-                            .header("Access-Control-Allow-Origin", "*")
-                            .header("Access-Control-Allow-Credentials", "true")
-                            .header("Access-Control-Allow-Headers",
-                                    "origin, content-type, accept, authorization")
-                            .header("Access-Control-Allow-Methods",
-                                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                            .entity("ggggkkk")
-                            .allow("OPTIONS")
-                            .build();
+                    return registrationResponse;
+
                 } else  {
                     registrationResponse = new RegistrationResponse( false , "email exists");
-                   // return  registrationResponse;
-                    return Response
-                            .status(200)
-                            .header("Access-Control-Allow-Origin", "*")
-                            .header("Access-Control-Allow-Credentials", "true")
-                            .header("Access-Control-Allow-Headers",
-                                    "origin, content-type, accept, authorization")
-                            .header("Access-Control-Allow-Methods",
-                                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                            .entity("ggggg")
-                            .allow("OPTIONS")
-                            .build();
+                    return  registrationResponse;
                 }
             } else {
                 registrationResponse = new RegistrationResponse(false , "login exists");
-               // return registrationResponse;
-                return Response
-                        .status(200)
-                        .header("Access-Control-Allow-Origin", "*")
-                        .header("Access-Control-Allow-Credentials", "true")
-                        .header("Access-Control-Allow-Headers",
-                                "origin, content-type, accept, authorization")
-                        .header("Access-Control-Allow-Methods",
-                                "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                        .entity("eeee")
-                        .allow("OPTIONS")
-                        .build();
+                return registrationResponse;
             }
     }
 
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public AuthorizationResponse auth (@FormParam("login") String login, @FormParam("password") String password) throws Exception{
+    public AuthorizationResponse auth (String login, String password) throws Exception{
         AuthorizationResponse authorizationResponse;
         if(service.authorization(login,password)) {
             String token = new String( Base64.encode(login+":"+password) , "UTF8");

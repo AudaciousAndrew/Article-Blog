@@ -20,46 +20,7 @@ import java.util.logging.Logger;
 @PreMatching
 public class CorsFilter  implements ContainerResponseFilter {
 
-//        @Override
-//        public ContainerResponse filter(ContainerRequest request,
-//            ContainerResponse response) {
-//
-//        response.getHttpHeaders().add("Access-Control-Allow-Origin", "*");
-//        response.getHttpHeaders().add("Access-Control-Allow-Headers",
-//        "origin, content-type, accept, authorization");
-//        response.getHttpHeaders().add("Access-Control-Allow-Credentials","true");
-//        response.getHttpHeaders().add("Access-Control-Allow-Methods",
-//        "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-//
-//        return response;
-//        }
-
-//    @Override
-//    public void filter(ContainerRequestContext requestContext,
-//                       ContainerResponseContext responseContext) throws IOException {
-//        responseContext.getHeaders().add(
-//                "Access-Control-Allow-Origin", "*");
-//        responseContext.getHeaders().add(
-//                "Access-Control-Allow-Credentials", "true");
-//        responseContext.getHeaders().add(
-//                "Access-Control-Allow-Headers",
-//                "origin, content-type, accept, authorization");
-//        responseContext.getHeaders().add(
-//                "Access-Control-Allow-Methods",
-//                "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-//    }
-//private final static Logger log = Logger.getLogger( CorsFilter.class.getName() );
-//
-//    @Override
-//    public void filter( ContainerRequestContext requestCtx, ContainerResponseContext responseCtx ) throws IOException {
-//        log.info( "Executing REST response filter" );
-//
-//        responseCtx.getHeaders().add( "Access-Control-Allow-Origin", "*" );
-//        responseCtx.getHeaders().add( "Access-Control-Allow-Credentials", "true" );
-//        responseCtx.getHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
-//        responseCtx.getHeaders().add( "Access-Control-Allow-Methods", "GET, POST, DELETE, PUT" );
-//    }
-public static final String ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin";
+    public static final String ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin";
     public static final String ACCESS_CONTROL_ALLOW_ORIGIN_VALUE = "*";
 
     private static final String ACCESS_CONTROL_ALLOW_CREDENTIALS = "Access-Control-Allow-Credentials";

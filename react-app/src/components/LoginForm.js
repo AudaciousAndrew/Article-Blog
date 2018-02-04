@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Menu from './Menu';
 import '../css/SignUp.css';
 import  { cookieFunctions } from '../cookieFunctions';
+import { Link } from 'react-router-dom';
 
 class LoginForm extends Component{
   constructor(props){
@@ -39,7 +40,7 @@ class LoginForm extends Component{
         <Menu />
         <div className="mainContainer">
           <form className="mainForm" onSubmit={this.handleSubmit}>
-          <h2>Войти в аккаунт</h2>
+          <h2>Авторизация</h2>
           <div className="container">
             <input
               type="text"
@@ -57,6 +58,7 @@ class LoginForm extends Component{
             />
             <div className="error"> <h3>{this.state.error}</h3> </div>
         		<input type="submit" value="Войти в аккаунт" id="submit" onClick={this.handleSubmit}/>
+            <Link to='/signup'>Зарегистрировать новый аккаунт</Link>
             <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
           </div>
           </form>

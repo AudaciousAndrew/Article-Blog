@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Menu from './Menu';
 import '../css/SignUp.css';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest/user/register';
 
@@ -170,6 +171,7 @@ class RegistrationForm extends Component{
             />
             <div className="error"> <h3>{this.state.error}</h3> </div>
         		<input type="submit" value="Создать аккаунт" id="submit" onClick={this.handleSubmit}/>
+            <Link to='/signin'>Войти в существующий аккаунт</Link>
             <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
           </div>
           </form>

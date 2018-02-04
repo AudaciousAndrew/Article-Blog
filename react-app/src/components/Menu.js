@@ -33,7 +33,7 @@ class Menu extends Component{
   render(){
     let btn;
     if(cookieFunctions.getCookie('user') === '')
-     btn = <Link to="/signin" className="usrLink">Войти в аккаунт</Link>;
+     btn = <Link to="/signin" className="usrLink">Вход</Link>;
     else btn = <Link to="/signin" className="usrLink">аккаунт</Link>;
     return(
       <div className="navbar">

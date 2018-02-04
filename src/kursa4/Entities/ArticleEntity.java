@@ -1,6 +1,8 @@
 package kursa4.Entities;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "article", schema = "public", catalog = "postgres")
@@ -8,7 +10,8 @@ import javax.persistence.*;
         @NamedQuery(name = "Article.readAll" , query = "SELECT u from ArticleEntity u") ,
         @NamedQuery(name = "Article.deleteAll" , query = "delete from ArticleEntity p")
 })
-public class ArticleEntity {
+@XmlRootElement
+public class ArticleEntity implements Serializable {
 
 
     @Id
@@ -32,9 +35,28 @@ public class ArticleEntity {
     @Column(name = "rating")
     private int rating = 0;
 
+    @Basic
+    @Column(name = "verified")
+    private boolean verified = false;
+
     @ManyToOne
     @JoinColumn(name = "user_id" , referencedColumnName = "user_id" , nullable = false)
     private UsersEntity userByUserId;
+
+    public ArticleEntity(String articleName, String articleType, String articleDesc, UsersEntity userByUserId) {
+        this.articleName = articleName;
+        this.articleType = articleType;
+        this.articleDesc = articleDesc;
+        this.userByUserId = userByUserId;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
 
     public String getArticleType() {
         return articleType;

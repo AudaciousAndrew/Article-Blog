@@ -74,6 +74,14 @@ public class UsersDAO {
         return query.getResultList();
     }
 
+    public List<UsersEntity> topTen(){
+        TypedQuery<UsersEntity> query = em.createQuery(
+                "SELECT p from UsersEntity  p order by p.rating desc "
+                , UsersEntity.class).setMaxResults(10);
+        List<UsersEntity> users = query.getResultList();
+        return users;
+    }
+
     public UsersEntity create(UsersEntity user){
         em.getTransaction().begin();
         em.persist(user);

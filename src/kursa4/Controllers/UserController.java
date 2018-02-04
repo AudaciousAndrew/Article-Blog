@@ -13,6 +13,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import com.sun.jersey.core.util.Base64;
+import kursa4.models.AuthorizationResponse;
+
+import java.util.List;
 
 @Path("/user")
 public class UserController {
@@ -47,13 +50,25 @@ public class UserController {
 
     @POST
     @Path("/login")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String auth (@FormParam("login") String login, @FormParam("password") String password) throws Exception{
-      if(service.authorization(login,password)) {
-        String str = new String( Base64.encode(login+":"+password) , "UTF8");
-      return"{\"Authorization\":\"success\",\"Token\":\""+str+"\"}";
-      } else
-          return "{\"Authorization\":\"failed\",\"Token\":\"null\"}";
+    @Produces(MediaType.APPLICATION_JSON)
+    public AuthorizationResponse auth (@FormParam("login") String login, @FormParam("password") String password) throws Exception{
+        AuthorizationResponse authorizationResponse;
+        if(service.authorization(login,password)) {
+            String token = new String( Base64.encode(login+":"+password) , "UTF8");
+            authorizationResponse = new AuthorizationResponse(true , token);
+        return authorizationResponse;
+        } else{
+            authorizationResponse = new AuthorizationResponse(false ,"null");
+            return authorizationResponse;
+        }
+
+    }
+
+    @GET
+    @Path("/top10")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UsersEntity> usersTopTen(){
+        return service.topTen();
     }
 
     @POST

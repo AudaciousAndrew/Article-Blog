@@ -1,6 +1,8 @@
 package kursa4.Entities;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user_roles" , schema = "public" , catalog = "postgres")
@@ -8,7 +10,8 @@ import javax.persistence.*;
         @NamedQuery(name = "UserRoles.readAll" , query = "select p from UserRolesEntity p") ,
         @NamedQuery(name = "UserRoles.deleteAll" , query = "delete from UserRolesEntity p")
 })
-public class UserRolesEntity {
+@XmlRootElement
+public class UserRolesEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +31,9 @@ public class UserRolesEntity {
     public UserRolesEntity(UsersEntity userByLogin, String role) {
         this.userByLogin = userByLogin;
         this.role = role;
+    }
+
+    public UserRolesEntity() {
     }
 
     public int getUser_role_id() {

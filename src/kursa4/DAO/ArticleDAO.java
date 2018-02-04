@@ -27,32 +27,40 @@ public class ArticleDAO {
 
     public List<ArticleEntity> readByType(String type){
         TypedQuery<ArticleEntity> query = em.createQuery(
-                "select p from ArticleEntity p where p.articleType ='" + type+"'"
+                "select p from ArticleEntity p where p.articleType ='" + type+"' and p.verified = true"
                 ,ArticleEntity.class);
         List<ArticleEntity> articles = query.getResultList();
         return articles;
     }
 
-    public List<ArticleEntity> readByAuthor(String author){
+    public ArticleEntity readByAuthor(String author){
         TypedQuery<ArticleEntity> query = em.createQuery(
                 "SELECT p from ArticleEntity p join p.userByUserId " +
-                        "where p.userByUserId.login ='"+author+"'"
+                        "where p.userByUserId.login ='"+author+"' and p.verified = true"
                 , ArticleEntity.class);
-        List<ArticleEntity> articles = query.getResultList();
-        return articles;
+        ArticleEntity article = query.getSingleResult();
+        return article;
     }
     public List<ArticleEntity> readByDesc(String desc){
         TypedQuery<ArticleEntity> query = em.createQuery(
-                "SELECT p from ArticleEntity p where p.articleDesc like '%" + desc + "%'"
+                "SELECT p from ArticleEntity p where p.articleDesc like '%" + desc + "%' and p.verified = true"
                 , ArticleEntity.class);
         List<ArticleEntity> articles = query.getResultList();
         return articles;
     }
 
-    public List<ArticleEntity> readByName(String name){
+    public ArticleEntity readByName(String name){
         TypedQuery<ArticleEntity> query = em.createQuery(
-                "SELECT p from ArticleEntity p where p.articleName like '%" + name + "%'"
+                "SELECT p from ArticleEntity p where p.articleName like '%" + name + "%' and p.verified = true"
                 , ArticleEntity.class);
+        ArticleEntity article = query.getSingleResult();
+        return article;
+    }
+
+    public List<ArticleEntity> topTen(){
+        TypedQuery<ArticleEntity> query = em.createQuery(
+                "SELECT p from ArticleEntity  p where p.verified = true order by p.rating desc "
+                , ArticleEntity.class).setMaxResults(10);
         List<ArticleEntity> articles = query.getResultList();
         return articles;
     }
@@ -61,6 +69,30 @@ public class ArticleDAO {
         TypedQuery<ArticleEntity> query = em.createNamedQuery("Article.readAll" , ArticleEntity.class);
         List<ArticleEntity> articles = query.getResultList();
         return articles;
+    }
+
+    public List<ArticleEntity> readVerified(){
+        TypedQuery<ArticleEntity> query = em.createQuery(
+                "SELECT p from ArticleEntity  p where p.verified = true"
+                , ArticleEntity.class);
+        List<ArticleEntity> articles = query.getResultList();
+        return articles;
+    }
+
+    public List<ArticleEntity> readUnverified(){
+        TypedQuery<ArticleEntity> query = em.createQuery(
+                "SELECT p from ArticleEntity  p where p.verified = false "
+                , ArticleEntity.class);
+        List<ArticleEntity> articles = query.getResultList();
+        return articles;
+    }
+
+    public void updateVerified(String name){
+        em.getTransaction().begin();
+        Query query = em.createQuery(
+                "update ArticleEntity p set p.verified = true where p.articleName = '"+name+"'");
+        query.executeUpdate();
+        em.getTransaction().commit();
     }
 
     public ArticleEntity create(ArticleEntity article){

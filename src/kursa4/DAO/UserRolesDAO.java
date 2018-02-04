@@ -23,14 +23,6 @@ public class UserRolesDAO {
         List<UserRolesEntity> UserRoles = query.getResultList();
         return UserRoles;
     }
-    public List<ArticleEntity> readByAuthor(String author){
-        TypedQuery<ArticleEntity> query = em.createQuery(
-                "SELECT p from ArticleEntity p join p.userByUserId " +
-                        "where p.userByUserId.login ='"+author+"'"
-                , ArticleEntity.class);
-        List<ArticleEntity> articles = query.getResultList();
-        return articles;
-    }
 
     public void deleteAll(){
         em.getTransaction().begin();
@@ -67,7 +59,6 @@ public class UserRolesDAO {
     }
 
     public UserRolesEntity read(int id){
-
         return em.find(UserRolesEntity.class , id);
     }
 }

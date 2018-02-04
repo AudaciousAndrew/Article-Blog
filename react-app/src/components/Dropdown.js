@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/Menu.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default class Dropdown extends Component {
 

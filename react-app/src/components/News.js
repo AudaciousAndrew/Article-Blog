@@ -4,7 +4,6 @@ import Menu from './Menu';
 class News extends Component{
 
   render(){
-    console.log("lol");
     return(
       <div>
         <Menu />

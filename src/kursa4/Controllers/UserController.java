@@ -111,6 +111,13 @@ public class UserController {
     }
 
     @GET
+    @Path("/user/{login}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public UsersEntity getUser(@PathParam("login") String login){
+        return service.readByLogin(login);
+    }
+
+    @GET
     @Path("/top10")
     @Produces(MediaType.APPLICATION_JSON)
     public List<UsersEntity> usersTopTen(){

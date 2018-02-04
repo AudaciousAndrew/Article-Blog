@@ -28,13 +28,6 @@ public class SecuredController {
         return "Hi admin";
     }
 
-    @GET
-    @Path("/user/{login}")
-    @RolesAllowed("USER")
-    @Produces(MediaType.APPLICATION_JSON)
-    public UsersEntity getUser(@PathParam("login") String login){
-        return usersService.readByLogin(login);
-    }
 
     @POST
     @Path("/article/add")

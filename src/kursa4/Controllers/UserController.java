@@ -31,7 +31,7 @@ public class UserController {
 
     @EJB
     private UserRolesDAO rolesService;
-//
+
 //    @POST
 //    @Path("/load")
 //    @Consumes(MediaType.MULTIPART_FORM_DATA)

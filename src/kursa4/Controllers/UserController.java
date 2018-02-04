@@ -67,12 +67,18 @@ public class UserController {
 //
 //    }
 
+    @POST
+    @Path("/test")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String test(@FormParam("test") String test){
+        return test;
+    }
 
 
     @POST
     @Path("/register")
-    @Produces(MediaType.APPLICATION_JSON)
-    public RegistrationResponse register(@FormParam("login") String login
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response register(@FormParam("login") String login
                         , @FormParam("password") String password
                         , @FormParam("email") String email){
 
@@ -84,14 +90,47 @@ public class UserController {
                     service.create(user);
                     rolesService.create(userRolesEntity);
                     registrationResponse = new RegistrationResponse( true , "null");
-                    return registrationResponse;
+                  //  return registrationResponse;
+                    return Response
+                            .status(200)
+                            .header("Access-Control-Allow-Origin", "*")
+                            .header("Access-Control-Allow-Credentials", "true")
+                            .header("Access-Control-Allow-Headers",
+                                    "origin, content-type, accept, authorization")
+                            .header("Access-Control-Allow-Methods",
+                                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                            .entity("ggggkkk")
+                            .allow("OPTIONS")
+                            .build();
                 } else  {
                     registrationResponse = new RegistrationResponse( false , "email exists");
-                    return  registrationResponse;
+                   // return  registrationResponse;
+                    return Response
+                            .status(200)
+                            .header("Access-Control-Allow-Origin", "*")
+                            .header("Access-Control-Allow-Credentials", "true")
+                            .header("Access-Control-Allow-Headers",
+                                    "origin, content-type, accept, authorization")
+                            .header("Access-Control-Allow-Methods",
+                                    "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                            .entity("ggggg")
+                            .allow("OPTIONS")
+                            .build();
                 }
             } else {
                 registrationResponse = new RegistrationResponse(false , "login exists");
-                return registrationResponse;
+               // return registrationResponse;
+                return Response
+                        .status(200)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Credentials", "true")
+                        .header("Access-Control-Allow-Headers",
+                                "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Methods",
+                                "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                        .entity("eeee")
+                        .allow("OPTIONS")
+                        .build();
             }
     }
 

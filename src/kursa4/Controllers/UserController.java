@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 
 import com.sun.jersey.core.util.Base64;
 import kursa4.models.AuthorizationResponse;
+import kursa4.models.Credentials;
 import kursa4.models.RegistrationResponse;
 
 import java.io.*;
@@ -96,10 +97,10 @@ public class UserController {
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public AuthorizationResponse auth (String login, String password) throws Exception{
+    public AuthorizationResponse auth (Credentials credentials) throws Exception{
         AuthorizationResponse authorizationResponse;
-        if(service.authorization(login,password)) {
-            String token = new String( Base64.encode(login+":"+password) , "UTF8");
+        if(service.authorization(credentials.getLogin(),credentials.getPassword())) {
+            String token = new String( Base64.encode(credentials.getLogin()+":"+credentials.getPassword()) , "UTF8");
             authorizationResponse = new AuthorizationResponse(true , token);
         return authorizationResponse;
         } else{

@@ -3,7 +3,7 @@ import Menu from './Menu';
 import '../css/SignUp.css';
 import  { cookieFunctions } from '../cookieFunctions';
 import { Link } from 'react-router-dom';
-import { axios } from 'axios';
+import axios  from 'axios';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest/user/login';
 

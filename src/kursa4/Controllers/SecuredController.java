@@ -76,4 +76,13 @@ public class SecuredController {
         }
 
     }
+
+    @POST
+    @Path("/user/update")
+    @RolesAllowed({"USER" , "MODERATOR" , "ADMIN" })
+    @Produces(MediaType.TEXT_PLAIN)
+    public String updateUserInfo(UsersEntity usersEntity){
+        usersService.update(usersEntity);
+        return "true";
+    }
 }

@@ -51,24 +51,28 @@ public class UserController {
         for(int i = 0 ; i < types.length ; i++){
             if(types[i].equals(fileParsedType)){
                 t++;
-                writeToFile(uploadedInputStream, uploadedFileLocation);
                 writeToFile(resizeImage(uploadedInputStream) , uploadPath+login);
                 File file = new File(uploadedFileLocation);
                 type2 = Files.probeContentType(file.toPath());
-//                for(int j = 0 ; j < types.length ; j++) {
-//                    if (types[j].equals(type2)) {
-//                        t++;
-//                        writeToFile(resizeImage(uploadedInputStream) , uploadPath+login);
-//                        break;
-//                    }
-//                }
-//                break;
+                for(int j = 0 ; j < types.length ; j++) {
+                    if (types[j].equals(type2)) {
+                        t++;
+                        break;
+                    }
+                }
+                break;
             }
         }
-
-        String resp = "uploaded to: "+uploadedFileLocation +"\n "
+        if(t < 2) return Response.status(200).entity("unsuccess t: "+t+" type1: "+fileParsedType+" type2: "+type2).build();
+        else{
+        String resp = "successfully uploaded to: "+uploadedFileLocation +"\n "
                 +fileParsedType+ "   " + type2 + "   t:"+t;
+
+        UsersEntity usersEntity = service.readByLogin(login);
+        usersEntity.setAvatarpath(uploadPath+login);
+        service.update(usersEntity);
         return Response.status(200).entity(resp).build();
+        }
     }
 
     @POST
@@ -101,10 +105,10 @@ public class UserController {
         AuthorizationResponse authorizationResponse;
         if(service.authorization(credentials.getLogin(),credentials.getPassword())) {
             String token = new String( Base64.encode(credentials.getLogin()+":"+credentials.getPassword()) , "UTF8");
-            authorizationResponse = new AuthorizationResponse(1 , token);
+            authorizationResponse = new AuthorizationResponse(1 , credentials.getLogin(), token);
         return authorizationResponse;
         } else{
-            authorizationResponse = new AuthorizationResponse(0 ,"null");
+            authorizationResponse = new AuthorizationResponse(0 ,credentials.getLogin(),"null");
             return authorizationResponse;
         }
 
@@ -137,7 +141,7 @@ public class UserController {
 
     public static InputStream resizeImage(InputStream inputStream) throws IOException {
         BufferedImage sourceImage = ImageIO.read(inputStream);
-        Image thumbnail = sourceImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        Image thumbnail = sourceImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         BufferedImage bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
                 thumbnail.getHeight(null),
                 BufferedImage.TYPE_INT_RGB);
@@ -165,6 +169,8 @@ public class UserController {
         } catch (IOException e) {
 
             e.printStackTrace();
+        } catch (NullPointerException x){
+            x.printStackTrace();
         }
 
     }

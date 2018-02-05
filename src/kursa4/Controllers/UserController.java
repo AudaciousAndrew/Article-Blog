@@ -1,25 +1,20 @@
 package kursa4.Controllers;
 
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
+
 import kursa4.DAO.UserRolesDAO;
 import kursa4.DAO.UsersDAO;
 import kursa4.Entities.UserRolesEntity;
 import kursa4.Entities.UsersEntity;
-
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import com.sun.jersey.core.util.Base64;
 import kursa4.models.AuthorizationResponse;
 import kursa4.models.Credentials;
 import kursa4.models.RegistrationResponse;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import java.io.*;
 import java.util.List;
@@ -40,10 +35,10 @@ public class UserController {
             @FormDataParam("file") InputStream uploadedInputStream ,
             @FormDataParam("file") FormDataContentDisposition fileDetail
     ){
-       // String uploadedFileLocation = "/home/andrew/Desktop/kursa4/web/resources/img"
-       //         + fileDetail.getFileName();
-       // writeToFile(uploadedInputStream , uploadedFileLocation);
-       // String resp = "uploaded to: "+uploadedFileLocation;
+        String uploadedFileLocation = "/home/andrew/Desktop/kursa4/web/resources/img/"
+                + fileDetail.getFileName();
+        writeToFile(uploadedInputStream , uploadedFileLocation);
+        String resp = "uploaded to: "+uploadedFileLocation;
         return Response.status(200).entity("hi").build();
     }
 

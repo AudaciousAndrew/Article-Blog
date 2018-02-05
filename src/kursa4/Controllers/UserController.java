@@ -52,16 +52,17 @@ public class UserController {
             if(types[i].equals(fileParsedType)){
                 t++;
                 writeToFile(uploadedInputStream, uploadedFileLocation);
+                writeToFile(resizeImage(uploadedInputStream) , uploadPath+login);
                 File file = new File(uploadedFileLocation);
                 type2 = Files.probeContentType(file.toPath());
-                for(int j = 0 ; j < types.length ; j++) {
-                    if (types[j].equals(type2)) {
-                        t++;
-                        writeToFile(resizeImage(uploadedInputStream) , uploadPath+login);
-                        break;
-                    }
-                }
-                break;
+//                for(int j = 0 ; j < types.length ; j++) {
+//                    if (types[j].equals(type2)) {
+//                        t++;
+//                        writeToFile(resizeImage(uploadedInputStream) , uploadPath+login);
+//                        break;
+//                    }
+//                }
+//                break;
             }
         }
 
@@ -88,7 +89,7 @@ public class UserController {
                     return  registrationResponse;
                 }
             } else {
-                registrationResponse = new RegistrationResponse(0 , "login exists");
+                registrationResponse = new RegistrationResponse(0 ,user.getLogin(), "login exists");
                 return registrationResponse;
             }
     }

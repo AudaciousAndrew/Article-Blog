@@ -23,6 +23,21 @@ const Links = [
   }
 ];
 
+const usrLinks = [
+  {
+    path: "/myAccount",
+    desc: "Мой аккаунт"
+  },
+  {
+    path: "/settings",
+    desc: "Настройки"
+  },
+  {
+    path: "/",
+    desc: "Выйти"
+  }
+];
+
 class Menu extends Component{
 
   constructor(props){
@@ -32,15 +47,14 @@ class Menu extends Component{
 
   render(){
     let btn;
-    if(cookieFunctions.getCookie('user') === '')
+    if(cookieFunctions.getCookie('userToken') === '')
      btn = <Link to="/signin" className="usrLink">Вход</Link>;
-    else btn = <Link to="/signin" className="usrLink">аккаунт</Link>;
+    else btn = <Dropdown classname="dropdown2" id="dd2" name="Профиль" links={usrLinks}/>;
     return(
       <div className="navbar">
         <div className="links">
           <Link to="/">Главная</Link>
-          <Link to="/news">Новости</Link>
-          <Dropdown id="dd1" name="Статьи" link={"/arcticles"} links={Links}/>
+          <Dropdown classname="dropdown" id="dd1" name="Статьи" links={Links}/>
           <Link to="/about">О проекте</Link>
         </div>
       {btn}

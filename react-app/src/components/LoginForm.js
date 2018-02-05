@@ -3,7 +3,7 @@ import Menu from './Menu';
 import '../css/SignUp.css';
 import  { cookieFunctions } from '../cookieFunctions';
 import { Link } from 'react-router-dom';
-import axios  from 'axios';
+import axios from 'axios';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest/user/login';
 
@@ -31,8 +31,15 @@ class LoginForm extends Component{
         password: this.state.password
       }
     })
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
+      if(response.data.authorization === 0)
+        this.setState({error: "Неправильный логин или пароль"});
+      else {
+        cookieFunctions.setCookie('userToken', response.data.token, 1);
+        console.log(document.cookie);
+        this.props.history.push("/");
+      }
     }).catch(error => {
       console.log(error.message);
     });
@@ -42,7 +49,6 @@ class LoginForm extends Component{
     event.preventDefault();
     console.log('submitted');
     this.login();
-    //this.props.history.push("/");
   }
 
   handleLoginChange(event){

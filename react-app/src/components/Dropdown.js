@@ -22,9 +22,9 @@ export default class Dropdown extends Component {
 
   render(){
     return(
-      <div className="dropdown" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+      <div className={this.props.classname} onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
         <button className="dropbtn">
-          <Link to={this.props.link} style={{padding: '0'}}>{this.props.name}</Link>
+          {this.props.name}
         </button>
         <div className="dropdown-content" id={this.props.id}>
           {this.props.links.map((el, index) => {

@@ -14,7 +14,7 @@ class RegistrationForm extends Component{
       login: '',
       password: '',
       passwordConf: '',
-      error: ''
+      error: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -25,35 +25,31 @@ class RegistrationForm extends Component{
     this.emailCheck = this.emailCheck.bind(this);
     this.loginCheck = this.loginCheck.bind(this);
     this.passwordCheck = this.passwordCheck.bind(this);
-    this.loadFromServer = this.loadFromServer.bind(this);
     this.createUser = this.createUser.bind(this);
   }
 
-  loadFromServer() {
-      return new Promise((resolve, reject) => {
-          axios
-              .get(apiPath)
-              .then((response) => {
-                  console.log(response);
-                  resolve();
-              });
-      });
-  }
-
   createUser(){
-    axios({
-      method:'post',
-      url: apiPath,
-      data: {
-        login: this.state.login,
-        password: this.state.password,
-        email: this.state.email
-      }
-    })
-    .then(function (response) {
-      console.log(response);
-    }).catch(error => {
-      console.log(error.message);
+    return new Promise((resolve, reject) => {
+      axios({
+        method:'post',
+        url: apiPath,
+        data: {
+          login: this.state.login,
+          password: this.state.password,
+          email: this.state.email
+        }
+      })
+      .then((response) => {
+          console.log(response.data);
+          if(response.data.registration === 0){
+            if(response.data.errorMsg == 'login exists')
+              this.setState({error: "Пользователь с таким логином уже существует"});
+            else this.setState({error: "Пользователь с таким email уже существует"});
+          } else this.props.history.push("/regsuccess");
+          resolve();
+        }).catch(error => {
+        console.log(error.message);
+      });
     });
   }
 
@@ -111,8 +107,6 @@ class RegistrationForm extends Component{
       return;
     }
     this.createUser();
-    console.log('submitted');
-    //this.props.history.push("/regsuccess");
   }
 
   handleEmailChange(event){

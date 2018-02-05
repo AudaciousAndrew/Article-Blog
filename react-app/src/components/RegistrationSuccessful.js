@@ -5,7 +5,6 @@ import Menu from './Menu';
 class RegistrationSuccessful extends Component{
 
   render(){
-    console.log("lol");
     return(
       <div>
         <Menu />

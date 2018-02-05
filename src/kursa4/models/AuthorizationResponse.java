@@ -6,14 +6,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class AuthorizationResponse {
 
     private int Authorization;
+    private String login;
     private String Token;
 
     public AuthorizationResponse() {
     }
 
-    public AuthorizationResponse(int authorization, String token) {
+    public AuthorizationResponse(int authorization, String login, String token) {
         Authorization = authorization;
+        this.login = login;
         Token = token;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public int getAuthorization() {

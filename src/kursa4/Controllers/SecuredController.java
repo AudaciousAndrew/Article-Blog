@@ -82,6 +82,7 @@ public class SecuredController {
     @RolesAllowed({"USER" , "MODERATOR" , "ADMIN" })
     @Produces(MediaType.TEXT_PLAIN)
     public String updateUserInfo(UsersEntity usersEntity){
+        usersService.readByLogin(usersEntity.getLogin());
         usersService.update(usersEntity);
         return "true";
     }

@@ -6,6 +6,7 @@ import kursa4.DAO.UsersDAO;
 import kursa4.Entities.UserRolesEntity;
 import kursa4.Entities.UsersEntity;
 import javax.ejb.EJB;
+import javax.imageio.ImageIO;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -16,11 +17,16 @@ import kursa4.models.RegistrationResponse;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.List;
 
 @Path("/user")
 public class UserController {
+    final String [] types = {"image/png" , "image/jpeg" , ".png" , ".jpg" , ".jpeg"};
+    final String uploadPath = "/home/andrew/Desktop/kursa4/web/resources/img/";
 
     @EJB
     private UsersDAO service;
@@ -29,43 +35,40 @@ public class UserController {
     private UserRolesDAO rolesService;
 
     @POST
-    @Path("/load")
+    @Path("/load/{login}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response upload(
+    public Response upload (
             @FormDataParam("file") InputStream uploadedInputStream ,
-            @FormDataParam("file") FormDataContentDisposition fileDetail
-    ){
-        String uploadedFileLocation = "/home/andrew/Desktop/kursa4/web/resources/img/"
-                + fileDetail.getFileName();
-        writeToFile(uploadedInputStream , uploadedFileLocation);
-        String resp = "uploaded to: "+uploadedFileLocation;
-        return Response.status(200).entity("hi").build();
-    }
-
-    private void writeToFile(InputStream uploadedInputStream,
-                             String uploadedFileLocation) {
-
-        try {
-            OutputStream out = new FileOutputStream(new File(
-                    uploadedFileLocation));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-
-            out = new FileOutputStream(new File(uploadedFileLocation));
-            while ((read = uploadedInputStream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
+            @FormDataParam("file") FormDataContentDisposition fileDetail ,
+            @PathParam("login") String login
+    ) throws  IOException{
+       int t = 0;
+       String type2 = "";
+       String uploadedFileLocation = uploadPath + fileDetail.getFileName();
+       String fileParsedType = fileDetail.getFileName().substring
+                (fileDetail.getFileName().lastIndexOf(".") ,
+                        fileDetail.getFileName().length());
+        for(int i = 0 ; i < types.length ; i++){
+            if(types[i].equals(fileParsedType)){
+                t++;
+                writeToFile(uploadedInputStream, uploadedFileLocation);
+                File file = new File(uploadedFileLocation);
+                type2 = Files.probeContentType(file.toPath());
+                for(int j = 0 ; j < types.length ; j++) {
+                    if (types[j].equals(type2)) {
+                        t++;
+                        writeToFile(resizeImage(uploadedInputStream) , uploadPath+login);
+                        break;
+                    }
+                }
+                break;
             }
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-
-            e.printStackTrace();
         }
 
+        String resp = "uploaded to: "+uploadedFileLocation +"\n "
+                +fileParsedType+ "   " + type2 + "   t:"+t;
+        return Response.status(200).entity(resp).build();
     }
-
-
-
 
     @POST
     @Path("/register")
@@ -77,11 +80,11 @@ public class UserController {
                 if(!service.existsByEmail(user.getEmail())){
                     service.create(user);
                     rolesService.create(userRolesEntity);
-                    registrationResponse = new RegistrationResponse( 1 , "null");
+                    registrationResponse = new RegistrationResponse( 1 ,user.getLogin(), "null");
                     return registrationResponse;
 
                 } else  {
-                    registrationResponse = new RegistrationResponse( 0 , "email exists");
+                    registrationResponse = new RegistrationResponse( 0 ,user.getLogin(), "email exists");
                     return  registrationResponse;
                 }
             } else {
@@ -129,6 +132,40 @@ public class UserController {
             s +=rolesEntity.getRole();
         }
         return s;
+    }
+
+    public static InputStream resizeImage(InputStream inputStream) throws IOException {
+        BufferedImage sourceImage = ImageIO.read(inputStream);
+        Image thumbnail = sourceImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        BufferedImage bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
+                thumbnail.getHeight(null),
+                BufferedImage.TYPE_INT_RGB);
+        bufferedThumbnail.getGraphics().drawImage(thumbnail, 0, 0, null);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bufferedThumbnail, "png", baos);
+        return new ByteArrayInputStream(baos.toByteArray());
+    }
+
+    private void writeToFile(InputStream uploadedInputStream,
+                             String uploadedFileLocation) {
+
+        try {
+            OutputStream out = new FileOutputStream(new File(
+                    uploadedFileLocation));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            out = new FileOutputStream(new File(uploadedFileLocation));
+            while ((read = uploadedInputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
     }
 
 

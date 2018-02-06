@@ -13,8 +13,11 @@ public class UserArticleDAO {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
     EntityManager em = emf.createEntityManager();
 
+
+
     public boolean ExistsByAuthorAndName(String login , articleName name){
         try{
+
         TypedQuery<ArticleEntity> query = em.createQuery(
                 "select p from UserArticleEntity p where " +
                         "p.login ='"+login+"' and p.article_name='"+name.getName()+"'"

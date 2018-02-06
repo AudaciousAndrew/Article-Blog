@@ -11,9 +11,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import com.sun.jersey.core.util.Base64;
-import kursa4.models.AuthorizationResponse;
-import kursa4.models.Credentials;
-import kursa4.models.RegistrationResponse;
+import kursa4.response_models.AuthorizationResponse;
+import kursa4.response_models.Credentials;
+import kursa4.response_models.RegistrationResponse;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
@@ -141,7 +141,7 @@ public class UserController {
 
     public static InputStream resizeImage(InputStream inputStream) throws IOException {
         BufferedImage sourceImage = ImageIO.read(inputStream);
-        Image thumbnail = sourceImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        Image thumbnail = sourceImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         BufferedImage bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
                 thumbnail.getHeight(null),
                 BufferedImage.TYPE_INT_RGB);

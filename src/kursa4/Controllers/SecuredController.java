@@ -4,7 +4,7 @@ import kursa4.DAO.ArticleDAO;
 import kursa4.DAO.UsersDAO;
 import kursa4.Entities.ArticleEntity;
 import kursa4.Entities.UsersEntity;
-import kursa4.models.articleName;
+import kursa4.response_models.articleName;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;

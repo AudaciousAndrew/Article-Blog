@@ -10,6 +10,8 @@ import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -36,6 +38,9 @@ public class AuthorizationFilter implements ContainerRequestFilter {
     @Context
     private ResourceInfo resourceInfo;
 
+    @Context
+    private HttpServletRequest request;
+
     @EJB
     private UsersDAO service;
 
@@ -46,13 +51,13 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException{
+        if(requestContext.getMethod().equals("OPTIONS")) return;
         if(requestContext.getUriInfo().getPath().contains(SECURED_URL_PREFIX)) {
-
 
             Method method = resourceInfo.getResourceMethod();
 
             if (method.isAnnotationPresent(DenyAll.class)) {
-                refuseRequest(requestContext , "annotation denyall");
+                refuseRequest(requestContext);
             }
 
             RolesAllowed rolesAllowed = method.getAnnotation(RolesAllowed.class);
@@ -76,7 +81,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
             }
 
             if (!isAuthenticated(requestContext)) {
-                refuseRequest(requestContext , "not auth at all");
+                refuseRequest(requestContext);
             }
         }
     }
@@ -85,7 +90,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
                                       ContainerRequestContext requestContext)
                                                     throws AccessDeniedException , UnsupportedEncodingException{
      if (rolesAllowed.length > 0 && !isAuthenticated(requestContext)){
-         refuseRequest(requestContext , "No roles 1");
+         refuseRequest(requestContext);
      }
     //TODO CHECK ROLE
      for(String role : rolesAllowed){
@@ -95,7 +100,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
              }
          }
      }
-        refuseRequest(requestContext , "No such role2 for user");
+        refuseRequest(requestContext);
     }
 
     private boolean isAuthenticated(final ContainerRequestContext   requestContext) throws UnsupportedEncodingException{
@@ -110,17 +115,17 @@ public class AuthorizationFilter implements ContainerRequestFilter {
             String password = tokenizer.nextToken();
             return service.authorization(login,password);
         } else {
-            refuseRequest(requestContext , "No such header");
+            refuseRequest(requestContext);
             return false;
         }
 
 
     }
 
-    private void refuseRequest(final ContainerRequestContext requestContext , String errorMsg) {
+    private void refuseRequest(final ContainerRequestContext requestContext) {
         Response unauthorizedStatus = Response
                                         .status(Response.Status.UNAUTHORIZED)
-                                        .entity(errorMsg)
+                                        .entity("Permission denied")
                                         .build();
         requestContext.abortWith(unauthorizedStatus);
 

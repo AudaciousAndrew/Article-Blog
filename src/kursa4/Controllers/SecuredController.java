@@ -25,7 +25,7 @@ public class SecuredController {
     @Path("test")
     @RolesAllowed("ADMIN")
     @Produces(MediaType.TEXT_PLAIN)
-    public String checkRoles(){
+    public String checkRoles(@HeaderParam("Authorization") String header){
         return "Hi admin";
     }
 

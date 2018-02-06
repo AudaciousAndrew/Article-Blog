@@ -6,7 +6,6 @@ import com.sun.jersey.core.util.Base64;
 import kursa4.DAO.UserRolesDAO;
 import kursa4.DAO.UsersDAO;
 import kursa4.Entities.UserRolesEntity;
-
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -53,7 +52,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
             Method method = resourceInfo.getResourceMethod();
 
             if (method.isAnnotationPresent(DenyAll.class)) {
-                refuseRequest(requestContext);
+                refuseRequest(requestContext , "annotation denyall");
             }
 
             RolesAllowed rolesAllowed = method.getAnnotation(RolesAllowed.class);
@@ -77,7 +76,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
             }
 
             if (!isAuthenticated(requestContext)) {
-                refuseRequest(requestContext);
+                refuseRequest(requestContext , "not auth at all");
             }
         }
     }
@@ -86,7 +85,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
                                       ContainerRequestContext requestContext)
                                                     throws AccessDeniedException , UnsupportedEncodingException{
      if (rolesAllowed.length > 0 && !isAuthenticated(requestContext)){
-         refuseRequest(requestContext);
+         refuseRequest(requestContext , "No roles 1");
      }
     //TODO CHECK ROLE
      for(String role : rolesAllowed){
@@ -96,7 +95,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
              }
          }
      }
-        refuseRequest(requestContext);
+        refuseRequest(requestContext , "No such role2 for user");
     }
 
     private boolean isAuthenticated(final ContainerRequestContext   requestContext) throws UnsupportedEncodingException{
@@ -111,17 +110,17 @@ public class AuthorizationFilter implements ContainerRequestFilter {
             String password = tokenizer.nextToken();
             return service.authorization(login,password);
         } else {
-            refuseRequest(requestContext);
+            refuseRequest(requestContext , "No such header");
             return false;
         }
 
 
     }
 
-    private void refuseRequest(final ContainerRequestContext requestContext) {
+    private void refuseRequest(final ContainerRequestContext requestContext , String errorMsg) {
         Response unauthorizedStatus = Response
                                         .status(Response.Status.UNAUTHORIZED)
-                                        .entity("Permission denied")
+                                        .entity(errorMsg)
                                         .build();
         requestContext.abortWith(unauthorizedStatus);
 

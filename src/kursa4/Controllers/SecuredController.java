@@ -136,7 +136,7 @@ public class SecuredController {
 
     public static InputStream resizeImage(InputStream inputStream) throws IOException {
         BufferedImage sourceImage = ImageIO.read(inputStream);
-        Image thumbnail = sourceImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        Image thumbnail = sourceImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         BufferedImage bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
                 thumbnail.getHeight(null),
                 BufferedImage.TYPE_INT_RGB);

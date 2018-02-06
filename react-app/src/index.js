@@ -7,7 +7,11 @@ import RegistrationForm from './components/RegistrationForm';
 import LoginForm from './components/LoginForm';
 import RegistrationSuccessful from './components/RegistrationSuccessful';
 import Footer from './components/Footer';
-
+import MyAccount from './components/MyAccount';
+import Games from './components/articles/Games';
+import Movies from './components/articles/Movies';
+import TVSeries from './components/articles/TVSeries';
+import Anime from './components/articles/Anime';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 
@@ -36,6 +40,11 @@ ReactDOM.render(
         <Route path="/signup" component={RegistrationForm} />
         <Route path="/signin" component={LoginForm} />
         <Route path="/regsuccess" component={RegistrationSuccessful} />
+        <Route path="/myAccount" component={MyAccount} />
+        <Route path="/games" component={Games} />
+        <Route path="/movies" component={Movies} />
+        <Route path="/tvshows" component={TVSeries} />
+        <Route path="/anime" component={Anime} />
       </div>
     </BrowserRouter>
     </Provider>,

@@ -13,7 +13,7 @@ class App extends Component{
       <div>
         <Menu />
         home page
-        <img src={require('/home/pavel/IdeaProjects/kursa4/react-app/src/181549.svg')} width='200px'/>
+        <img src={require('./resources/user.png')} height={'200px'} />
       </div>
     )
   }

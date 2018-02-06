@@ -36,6 +36,7 @@ class LoginForm extends Component{
       if(response.data.authorization === 0)
         this.setState({error: "Неправильный логин или пароль"});
       else {
+        cookieFunctions.setCookie('user', response.data.login, 1);
         cookieFunctions.setCookie('userToken', response.data.token, 1);
         console.log(document.cookie);
         this.props.history.push("/");

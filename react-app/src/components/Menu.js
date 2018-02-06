@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/Menu.css';
 import { Link } from 'react-router-dom';
 import Dropdown from './Dropdown';
+import AccountDropdown from './AccountDropdown';
 import Search from './Search';
 import { cookieFunctions } from '../cookieFunctions.js';
 const Links = [
@@ -31,10 +32,6 @@ const usrLinks = [
   {
     path: "/settings",
     desc: "Настройки"
-  },
-  {
-    path: "/",
-    desc: "Выйти"
   }
 ];
 
@@ -49,7 +46,7 @@ class Menu extends Component{
     let btn;
     if(cookieFunctions.getCookie('userToken') === '')
      btn = <Link to="/signin" className="usrLink">Вход</Link>;
-    else btn = <Dropdown classname="dropdown2" id="dd2" name="Профиль" links={usrLinks}/>;
+    else btn = <AccountDropdown classname="dropdown2" id="dd2" name="Профиль" links={usrLinks}/>;
     return(
       <div className="navbar">
         <div className="links">

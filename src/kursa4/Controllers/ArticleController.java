@@ -1,8 +1,11 @@
 package kursa4.Controllers;
 
 import kursa4.DAO.ArticleDAO;
+import kursa4.DAO.UserArticleDAO;
 import kursa4.Entities.ArticleEntity;
+import kursa4.Entities.UserArticleEntity;
 import kursa4.models.articleName;
+import kursa4.models.voteResponse;
 import org.glassfish.jersey.server.JSONP;
 
 import javax.ejb.EJB;
@@ -18,7 +21,8 @@ public class ArticleController {
     @EJB
     private ArticleDAO service;
 
-
+    @EJB
+    private UserArticleDAO voteService;
 
     @POST
     @Path("/name")
@@ -55,4 +59,43 @@ public class ArticleController {
     public List<ArticleEntity> articleTopByRating(){
         return service.topTen();
     }
+
+    @POST
+    @Path("/vote/plus/{login}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public voteResponse articlePlusVote(@PathParam("login") String login , articleName name){
+        voteResponse voteResponse;
+        if(!voteService.ExistsByAuthorAndName(login,name)) {
+            ArticleEntity articleEntity = service.readByName(name.getName());
+            articleEntity.setRating(articleEntity.getRating() + 1);
+            UserArticleEntity userArticleEntity = new UserArticleEntity(login, name.getName());
+            voteService.create(userArticleEntity);
+            voteResponse = new voteResponse("true" , "null");
+            return voteResponse;
+        } else {
+            voteResponse = new voteResponse("false" , "alrdy voted");
+            return voteResponse;
+        }
+
+    }
+
+    @POST
+    @Path("/vote/minus/{login}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public voteResponse articleMinusVote(@PathParam("login") String login , articleName name){
+        voteResponse voteResponse;
+        if(!voteService.ExistsByAuthorAndName(login,name)) {
+            ArticleEntity articleEntity = service.readByName(name.getName());
+            articleEntity.setRating(articleEntity.getRating() - 1);
+            UserArticleEntity userArticleEntity = new UserArticleEntity(login, name.getName());
+            voteService.create(userArticleEntity);
+            voteResponse = new voteResponse("true" , "null");
+            return voteResponse;
+        } else {
+            voteResponse = new voteResponse("false" , "alrdy voted");
+            return voteResponse;
+        }
+
+    }
+
 }

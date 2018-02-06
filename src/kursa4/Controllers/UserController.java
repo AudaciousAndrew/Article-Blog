@@ -115,7 +115,7 @@ public class UserController {
     }
 
     @GET
-    @Path("/user/{login}")
+    @Path("/{login}")
     @Produces(MediaType.APPLICATION_JSON)
     public UsersEntity getUser(@PathParam("login") String login){
         return service.readByLogin(login);

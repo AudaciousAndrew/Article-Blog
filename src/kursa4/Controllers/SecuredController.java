@@ -23,8 +23,6 @@ import java.util.List;
 @Path("secured")
 public class SecuredController {
 
-    final String [] types = {"image/png" , "image/jpeg" , ".png" , ".jpg" , ".jpeg"};
-    final String uploadPath = "/home/andrew/Desktop/kursa4/web/resources/img/";
 
     @EJB
     private ArticleDAO articleService;
@@ -90,81 +88,6 @@ public class SecuredController {
         return "true";
     }
 
-    @POST
-    @Path("/load/{login}")
-    @RolesAllowed("USER")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public int upload (
-            @FormDataParam("file") InputStream uploadedInputStream ,
-            @FormDataParam("file") FormDataContentDisposition fileDetail ,
-            @PathParam("login") String login
-    ) throws IOException {
-        int t = 0;
-        String type2 = "";
-        String uploadedFileLocation = uploadPath + fileDetail.getFileName();
-        String fileParsedType = fileDetail.getFileName().substring
-                (fileDetail.getFileName().lastIndexOf(".") ,
-                        fileDetail.getFileName().length());
-        for(int i = 0 ; i < types.length ; i++){
-            if(types[i].equals(fileParsedType)){
-                t++;
-                writeToFile(resizeImage(uploadedInputStream) , uploadPath+login);
-                File file = new File(uploadedFileLocation);
-                type2 = Files.probeContentType(file.toPath());
-                for(int j = 0 ; j < types.length ; j++) {
-                    if (types[j].equals(type2)) {
-                        t++;
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-        if(t < 2) return 0;
-        else{
-            UsersEntity usersEntity = usersService.readByLogin(login);
-            usersEntity.setAvatarpath(uploadPath+login);
-            usersService.update(usersEntity);
-            return 1;
-        }
-    }
 
-
-
-    public static InputStream resizeImage(InputStream inputStream) throws IOException {
-        BufferedImage sourceImage = ImageIO.read(inputStream);
-        Image thumbnail = sourceImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-        BufferedImage bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
-                thumbnail.getHeight(null),
-                BufferedImage.TYPE_INT_RGB);
-        bufferedThumbnail.getGraphics().drawImage(thumbnail, 0, 0, null);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedThumbnail, "png", baos);
-        return new ByteArrayInputStream(baos.toByteArray());
-    }
-
-    private void writeToFile(InputStream uploadedInputStream,
-                             String uploadedFileLocation) {
-
-        try {
-            OutputStream out = new FileOutputStream(new File(
-                    uploadedFileLocation));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-
-            out = new FileOutputStream(new File(uploadedFileLocation));
-            while ((read = uploadedInputStream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        } catch (NullPointerException x){
-            x.printStackTrace();
-        }
-
-    }
 
 }

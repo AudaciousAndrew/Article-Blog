@@ -43,6 +43,9 @@ public class ArticleEntity implements Serializable {
     @JoinColumn(name = "user_id" , referencedColumnName = "user_id" , nullable = false)
     private UsersEntity userByUserId;
 
+    public ArticleEntity() {
+    }
+
     public ArticleEntity(String articleName, String articleType, String articleDesc, UsersEntity userByUserId) {
         this.articleName = articleName;
         this.articleType = articleType;

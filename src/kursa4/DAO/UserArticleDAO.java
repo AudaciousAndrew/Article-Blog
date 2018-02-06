@@ -5,14 +5,18 @@ import kursa4.Entities.UserArticleEntity;
 import kursa4.response_models.articleName;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 
 @Stateless
 public class UserArticleDAO {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
-    EntityManager em = emf.createEntityManager();
+//    EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
+//    EntityManager em = emf.createEntityManager();
 
+    @PersistenceContext(name = "NewPersistenceUnit")
+    private EntityManager em;
 
 
     public boolean ExistsByAuthorAndName(String login , articleName name){
@@ -30,24 +34,27 @@ public class UserArticleDAO {
         }
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public UserArticleEntity create(UserArticleEntity article){
-        em.getTransaction().begin();
+     //   em.getTransaction().begin();
         em.persist(article);
-        em.getTransaction().commit();
+      //  em.getTransaction().commit();
         return article;
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void delete(int id){
-        em.getTransaction().begin();
+     //   em.getTransaction().begin();
         em.remove(em.find(UserArticleEntity.class , id));
-        em.getTransaction().commit();
+      //  em.getTransaction().commit();
 
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public UserArticleEntity update(UserArticleEntity article){
-        em.getTransaction().begin();
+       // em.getTransaction().begin();
         em.merge(article);
-        em.getTransaction().commit();
+       // em.getTransaction().commit();
         return article;
     }
 

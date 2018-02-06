@@ -28,6 +28,10 @@ public class ArticleController {
         return service.readByName(name.getName());
     }
 
+
+    //JPQL EXEPTION java.lang.IllegalArgumentException: An exception occurred while creating a query in EntityManager:
+    // Exception Description: Syntax error parsing [SELECT p from ArticleEntity p join p.userByUserId where p.userByUserId.login ='test123' and p.verified = true].
+     //       [50, 50] An identification variable must be defined for a JOIN expression.
     @POST
     @Path("/author/{author}")
     @Produces(MediaType.APPLICATION_JSON)

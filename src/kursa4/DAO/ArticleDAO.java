@@ -5,24 +5,30 @@ package kursa4.DAO;
 import kursa4.Entities.ArticleEntity;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 import java.util.List;
 
 @Stateless
 public class ArticleDAO {
 
+//
+//    EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
+//    EntityManager em = emf.createEntityManager();
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
-    EntityManager em = emf.createEntityManager();
+    @PersistenceContext(name = "NewPersistenceUnit")
+    private EntityManager em;
 
     public ArticleDAO() {
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteAll(){
-        em.getTransaction().begin();
+      //  em.getTransaction().begin();
         Query query = em.createNamedQuery("Article.deleteAll");
         query.executeUpdate();
-        em.getTransaction().commit();
+      //  em.getTransaction().commit();
     }
 
     public List<ArticleEntity> readByType(String type){
@@ -87,32 +93,36 @@ public class ArticleDAO {
         return articles;
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateVerified(String name){
-        em.getTransaction().begin();
+       // em.getTransaction().begin();
         Query query = em.createQuery(
                 "update ArticleEntity p set p.verified = true where p.articleName = '"+name+"'");
         query.executeUpdate();
-        em.getTransaction().commit();
+       // em.getTransaction().commit();
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ArticleEntity create(ArticleEntity article){
-        em.getTransaction().begin();
+      //  em.getTransaction().begin();
         em.persist(article);
-        em.getTransaction().commit();
+       // em.getTransaction().commit();
         return article;
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void delete(int id){
-        em.getTransaction().begin();
+       // em.getTransaction().begin();
         em.remove(em.find(ArticleEntity.class , id));
-        em.getTransaction().commit();
+        //em.getTransaction().commit();
 
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ArticleEntity update(ArticleEntity article){
-        em.getTransaction().begin();
+       // em.getTransaction().begin();
         em.merge(article);
-        em.getTransaction().commit();
+       // em.getTransaction().commit();
         return article;
     }
 

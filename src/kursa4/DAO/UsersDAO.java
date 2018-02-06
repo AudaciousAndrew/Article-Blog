@@ -4,6 +4,8 @@ import kursa4.Entities.UsersEntity;
 
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,11 +14,11 @@ import java.util.List;
 public class UsersDAO {
 
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
-    EntityManager em = emf.createEntityManager();
+//    EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
+//    EntityManager em = emf.createEntityManager();
 
-//    @PersistenceContext(name="NewPersistenceUnit")
-//    private EntityManager em;
+    @PersistenceContext(name="NewPersistenceUnit")
+    private EntityManager em;
 
     public UsersDAO() {
     }
@@ -82,10 +84,11 @@ public class UsersDAO {
         return users;
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public UsersEntity create(UsersEntity user){
-        em.getTransaction().begin();
+        //em.getTransaction().begin();
         em.persist(user);
-        em.getTransaction().commit();
+       // em.getTransaction().commit();
         return user;
     }
 
@@ -93,16 +96,18 @@ public class UsersDAO {
         return em.find(UsersEntity.class , id);
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void update(UsersEntity user){
-        em.getTransaction().begin();
+       // em.getTransaction().begin();
         em.merge(user);
-        em.getTransaction().commit();
+       // em.getTransaction().commit();
    }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void delete(int id){
-        em.getTransaction().begin();
+       // em.getTransaction().begin();
         em.remove(em.find(UsersEntity.class , id));
-        em.getTransaction().commit();
+       // em.getTransaction().commit();
     }
 
     public List<UsersEntity> readAll(){
@@ -112,11 +117,12 @@ public class UsersDAO {
         return query.getResultList();
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteAll(){
-        em.getTransaction().begin();
+      //  em.getTransaction().begin();
         Query query = em.createNamedQuery("Users.deleteAll");
         query.executeUpdate();
-        em.getTransaction().commit();
+       // em.getTransaction().commit();
     }
 
 }

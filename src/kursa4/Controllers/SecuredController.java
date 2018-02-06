@@ -94,7 +94,7 @@ public class SecuredController {
     @Path("/load/{login}")
     @RolesAllowed("USER")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response upload (
+    public int upload (
             @FormDataParam("file") InputStream uploadedInputStream ,
             @FormDataParam("file") FormDataContentDisposition fileDetail ,
             @PathParam("login") String login
@@ -120,15 +120,12 @@ public class SecuredController {
                 break;
             }
         }
-        if(t < 2) return Response.status(200).entity("unsuccess t: "+t+" type1: "+fileParsedType+" type2: "+type2).build();
+        if(t < 2) return 0;
         else{
-            String resp = "successfully uploaded to: "+uploadedFileLocation +"\n "
-                    +fileParsedType+ "   " + type2 + "   t:"+t;
-
             UsersEntity usersEntity = usersService.readByLogin(login);
             usersEntity.setAvatarpath(uploadPath+login);
             usersService.update(usersEntity);
-            return Response.status(200).entity(resp).build();
+            return 1;
         }
     }
 

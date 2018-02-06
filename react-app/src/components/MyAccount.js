@@ -11,20 +11,22 @@ class MyAccount extends Component{
 
   constructor(props){
     super(props);
-    this.state = {userToken: cookieFunctions.getCookie('userToken')};
+    this.state = {
+      login: cookieFunctions.getCookie('user'),
+      userToken: cookieFunctions.getCookie('userToken'),
+      user: null
+    };
     this.loadFromServer = this.loadFromServer.bind(this);
-  }
-
-  componentDidMount(){
     this.loadFromServer();
   }
+
 
   loadFromServer() {
     return new Promise((resolve, reject) => {
       var instance = axios.create({
         baseURL: apiPath
       });
-      instance.defaults.headers.common['Authorization'] = this.state.userToken;
+      instance.defaults.headers.common['Authorization'] = 'Basic ' + this.state.userToken;
       instance.get('/secured/test', {
       })
       .then(function (response) {
@@ -37,13 +39,31 @@ class MyAccount extends Component{
     });
   }
 
+  // loadFromServer() {
+  //   return new Promise((resolve, reject) => {
+  //     axios.get(apiPath + '/user/' + this.state.login , {
+  //       params: {
+  //         login: this.state.login
+  //       }
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       console.log(response.data.login);
+  //       this.setState({user: response.data});
+  //       console.log(this.state.user);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  //   });
+  // }
+
 
   render(){
     return(
       <div>
         <Menu />
         <div className="successDiv">
-          my account
         </div>
       </div>
     )

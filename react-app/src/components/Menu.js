@@ -27,11 +27,13 @@ const Links = [
 const usrLinks = [
   {
     path: "/myAccount",
-    desc: "Мой аккаунт"
+    desc: "Мой аккаунт",
   },
   {
     path: "/settings",
-    desc: "Настройки"
+    desc: "Настройки",
+    user: cookieFunctions.getCookie('user'),
+    userToken: cookieFunctions.getCookie('userToken')
   }
 ];
 

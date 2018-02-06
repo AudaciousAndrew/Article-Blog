@@ -1,4 +1,4 @@
-package kursa4.models;
+package kursa4.response_models;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

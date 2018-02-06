@@ -2,11 +2,10 @@ package kursa4.DAO;
 
 import kursa4.Entities.ArticleEntity;
 import kursa4.Entities.UserArticleEntity;
-import kursa4.models.articleName;
+import kursa4.response_models.articleName;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
-import java.util.List;
 
 @Stateless
 public class UserArticleDAO {

@@ -1,5 +1,6 @@
 package kursa4.DAO;
 
+import kursa4.Entities.ArticleEntity;
 import kursa4.Entities.UsersEntity;
 
 import javax.ejb.Stateful;
@@ -10,12 +11,8 @@ import javax.persistence.*;
 import java.util.List;
 
 
-@Stateful
+@Stateless
 public class UsersDAO {
-
-
-//    EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
-//    EntityManager em = emf.createEntityManager();
 
     @PersistenceContext(name="NewPersistenceUnit")
     private EntityManager em;
@@ -86,9 +83,7 @@ public class UsersDAO {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public UsersEntity create(UsersEntity user){
-        //em.getTransaction().begin();
         em.persist(user);
-       // em.getTransaction().commit();
         return user;
     }
 
@@ -98,16 +93,12 @@ public class UsersDAO {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void update(UsersEntity user){
-       // em.getTransaction().begin();
         em.merge(user);
-       // em.getTransaction().commit();
    }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void delete(int id){
-       // em.getTransaction().begin();
         em.remove(em.find(UsersEntity.class , id));
-       // em.getTransaction().commit();
     }
 
     public List<UsersEntity> readAll(){
@@ -119,65 +110,55 @@ public class UsersDAO {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteAll(){
-      //  em.getTransaction().begin();
         Query query = em.createNamedQuery("Users.deleteAll");
         query.executeUpdate();
-       // em.getTransaction().commit();
     }
 
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateFirstName(String login, String firstname){
-        // em.getTransaction().begin();
         Query query = em.createQuery(
                 "update UsersEntity p set p.firstname = '"+firstname+"' where p.login ='"+login+"'" );
         query.executeUpdate();
-        // em.getTransaction().commit();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateLastName(String login, String lastname){
-        // em.getTransaction().begin();
         Query query = em.createQuery(
                 "update UsersEntity p set p.lastname = '"+lastname+"' where p.login ='"+login+"'" );
         query.executeUpdate();
-        // em.getTransaction().commit();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updatePassword(String login, String password){
-        // em.getTransaction().begin();
         Query query = em.createQuery(
                 "update UsersEntity p set p.password = '"+password+"' where p.login ='"+login+"'" );
         query.executeUpdate();
-        // em.getTransaction().commit();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateDesc(String login, String desc){
-        // em.getTransaction().begin();
         Query query = em.createQuery(
                 "update UsersEntity p set p.description = '"+desc+"' where p.login ='"+login+"'" );
         query.executeUpdate();
-        // em.getTransaction().commit();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateEmail(String login, String email){
-        // em.getTransaction().begin();
         Query query = em.createQuery(
                 "update UsersEntity p set p.email = '"+email+"' where p.login ='"+login+"'" );
         query.executeUpdate();
-        // em.getTransaction().commit();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateJabber(String login, String jabber){
-        // em.getTransaction().begin();
         Query query = em.createQuery(
                 "update UsersEntity p set p.jabber = '"+jabber+"' where p.login ='"+login+"'" );
         query.executeUpdate();
-        // em.getTransaction().commit();
     }
+
+
+
+
 
 }

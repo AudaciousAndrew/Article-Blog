@@ -1,6 +1,7 @@
 package kursa4.Controllers;
 
 
+import kursa4.DAO.ArticleDAO;
 import kursa4.DAO.UserRolesDAO;
 import kursa4.DAO.UsersDAO;
 import kursa4.Entities.UserRolesEntity;
@@ -37,7 +38,8 @@ public class UserController {
     @EJB
     private UserRolesDAO rolesService;
 
-
+    @EJB
+    private ArticleDAO articleService;
 
     @POST
     @Path("/register")
@@ -84,6 +86,14 @@ public class UserController {
     public UsersEntity getUser(@PathParam("login") String login){
         return service.readByLogin(login);
     }
+
+    @GET
+    @Path("/author/{login}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Number byAuthor(@PathParam("login") String login){
+        return articleService.countByAuthor(login);
+    }
+
 
     @GET
     @Path("/top10")

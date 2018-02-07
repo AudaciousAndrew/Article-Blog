@@ -39,18 +39,22 @@ public class ArticleEntity implements Serializable {
     @Column(name = "verified")
     private boolean verified = false;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id" , referencedColumnName = "user_id" , nullable = false)
-    private UsersEntity userByUserId;
+    @Basic
+    @Column(name = "author")
+    private String author;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_id" , referencedColumnName = "user_id" , nullable = false)
+//    private UsersEntity userByUserId;
 
     public ArticleEntity() {
     }
 
-    public ArticleEntity(String articleName, String articleType, String articleDesc, UsersEntity userByUserId) {
+    public ArticleEntity(String articleName, String articleType, String articleDesc, String author) {
         this.articleName = articleName;
         this.articleType = articleType;
         this.articleDesc = articleDesc;
-        this.userByUserId = userByUserId;
+        this.author = author;
     }
 
     public boolean isVerified() {
@@ -103,38 +107,12 @@ public class ArticleEntity implements Serializable {
         this.articleDesc = articleDesc;
     }
 
-
-    public UsersEntity getUserByUserId() {
-        return userByUserId;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setUserByUserId(UsersEntity userByUserId) {
-        this.userByUserId = userByUserId;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ArticleEntity that = (ArticleEntity) o;
-
-        if (articleId != that.articleId) return false;
-        if (rating != that.rating) return false;
-        if (articleName != null ? !articleName.equals(that.articleName) : that.articleName != null) return false;
-        if (articleDesc != null ? !articleDesc.equals(that.articleDesc) : that.articleDesc != null) return false;
-        return userByUserId != null ? userByUserId.equals(that.userByUserId) : that.userByUserId == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = articleId;
-        result = 31 * result + (articleName != null ? articleName.hashCode() : 0);
-        result = 31 * result + (articleDesc != null ? articleDesc.hashCode() : 0);
-        result = 31 * result + rating;
-        result = 31 * result + (userByUserId != null ? userByUserId.hashCode() : 0);
-        return result;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     @Override
@@ -142,9 +120,11 @@ public class ArticleEntity implements Serializable {
         return "ArticleEntity{" +
                 "articleId=" + articleId +
                 ", articleName='" + articleName + '\'' +
+                ", articleType='" + articleType + '\'' +
                 ", articleDesc='" + articleDesc + '\'' +
                 ", rating=" + rating +
-                ", userByUserId=" + userByUserId +
+                ", verified=" + verified +
+                ", author='" + author + '\'' +
                 '}';
     }
 }

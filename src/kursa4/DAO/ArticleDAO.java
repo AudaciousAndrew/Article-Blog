@@ -31,6 +31,22 @@ public class ArticleDAO {
       //  em.getTransaction().commit();
     }
 
+    public List<ArticleEntity> readByAuthor(String author){
+        TypedQuery<ArticleEntity> query = em.createQuery(
+                "select p from ArticleEntity p where  p.author = '"+author+"'"
+                ,ArticleEntity.class);
+        List<ArticleEntity> articles = query.getResultList();
+        return articles;
+    }
+
+    public Number countByAuthor(String author){
+        Query query = em.createQuery(
+                "select count(p.articleName) from ArticleEntity p where  p.author = '"+author+"'");
+        Number articlesNumber = (Number) query.getSingleResult();
+        return articlesNumber;
+    }
+
+
     public List<ArticleEntity> readByType(String type){
         TypedQuery<ArticleEntity> query = em.createQuery(
                 "select p from ArticleEntity p where p.articleType ='" + type+"' and p.verified = true"
@@ -39,14 +55,7 @@ public class ArticleDAO {
         return articles;
     }
 
-    public ArticleEntity readByAuthor(String author){
-        TypedQuery<ArticleEntity> query = em.createQuery(
-                "SELECT p from ArticleEntity p join p.userByUserId " +
-                        "where p.userByUserId.login ='"+author+"' and p.verified = true"
-                , ArticleEntity.class);
-        ArticleEntity article = query.getSingleResult();
-        return article;
-    }
+
     public List<ArticleEntity> readByDesc(String desc){
         TypedQuery<ArticleEntity> query = em.createQuery(
                 "SELECT p from ArticleEntity p where p.articleDesc like '%" + desc + "%' and p.verified = true"

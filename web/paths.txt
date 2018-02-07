@@ -1,0 +1,3 @@
+/home/andrew/Desktop/kursa4/web/resources/img/
+/home/pavel/IdeaProjects/kursa4/web/resources/img/
+/home/pavel/Software/glassfish5/glassfish/domains/domain1/docroot

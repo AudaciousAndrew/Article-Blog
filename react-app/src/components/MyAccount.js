@@ -3,68 +3,40 @@ import { Link } from 'react-router-dom';
 import Menu from './Menu';
 import {cookieFunctions} from '../cookieFunctions';
 import axios from 'axios';
+import UserInfo from './UserInfo';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
-
 
 class MyAccount extends Component{
 
   constructor(props){
     super(props);
-    this.state = {
-      login: cookieFunctions.getCookie('user'),
-      userToken: cookieFunctions.getCookie('userToken'),
-      user: null
-    };
-    this.loadFromServer = this.loadFromServer.bind(this);
-    this.loadFromServer();
   }
 
-
-  loadFromServer() {
-    return new Promise((resolve, reject) => {
-      var instance = axios.create({
-        baseURL: apiPath
-      });
-      instance.defaults.headers.common['Authorization'] = 'Basic ' + this.state.userToken;
-      instance.get('/secured/test', {
-      })
-      .then(function (response) {
-        console.log(response);
-        console.log(response.data.firstName);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    });
-  }
-
+  //
   // loadFromServer() {
   //   return new Promise((resolve, reject) => {
-  //     axios.get(apiPath + '/user/' + this.state.login , {
-  //       params: {
-  //         login: this.state.login
-  //       }
+  //     var instance = axios.create({
+  //       baseURL: apiPath
+  //     });
+  //     instance.defaults.headers.common['Authorization'] = 'Basic ' + this.state.userToken;
+  //     instance.get('/secured/test', {
   //     })
-  //     .then((response) => {
+  //     .then(function (response) {
   //       console.log(response);
-  //       console.log(response.data.login);
-  //       this.setState({user: response.data});
-  //       console.log(this.state.user);
+  //       console.log(response.data.firstName);
   //     })
-  //     .catch((error) => {
+  //     .catch(function (error) {
   //       console.log(error);
   //     });
   //   });
   // }
 
-
   render(){
     return(
       <div>
         <Menu />
-        <div className="successDiv">
-        </div>
+        <UserInfo login={cookieFunctions.getCookie('user')} />
       </div>
     )
   }

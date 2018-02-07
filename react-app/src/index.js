@@ -8,11 +8,12 @@ import LoginForm from './components/LoginForm';
 import RegistrationSuccessful from './components/RegistrationSuccessful';
 import Footer from './components/Footer';
 import MyAccount from './components/MyAccount';
+import UserSettings from './components/UserSettings';
 import Games from './components/articles/Games';
 import Movies from './components/articles/Movies';
 import TVSeries from './components/articles/TVSeries';
 import Anime from './components/articles/Anime';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, browserHistory } from 'react-router-dom';
 
 
 const initialState = [
@@ -41,6 +42,7 @@ ReactDOM.render(
         <Route path="/signin" component={LoginForm} />
         <Route path="/regsuccess" component={RegistrationSuccessful} />
         <Route path="/myAccount" component={MyAccount} />
+        <Route path="/settings" component={UserSettings} />
         <Route path="/games" component={Games} />
         <Route path="/movies" component={Movies} />
         <Route path="/tvshows" component={TVSeries} />

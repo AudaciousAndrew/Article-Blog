@@ -56,11 +56,30 @@ public class UsersEntity implements Serializable {
         this.login = login;
     }
 
+    public UsersEntity(String login, String password){
+        this.login = login;
+        this.password = password;
+    }
+
     public UsersEntity(String login, String password, String email) {
         this.login = login;
         this.password = password;
         this.email = email;
     }
+
+    public UsersEntity(String login, String password, String email, String firstname,
+                       String lastname, int rating, String description, String avatarpath) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.rating = rating;
+        this.description = description;
+        this.avatarpath = avatarpath;
+    }
+
+
 
     public int getUserId() {
         return userId;

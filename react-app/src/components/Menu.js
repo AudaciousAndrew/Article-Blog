@@ -5,6 +5,7 @@ import Dropdown from './Dropdown';
 import AccountDropdown from './AccountDropdown';
 import Search from './Search';
 import { cookieFunctions } from '../cookieFunctions.js';
+
 const Links = [
   {
     path: "/games",
@@ -54,7 +55,7 @@ class Menu extends Component{
         <div className="links">
           <Link to="/">Главная</Link>
           <Dropdown classname="dropdown" id="dd1" name="Статьи" links={Links}/>
-          <Link to="/about">О проекте</Link>
+          <Link to="/users">Пользователи</Link>
         </div>
       {btn}
       <Search />

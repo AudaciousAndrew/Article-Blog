@@ -29,7 +29,7 @@ import java.util.List;
 public class UserController {
 
     final String [] types = {"image/png" , "image/jpeg" , ".png" , ".jpg" , ".jpeg"};
-    final String uploadPath = "/home/andrew/Desktop/kursa4/web/resources/img/";
+    final String uploadPath = "/home/pavel/Software/glassfish5/glassfish/domains/domain1/docroot/";
 
     @EJB
     private UsersDAO service;
@@ -110,7 +110,7 @@ public class UserController {
         for(int i = 0 ; i < types.length ; i++){
             if(types[i].equals(fileParsedType)){
                 t++;
-                writeToFile(resizeImage(uploadedInputStream) , uploadPath+login);
+                writeToFile(uploadedInputStream , uploadPath+login);
                 File file = new File(uploadedFileLocation);
                 type2 = Files.probeContentType(file.toPath());
                 for(int j = 0 ; j < types.length ; j++) {

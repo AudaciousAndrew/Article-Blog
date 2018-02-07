@@ -194,4 +194,19 @@ public class UsersEntity implements Serializable {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "UsersEntity{" +
+                "userId=" + userId +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", rating=" + rating +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", avatarpath='" + avatarpath + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

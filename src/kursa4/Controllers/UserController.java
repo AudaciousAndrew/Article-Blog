@@ -29,7 +29,7 @@ import java.util.List;
 public class UserController {
 
     final String [] types = {"image/png" , "image/jpeg" , ".png" , ".jpg" , ".jpeg"};
-    final String uploadPath = "/home/pavel/Software/glassfish5/glassfish/domains/domain1/docroot/";
+    final String uploadPath = "/opt/glassfish5/glassfish/domains/domain1/docroot/";
 
     @EJB
     private UsersDAO service;
@@ -149,9 +149,8 @@ public class UserController {
                              String uploadedFileLocation) {
 
         try {
-            OutputStream out = new FileOutputStream(new File(
-                    uploadedFileLocation));
-            int read = 0;
+            OutputStream out;
+            int read ;
             byte[] bytes = new byte[1024];
 
             out = new FileOutputStream(new File(uploadedFileLocation));

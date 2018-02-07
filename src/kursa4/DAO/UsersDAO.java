@@ -125,4 +125,50 @@ public class UsersDAO {
        // em.getTransaction().commit();
     }
 
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void updateFirstName(String login, String firstname){
+        // em.getTransaction().begin();
+        Query query = em.createQuery(
+                "update UsersEntity p set p.firstname = '"+firstname+"' where p.login ='"+login+"'" );
+        query.executeUpdate();
+        // em.getTransaction().commit();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void updateLastName(String login, String lastname){
+        // em.getTransaction().begin();
+        Query query = em.createQuery(
+                "update UsersEntity p set p.lastname = '"+lastname+"' where p.login ='"+login+"'" );
+        query.executeUpdate();
+        // em.getTransaction().commit();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void updatePassword(String login, String password){
+        // em.getTransaction().begin();
+        Query query = em.createQuery(
+                "update UsersEntity p set p.password = '"+password+"' where p.login ='"+login+"'" );
+        query.executeUpdate();
+        // em.getTransaction().commit();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void updateDesc(String login, String desc){
+        // em.getTransaction().begin();
+        Query query = em.createQuery(
+                "update UsersEntity p set p.description = '"+desc+"' where p.login ='"+login+"'" );
+        query.executeUpdate();
+        // em.getTransaction().commit();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void updateEmail(String login, String email){
+        // em.getTransaction().begin();
+        Query query = em.createQuery(
+                "update UsersEntity p set p.email = '"+email+"' where p.login ='"+login+"'" );
+        query.executeUpdate();
+        // em.getTransaction().commit();
+    }
+
 }

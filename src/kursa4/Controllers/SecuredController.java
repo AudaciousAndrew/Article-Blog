@@ -77,15 +77,26 @@ public class SecuredController {
         }
 
     }
-
+    // password first name , last name , email , desc ,
     @POST
     @Path("/user/update")
     @RolesAllowed({"USER" , "MODERATOR" , "ADMIN" })
     @Produces(MediaType.TEXT_PLAIN)
     public String updateUserInfo(UsersEntity usersEntity){
-        usersService.readByLogin(usersEntity.getLogin());
-        usersService.update(usersEntity);
-        return "true";
+        if(usersEntity.getFirstname() != null)
+            usersService.updateFirstName(usersEntity.getLogin(), usersEntity.getFirstname());
+        if(usersEntity.getLastname() != null)
+            usersService.updateLastName(usersEntity.getLogin() , usersEntity.getLastname());
+        if(usersEntity.getPassword() != null)
+            usersService.updatePassword(usersEntity.getLogin() , usersEntity.getPassword());
+        if(usersEntity.getEmail() != null){
+            if(!usersService.existsByEmail(usersEntity.getEmail()))
+            usersService.updateEmail(usersEntity.getLogin() , usersEntity.getEmail());
+            else return "email exists";
+        }
+        if(usersEntity.getDescription() != null)
+            usersService.updateDesc(usersEntity.getLogin() , usersEntity.getDescription());
+        return "updated";
     }
 
 

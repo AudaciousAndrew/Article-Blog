@@ -90,7 +90,7 @@ public class UserController {
     @GET
     @Path("/author/{login}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Number byAuthor(@PathParam("login") String login){
+    public Number countByAuthor(@PathParam("login") String login){
         return articleService.countByAuthor(login);
     }
 
@@ -139,20 +139,6 @@ public class UserController {
             service.update(usersEntity);
             return 1;
         }
-    }
-
-
-
-    public static InputStream resizeImage(InputStream inputStream) throws IOException {
-        BufferedImage sourceImage = ImageIO.read(inputStream);
-        Image thumbnail = sourceImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-        BufferedImage bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
-                thumbnail.getHeight(null),
-                BufferedImage.TYPE_INT_RGB);
-        bufferedThumbnail.getGraphics().drawImage(thumbnail, 0, 0, null);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedThumbnail, "png", baos);
-        return new ByteArrayInputStream(baos.toByteArray());
     }
 
     private void writeToFile(InputStream uploadedInputStream,

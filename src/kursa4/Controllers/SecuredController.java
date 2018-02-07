@@ -4,6 +4,7 @@ import kursa4.DAO.ArticleDAO;
 import kursa4.DAO.UsersDAO;
 import kursa4.Entities.ArticleEntity;
 import kursa4.Entities.UsersEntity;
+import kursa4.Jabber.Jabber;
 import kursa4.response_models.articleName;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -37,9 +38,6 @@ public class SecuredController {
     @Produces(MediaType.TEXT_PLAIN)
     public String addArticle(ArticleEntity article){
         try{
-//        articleService.create(
-//                new ArticleEntity(article_name , article_type , article_desc ,
-//                       usersService.readByLogin(login) ));
             articleService.create(article);
         return "true";
         }catch (Exception e){
@@ -70,14 +68,18 @@ public class SecuredController {
     @Produces(MediaType.TEXT_PLAIN)
     public String updateVerified(articleName name){
         try{
-        articleService.updateVerified(name.getName());
-        return "true";
+            articleService.updateVerified(name.getName());
+            Jabber jabber = new Jabber();
+            jabber.sendNotification(
+                    usersService.readByLogin(
+                            articleService.readByName(name.getName()).getAuthor()).getJabber() ,
+            name.getName());
+            return "true";
         }catch (Exception e){
             return "Error on server side";
         }
-
     }
-    // password first name , last name , email , desc ,
+
     @POST
     @Path("/user/update")
     @RolesAllowed({"USER" , "MODERATOR" , "ADMIN" })

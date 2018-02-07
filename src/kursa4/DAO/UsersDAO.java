@@ -1,9 +1,6 @@
 package kursa4.DAO;
 
-import kursa4.Entities.ArticleEntity;
 import kursa4.Entities.UsersEntity;
-
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;

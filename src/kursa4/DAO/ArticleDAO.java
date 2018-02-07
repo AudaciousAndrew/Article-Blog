@@ -13,10 +13,6 @@ import java.util.List;
 @Stateless
 public class ArticleDAO {
 
-//
-//    EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
-//    EntityManager em = emf.createEntityManager();
-
     @PersistenceContext(name = "NewPersistenceUnit")
     private EntityManager em;
 
@@ -25,10 +21,8 @@ public class ArticleDAO {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteAll(){
-      //  em.getTransaction().begin();
         Query query = em.createNamedQuery("Article.deleteAll");
         query.executeUpdate();
-      //  em.getTransaction().commit();
     }
 
     public List<ArticleEntity> readByAuthor(String author){
@@ -104,34 +98,25 @@ public class ArticleDAO {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateVerified(String name){
-       // em.getTransaction().begin();
         Query query = em.createQuery(
                 "update ArticleEntity p set p.verified = true where p.articleName = '"+name+"'");
         query.executeUpdate();
-       // em.getTransaction().commit();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ArticleEntity create(ArticleEntity article){
-      //  em.getTransaction().begin();
         em.persist(article);
-       // em.getTransaction().commit();
         return article;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void delete(int id){
-       // em.getTransaction().begin();
         em.remove(em.find(ArticleEntity.class , id));
-        //em.getTransaction().commit();
-
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ArticleEntity update(ArticleEntity article){
-       // em.getTransaction().begin();
         em.merge(article);
-       // em.getTransaction().commit();
         return article;
     }
 

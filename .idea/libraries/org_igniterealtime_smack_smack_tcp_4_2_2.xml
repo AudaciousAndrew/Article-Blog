@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="org.igniterealtime.smack:smack-tcp:4.2.2" type="repository">
+    <properties maven-id="org.igniterealtime.smack:smack-tcp:4.2.2" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/smack-tcp-4.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/smack-core-4.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/xpp3-1.1.4c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jxmpp-core-0.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jxmpp-util-cache-0.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jxmpp-jid-0.6.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

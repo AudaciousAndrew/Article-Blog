@@ -72,6 +72,7 @@ class LoginForm extends Component{
               type="text"
               placeholder="Логин"
               value={this.state.login}
+              maxLength="50"
               onChange={this.handleLoginChange}
               className="floatLabel"
             />

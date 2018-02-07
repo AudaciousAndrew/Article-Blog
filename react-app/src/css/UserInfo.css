@@ -10,7 +10,8 @@
   box-shadow: 0 0 1em #222;
   border-radius: 2px;
   flex-direction: column;
-  max-height: 400px;
+  heigth: 400px;
+  max-height: 800px;
 }
 
 .mainDiv{
@@ -50,4 +51,6 @@
 
 .moreInfo{
   margin-top: 1.5em;
+  max-width: 500px;
+  word-wrap: break-word;
 }

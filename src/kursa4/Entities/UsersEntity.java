@@ -49,11 +49,11 @@ public class UsersEntity implements Serializable {
     @Column(name = "description")
     private String description;
 
-    public UsersEntity() {
-    }
+    @Basic
+    @Column(name = "jabber")
+    private String jabber;
 
-    public UsersEntity(String login) {
-        this.login = login;
+    public UsersEntity() {
     }
 
     public UsersEntity(String login, String password){
@@ -68,7 +68,7 @@ public class UsersEntity implements Serializable {
     }
 
     public UsersEntity(String login, String password, String email, String firstname,
-                       String lastname, int rating, String description, String avatarpath) {
+                       String lastname, int rating, String description  , String jabber){
         this.login = login;
         this.password = password;
         this.email = email;
@@ -76,10 +76,17 @@ public class UsersEntity implements Serializable {
         this.lastname = lastname;
         this.rating = rating;
         this.description = description;
-        this.avatarpath = avatarpath;
+        this.jabber = jabber;
     }
 
 
+    public String getJabber() {
+        return jabber;
+    }
+
+    public void setJabber(String jabber) {
+        this.jabber = jabber;
+    }
 
     public int getUserId() {
         return userId;

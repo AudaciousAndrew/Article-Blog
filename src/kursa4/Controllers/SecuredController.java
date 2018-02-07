@@ -96,6 +96,8 @@ public class SecuredController {
         }
         if(usersEntity.getDescription() != null)
             usersService.updateDesc(usersEntity.getLogin() , usersEntity.getDescription());
+        if(usersEntity.getJabber() != null)
+            usersService.updateJabber(usersEntity.getLogin() , usersEntity.getJabber());
         return "updated";
     }
 

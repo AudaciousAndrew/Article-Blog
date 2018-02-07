@@ -171,4 +171,13 @@ public class UsersDAO {
         // em.getTransaction().commit();
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void updateJabber(String login, String jabber){
+        // em.getTransaction().begin();
+        Query query = em.createQuery(
+                "update UsersEntity p set p.jabber = '"+jabber+"' where p.login ='"+login+"'" );
+        query.executeUpdate();
+        // em.getTransaction().commit();
+    }
+
 }

@@ -137,6 +137,7 @@ class RegistrationForm extends Component{
               type="text"
               id="Email"
               placeholder="E-mail"
+              maxLength="50"
               value={this.state.email}
               onChange={this.handleEmailChange}
               className="floatLabel"
@@ -145,6 +146,7 @@ class RegistrationForm extends Component{
               type="text"
               placeholder="Логин"
               value={this.state.login}
+              maxLength="50"
               onChange={this.handleLoginChange}
               className="floatLabel"
             />

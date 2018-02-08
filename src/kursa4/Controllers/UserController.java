@@ -30,7 +30,7 @@ import java.util.List;
 public class UserController {
 
     final String [] types = {"image/png" , "image/jpeg" , ".png" , ".jpg" , ".jpeg"};
-    final String uploadPath = "/opt/glassfish5/glassfish/domains/domain1/docroot/";
+    final String uploadPath = "/home/pavel/Software/glassfish5/glassfish/domains/domain1/docroot/";
 
     @EJB
     private UsersDAO service;

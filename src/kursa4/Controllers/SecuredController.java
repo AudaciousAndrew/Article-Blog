@@ -5,6 +5,7 @@ import kursa4.DAO.UsersDAO;
 import kursa4.Entities.ArticleEntity;
 import kursa4.Entities.UsersEntity;
 import kursa4.Jabber.Jabber;
+import kursa4.response_models.Credentials;
 import kursa4.response_models.articleName;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -104,5 +105,13 @@ public class SecuredController {
     }
 
 
+    @POST
+    @Path("/user/changepass")
+    @RolesAllowed({"USER" , "MODERATOR" , "ADMIN"})
+    @Produces(MediaType.TEXT_PLAIN)
+    public int changePass(Credentials credentials){
+        if(usersService.authorization(credentials.getLogin() , credentials.getPassword())) return 1;
+        else return 0;
+    }
 
 }

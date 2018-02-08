@@ -89,20 +89,25 @@ public class UserController {
         return existingUser;
     }
 
-    @GET
+    @POST
     @Path("/author/{login}")
     @Produces(MediaType.TEXT_PLAIN)
     public Number countByAuthor(@PathParam("login") String login){
         return articleService.countByAuthor(login);
     }
 
-
     @GET
-    @Path("/top10")
+    @Path("/top100")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UsersEntity> usersTopTen(){
-        return service.topTen();
+    public List<UsersEntity> getAllUsers(){
+        List<UsersEntity> list = service.topHundred();
+        for(UsersEntity user : list){
+            user.setPassword(null);
+        }
+        return list;
     }
+
+
 
     @POST
     @Path("/load/{login}")

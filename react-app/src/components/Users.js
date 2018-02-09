@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import axios from "axios/index";
 import UserMiniInfo from './UserMiniInfo';
 
+const defaultAvatar = require('../resources/user.png');
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
 class Users extends Component {
@@ -12,7 +13,11 @@ class Users extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: []
+            users: [
+                {
+                    avatarpath: ''
+                }
+            ]
         };
         this.loadFromServer = this.loadFromServer.bind(this);
         this.loadFromServer();
@@ -37,8 +42,12 @@ class Users extends Component {
             <div>
                 <Menu />
                 {this.state.users.map((el, index) => {
+                    let path;
+                    if(typeof el.avatarpath !== 'undefined')
+                        path="http://localhost:8080/"+el.login;
+                    else path=defaultAvatar;
                     return <UserMiniInfo key={index} login={el.login}
-                        rating={el.rating} avatar={el.avatarpath} />
+                                         rating={el.rating} avatar={path} />
                 })}
             </div>
         )

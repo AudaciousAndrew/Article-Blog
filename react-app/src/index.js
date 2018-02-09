@@ -15,6 +15,8 @@ import TVSeries from './components/articles/TVSeries';
 import Anime from './components/articles/Anime';
 import Users from './components/Users';
 import AddArticle from './components/AddArticle';
+import UserAccount from './components/UserAccount';
+
 import { BrowserRouter, Route, browserHistory } from 'react-router-dom';
 
 
@@ -52,6 +54,7 @@ ReactDOM.render(
         <Route path="/anime" component={Anime} />
         <Route path="/users" component={Users} />
         <Route path="/add" component={AddArticle} />
+        <Route path="/user/:id" component={UserAccount}/>
       </div>
     </BrowserRouter>
     </Provider>,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import '../css/UserInfo.css';
+import { Link } from 'react-router-dom';
+
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
@@ -21,10 +21,11 @@ class MyAccount extends Component{
                 <div className="infoDiv">
                     <div className="mainDiv">
                         <div className="imgDiv">
-                            <img src={this.props.avatar} alt="no avatar" />
-                        </div>
+                            <img src={this.props.avatar}
+                                 style={{height: '75px', width: '75px'}} alt="noAvatar" />                    </div>
                         <div className="mainInfo">
-                            {this.props.login}
+                            <Link to={`/user/${this.props.login}`}
+                                userlogin={this.props.login}>{this.props.login}</Link>
                             {this.props.rating}
                         </div>
                     </div>

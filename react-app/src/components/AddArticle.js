@@ -4,9 +4,18 @@ import Menu from "./Menu";
 import axios from "axios";
 import {Editor} from 'primereact/components/editor/Editor';
 import {cookieFunctions} from "../cookieFunctions";
+import {SelectButton} from 'primereact/components/selectbutton/SelectButton';
 
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest/';
+
+
+const types = [
+    {label: 'Игры', value: 'games'},
+    {label: 'Фильмы', value: 'movies'},
+    {label: 'Сериалы', value: 'tvshows'},
+    {label: 'Аниме', value: 'anime'}
+];
 
 class Users extends Component {
 
@@ -14,7 +23,7 @@ class Users extends Component {
         super(props);
         this.state = {
             type: '',
-            topic: '',
+            name: '',
             text2: '',
             userToken: cookieFunctions.getCookie('userToken')
         };
@@ -30,14 +39,16 @@ class Users extends Component {
             instance.defaults.headers.common['Authorization'] = 'Basic ' + this.state.userToken;
             instance.post('/secured/article/add',
                 {
-                    articleName: 'loool',
-                    articleType: 'anime',
+                    articleName: this.state.name,
+                    articleType: this.state.type,
                     articleDesc: this.state.text2,
                     author: cookieFunctions.getCookie('user')
                 }
             )
                 .then((response) => {
-                    this.setState({checkResponse: response.data});
+                    if(response.data ===true)
+                    this.setState({checkResponse: "Статья успешно добавлена в очередь на модерацию"});
+                    else this.setState({checkResponse: "Статья с таким именем уже существует"});
                     console.log(response.data);
                     resolve();
 
@@ -47,15 +58,34 @@ class Users extends Component {
         });
     }
 
+    template(option){
+
+    }
 
 
     render(){
+        console.log(this.state.type);
         return(
             <div>
                 <Menu />
-                <div className="editor" style={{width: '500px'}} >
-                    <Editor value={this.state.text2} style={{height:'320px'}}onTextChange={(e)=>this.setState({text2:e.htmlValue})}/>
-                    <input type="submit" onClick={this.loadOnServer} />
+                <div className="Article">
+                    <div className="articleInfo">
+                        <div className="articleName">
+                            Название Статьи:
+                            <input type="text" onChange={(e)=>this.setState({name:e.target.value})} />
+                        </div>
+                        <div className="articleType">
+                            <SelectButton value={this.state.type} options={types} onChange={(e) => this.setState({type: e.value})}/>
+                        </div>
+                    </div>
+
+
+
+                    <div className="editor" style={{width: '500px'}} >
+                        <Editor value={this.state.text2} style={{height:'320px'}}onTextChange={(e)=>this.setState({text2:e.htmlValue})}/>
+                        <input type="submit" onClick={this.loadOnServer} />
+                    </div>
+                    {this.state.checkResponse}
                 </div>
             </div>
         )

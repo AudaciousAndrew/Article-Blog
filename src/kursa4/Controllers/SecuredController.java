@@ -86,7 +86,7 @@ public class SecuredController {
     @RolesAllowed({"USER" , "MODERATOR" , "ADMIN" })
     @Produces(MediaType.TEXT_PLAIN)
     public String updateUserInfo(UsersEntity usersEntity){
-        if(usersEntity.getFirstname() != null)
+        if(usersEntity.getFirstname(s) != null)
             usersService.updateFirstName(usersEntity.getLogin(), usersEntity.getFirstname());
         if(usersEntity.getLastname() != null)
             usersService.updateLastName(usersEntity.getLogin() , usersEntity.getLastname());

@@ -18,25 +18,6 @@ class MyAccount extends Component{
     this.loadFromServer();
   }
 
-  //
-  // loadFromServer() {
-  //   return new Promise((resolve, reject) => {
-  //     var instance = axios.create({
-  //       baseURL: apiPath
-  //     });
-  //     instance.defaults.headers.common['Authorization'] = 'Basic ' + this.state.userToken;
-  //     instance.get('/secured/test', {
-  //     })
-  //     .then(function (response) {
-  //       console.log(response);
-  //       console.log(response.data.firstName);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  //   });
-  // }
-
   loadFromServer() {
       axios.get(apiPath + '/user/' + this.props.login , {
         params: {
@@ -58,6 +39,7 @@ class MyAccount extends Component{
     this.userName = <h2>{this.state.user.firstname} {this.state.user.lastname}</h2>
     this.email = <p>E-mail: {this.state.user.email}</p>
     this.rating = <p>Рейтинг: {this.state.user.rating}</p>;
+    this.jabber = <p>Jabber: {this.state.user.jabber}</p>
     this.desc = <p>{this.state.user.description}</p>;
     console.log(`${this.state.user.avatarpath}`);
     const path = "http://localhost:8080/kursa4_war_exploded/rest/user/load/"+this.state.user.login;
@@ -80,6 +62,7 @@ class MyAccount extends Component{
                 {this.userName}
                 {this.login}
                 {this.email}
+                {this.jabber}
                 {this.rating}
             </div>
           </div>

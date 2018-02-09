@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import '../css/UserInfo.css';
+
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
-class UserMiniInfo extends Component{
+class MyAccount extends Component{
 
     constructor(props){
         super(props);
@@ -18,20 +18,21 @@ class UserMiniInfo extends Component{
     render(){
         return(
             <div>
-                <div className="miniInfo">
-                    <div className="miniMainDiv">
+                <div className="infoDiv">
+                    <div className="mainDiv">
+                        <div className="imgDiv">
                             <img src={this.props.avatar}
                                  style={{height: '75px', width: '75px'}} alt="noAvatar" />                    </div>
-                        <div className="miniMainInfo">
+                        <div className="mainInfo">
                             <Link to={`/user/${this.props.login}`}
-                                userlogin={this.props.login}>{this.props.login}</Link>
-                            <p>Email: {this.props.email}</p>
-                            <p>Рейтинг: {this.props.rating}</p>
+                                  userlogin={this.props.login}>{this.props.login}</Link>
+                            {this.props.rating}
                         </div>
+                    </div>
                 </div>
             </div>
         )
     }
 }
 
-export default UserMiniInfo;
+export default MyAccount;

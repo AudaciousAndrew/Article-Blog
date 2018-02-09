@@ -10,13 +10,40 @@
   box-shadow: 0 0 0.3em #222;
   border-radius: 1px;
   flex-direction: column;
-  heigth: 400px;
   max-height: 800px;
 }
-
+.miniInfo{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  background: #fff;
+  color: #404040;
+  display: flex;
+  padding: 1em 1em;
+  max-width: 500px;
+  margin-top: 1em;
+  margin-left: 8%;
+  box-shadow: 0 0 0.3em #222;
+  border-radius: 1px;
+  flex-direction: row;
+  max-height: 200px;
+}
 .mainDiv{
   display: flex;
   flex-direction: row;
+}
+
+.miniInfo .miniMainInfo {
+  margin-left: 2em;
+}
+
+.miniInfo a{
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.miniInfo a:hover{
+  color: #595959;
 }
 
 .infoDiv h2{

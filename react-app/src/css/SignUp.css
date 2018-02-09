@@ -35,9 +35,11 @@
   box-shadow: 0 0 1em #222;
   border-radius: 2px;
 }
-
+.mainContainer .container  {
+    text-align: center;
+}
 .mainContainer form a {
-  margin-left: 22%;
+  /*margin-left: 22%;*/
   color: black;
   font-family: Arial;
   font-size: 14px;
@@ -126,6 +128,39 @@
 .error{
   height: 16px;
   margin-bottom: 1.5em;
+}
+
+@media (max-width: 1204px) and (min-width: 821px) {
+  
+}
+
+@media (max-width: 820px) {
+
+    .mainContainer {
+        padding: 0;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .mainContainer form h2 {
+        font-size: 2em;
+    }
+
+    .mainContainer form {
+        margin-bottom: 60%;
+    }
+
+    .mainContainer form .container {
+        font-size: 0.8em;
+    }
+
+    .mainContainer form .container a {
+       font-size: 1.5em;
+
+    }
+
+
+  
 }
 
 /* .mainForm {

@@ -13,12 +13,15 @@ import Games from './components/articles/Games';
 import Movies from './components/articles/Movies';
 import TVSeries from './components/articles/TVSeries';
 import Anime from './components/articles/Anime';
+import Users from './components/Users';
+import AddArticle from './components/AddArticle';
 import { BrowserRouter, Route, browserHistory } from 'react-router-dom';
 
 
 const initialState = [
   'Disowned',
-  'Seen it all'
+  'Seen it all',
+  'Ded'
 ];
 
 function playlist(state = initialState, action){
@@ -47,6 +50,8 @@ ReactDOM.render(
         <Route path="/movies" component={Movies} />
         <Route path="/tvshows" component={TVSeries} />
         <Route path="/anime" component={Anime} />
+        <Route path="/users" component={Users} />
+        <Route path="/add" component={AddArticle} />
       </div>
     </BrowserRouter>
     </Provider>,

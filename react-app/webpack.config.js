@@ -11,7 +11,7 @@ module.exports = {
             {
               test: /\.js/,
               loader: 'babel-loader',
-              exclude: /(node_modules|bower_components)/,
+              exclude: [ /node_modules(?!\/quill)/, /bowercomponents/ ],
               query: {
                 cacheDirectory: true,
                 presets: ['react', 'es2015']

@@ -1,0 +1,200 @@
+.settings{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    background: #fff;
+    color: #404040;
+    display: flex;
+    flex-direction: column;
+    padding: 4em 4em 4em;
+    max-width: 500px;
+    margin: 50px auto 0;
+    box-shadow: 0 0 0.5em #222;
+    border-radius: 1px;
+}
+.submitBtn{
+    text-align: center;
+    height: 24px;
+    background: #595959;
+    border-radius: 2px;
+    border: none;
+    color: #fff;
+    padding: 0.4em;
+    margin-bottom: 1em;
+}
+
+.submitBtn:hover{
+    background: #1a1a1a;
+}
+.settings h3{
+    font-size: 16px;
+}
+
+.settings a{
+    color: #666666;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+.avatarUpload {
+    border: 1px solid silver;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+    padding: 1em;
+}
+
+.avatarUpload h3{
+    text-align: center;
+}
+.avatarUpload .preview{
+    padding: 1em 1em 1em;
+    margin-left: 5%;
+}
+
+.avatarUpload .loadImg input[type="file"] {
+    text-align: center;
+    margin-left: 15%;
+}
+
+.avatarUpload .loadImg .imgMsg {
+    text-align: center;
+    margin-top: 1em;
+}
+
+.avatarUpload .loadImg .imgMsg#true {
+    color: green;
+}
+
+.avatarUpload .loadImg .imgMsg#false {
+    color: red;
+}
+
+.avatarUpload .loadImg .imgMsg {
+    margin-top: 1em;
+}
+
+.passwordChange {
+    border: 1px solid silver;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    padding: 1em 2em;
+    margin-bottom: 2em;
+}
+
+.passwordChange h3{
+    font-size: 16px;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.passwordChange .pass{
+    margin-bottom: 1em;
+}
+
+.passwordChange p#false {
+    color: red;
+}
+
+.passwordChange p#true {
+    color: green;
+}
+
+.passwordChange input[type='password']{
+    width: 60%;
+    float: right;
+    height: 100%;
+    margin-right: 10%;
+}
+
+
+.passwordChange input[type='submit']{
+    width: 30%;
+    height: 2em;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.emailChange {
+    border: 1px solid silver;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    padding: 1em 2em;
+    margin-bottom: 2em;
+}
+
+.emailChange h3{
+    font-size: 16px;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.emailChange .email {
+    margin-bottom: 1em;
+}
+
+.emailChange p#false {
+    color: red;
+}
+
+.emailChange p#true {
+    color: green;
+}
+
+.emailChange input[type='text']{
+    width: 60%;
+    float: right;
+    height: 100%;
+    margin-right: 10%;
+}
+
+.emailChange input[type='submit']{
+    width: 30%;
+    height: 2em;
+    float: right;
+    margin: 0 auto;
+}
+
+.infoChange {
+    border: 1px solid silver;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    padding: 1em 2em;
+}
+
+.infoChange h3{
+    font-size: 16px;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.infoChange input[type='text']{
+    width: 60%;
+    float: right;
+    height: 100%;
+    margin-right: 10%;
+}
+
+.infoChange input[type='submit']{
+    width: 30%;
+    height: 2em;
+    float: right;
+    margin: 0 auto;
+}
+
+.infoChange *{
+    margin-bottom: 1em;
+}
+
+.infoChange .box-3 textarea{
+    float: right;
+    margin-right: 10%;
+    font-size: 14px;
+    width: 60.5%;
+    height: 9em;
+}
+
+

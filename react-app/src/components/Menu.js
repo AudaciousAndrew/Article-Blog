@@ -35,7 +35,15 @@ const usrLinks = [
     desc: "Настройки",
     user: cookieFunctions.getCookie('user'),
     userToken: cookieFunctions.getCookie('userToken')
+  },
+
+  {
+      path: "/add",
+      desc: "Добавить статью",
+      user: cookieFunctions.getCookie('user'),
+      userToken: cookieFunctions.getCookie('userToken')
   }
+
 ];
 
 class Menu extends Component{

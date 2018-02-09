@@ -19,11 +19,15 @@ public class UserRolesDAO {
     }
 
     public List<UserRolesEntity> readByLogin (String login){
-        TypedQuery<UserRolesEntity> query = em.createQuery(
-                "SELECT p from UserRolesEntity p  where p.userByLogin.login ='"+login+"'"
-                , UserRolesEntity.class);
-        List<UserRolesEntity> UserRoles = query.getResultList();
-        return UserRoles;
+        try {
+            TypedQuery<UserRolesEntity> query = em.createQuery(
+                    "SELECT p from UserRolesEntity p  where p.userByLogin.login ='" + login + "'"
+                    , UserRolesEntity.class);
+            List<UserRolesEntity> UserRoles = query.getResultList();
+            return UserRoles;
+        }catch (NoResultException e){
+            return null;
+        }
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)

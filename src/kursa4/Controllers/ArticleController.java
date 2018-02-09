@@ -30,10 +30,10 @@ public class ArticleController {
 
 
     @POST
-    @Path("/type/{type}")
+    @Path("/type/{type}/{offset}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ArticleEntity> articleByType(@PathParam("type") String type){
-        return service.readByType(type);
+    public List<ArticleEntity> articleByType(@PathParam("type") String type , @PathParam("offset") int offset){
+        return service.readByTypeAndOffset(type , offset);
     }
 
 

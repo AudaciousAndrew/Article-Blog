@@ -30,7 +30,7 @@ public class Jabber  {
         AbstractXMPPConnection connection = new XMPPTCPConnection( config);
         connection.connect().login();
         Message message = new Message(userJabberLogin+"@jabber.ru",
-                "Hi "+userJabberLogin+" your article:"+articleName+" \nWas verified and added to the website , thank you for your activity.");
+                "Hi "+userJabberLogin+" your article:"+articleName+" \n Was approved and added to the website , thank you for your activity.");
         connection.sendStanza(message);
     }
 

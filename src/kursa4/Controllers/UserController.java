@@ -41,6 +41,7 @@ public class UserController {
     @EJB
     private ArticleDAO articleService;
 
+
     @POST
     @Path("/register")
     @Produces(MediaType.APPLICATION_JSON)
@@ -97,10 +98,10 @@ public class UserController {
     }
 
     @GET
-    @Path("/top100")
+    @Path("/top/{amount}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UsersEntity> getAllUsers(){
-        List<UsersEntity> list = service.topHundred();
+    public List<UsersEntity> getAllUsers(@PathParam("amount") int i){
+        List<UsersEntity> list = service.Top(i);
         for(UsersEntity user : list){
             user.setPassword(null);
         }

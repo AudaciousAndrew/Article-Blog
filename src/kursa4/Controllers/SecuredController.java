@@ -1,8 +1,11 @@
 package kursa4.Controllers;
 
+import com.sun.jersey.core.util.Base64;
 import kursa4.DAO.ArticleDAO;
+import kursa4.DAO.UserRolesDAO;
 import kursa4.DAO.UsersDAO;
 import kursa4.Entities.ArticleEntity;
+import kursa4.Entities.UserRolesEntity;
 import kursa4.Entities.UsersEntity;
 import kursa4.Jabber.Jabber;
 import kursa4.response_models.Credentials;
@@ -21,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Path("secured")
 public class SecuredController {
@@ -31,6 +35,9 @@ public class SecuredController {
 
     @EJB
     private UsersDAO usersService;
+
+    @EJB
+    private UserRolesDAO rolesService;
 
 
     @POST
@@ -48,7 +55,7 @@ public class SecuredController {
     }
 
     @GET
-    @Path("/article/unverified")
+    @Path("/article/all/unverified")
     @RolesAllowed({"MODERATOR" ,"ADMIN"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArticleEntity> articleUnverified(){
@@ -64,7 +71,7 @@ public class SecuredController {
     }
 
     @POST
-    @Path("/article/update")
+    @Path("/article/approve")
     @RolesAllowed({"MODERATOR" , "ADMIN"})
     @Produces(MediaType.TEXT_PLAIN)
     public String updateVerified(articleName name){
@@ -114,4 +121,46 @@ public class SecuredController {
         else return 0;
     }
 
+    @POST
+    @Path("/user/create/moderator/{login}")
+    @RolesAllowed("ADMIN")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String createModerator(@PathParam("login") String login){
+        List<UserRolesEntity> rolesByUser = rolesService.readByLogin(login);
+        if(rolesByUser != null){
+        for(UserRolesEntity roles : rolesByUser){
+            if(roles.getRole().equals("MODERATOR")) return "User "+login+" already moderator";
+        }
+        rolesService.create(new UserRolesEntity(usersService.readByLogin(login) , "MODERATOR"));
+        return "User "+login+" became moderator";
+        } else return "No such user";
+    }
+
+    @POST
+    @Path("/article/moderator/delete")
+    @RolesAllowed({"MODERATOR" , "ADMIN"})
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteArticleModerator(articleName name){
+        int i =  articleService.deleteByName(name.getName());
+        if (i == 1)return "deleter";
+        else return "No such article";
+    }
+
+    @POST
+    @Path("/article/user/delete/{token}")
+    @RolesAllowed("USER")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteArticleUser(articleName name ,@PathParam("token") String token) throws UnsupportedEncodingException{
+        String login;
+        ArticleEntity articleEntity = articleService.readByName(name.getName());
+        if(articleEntity != null) {
+            String decodedString = new String(Base64.decode(token), "UTF8");
+            StringTokenizer tokenizer = new StringTokenizer(decodedString, ":");
+            login = tokenizer.nextToken();
+                if (login.equals(articleEntity.getAuthor())) {
+                    articleService.deleteByName(name.getName());
+                    return "article deleted";
+                } else return "permission denied";
+        } else return "No such article";
+    }
 }

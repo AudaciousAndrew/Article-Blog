@@ -43,18 +43,28 @@ public class ArticleEntity implements Serializable {
     @Column(name = "author")
     private String author;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id" , referencedColumnName = "user_id" , nullable = false)
-//    private UsersEntity userByUserId;
+    @Basic
+    @Column(name = "article_smalldesc")
+    private String small_desc;
 
     public ArticleEntity() {
     }
 
-    public ArticleEntity(String articleName, String articleType, String articleDesc, String author) {
+
+    public ArticleEntity(String articleName, String articleType, String articleDesc, String author, String small_desc) {
         this.articleName = articleName;
         this.articleType = articleType;
         this.articleDesc = articleDesc;
         this.author = author;
+        this.small_desc = small_desc;
+    }
+
+    public String getSmall_desc() {
+        return small_desc;
+    }
+
+    public void setSmall_desc(String small_desc) {
+        this.small_desc = small_desc;
     }
 
     public boolean isVerified() {

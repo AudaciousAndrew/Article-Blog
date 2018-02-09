@@ -70,10 +70,11 @@ public class UsersDAO {
         return query.getResultList();
     }
 
-    public List<UsersEntity> topHundred(){
+    public List<UsersEntity> Top(int i){
         TypedQuery<UsersEntity> query = em.createQuery(
                 "SELECT p from UsersEntity  p order by p.rating desc "
-                , UsersEntity.class).setMaxResults(100);
+                , UsersEntity.class).setMaxResults(i);
+        query.executeUpdate();
         List<UsersEntity> users = query.getResultList();
         return users;
     }

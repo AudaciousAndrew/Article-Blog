@@ -41,10 +41,10 @@ public class ArticleDAO {
     }
 
 
-    public List<ArticleEntity> readByType(String type){
+    public List<ArticleEntity> readByTypeAndOffset(String type , int offset){
         TypedQuery<ArticleEntity> query = em.createQuery(
-                "select p from ArticleEntity p where p.articleType ='" + type+"' and p.verified = true"
-                ,ArticleEntity.class);
+                "select p from ArticleEntity p where p.articleType ='" + type+"' and p.verified = true order by p.articleId desc"
+                ,ArticleEntity.class).setMaxResults(10).setFirstResult((offset-1)*10);
         List<ArticleEntity> articles = query.getResultList();
         return articles;
     }
@@ -59,11 +59,15 @@ public class ArticleDAO {
     }
 
     public ArticleEntity readByName(String name){
-        TypedQuery<ArticleEntity> query = em.createQuery(
-                "SELECT p from ArticleEntity p where p.articleName like '%" + name + "%' and p.verified = true"
-                , ArticleEntity.class);
-        ArticleEntity article = query.getSingleResult();
-        return article;
+        try {
+            TypedQuery<ArticleEntity> query = em.createQuery(
+                    "SELECT p from ArticleEntity p where p.articleName like '%" + name + "%' and p.verified = true"
+                    , ArticleEntity.class);
+            ArticleEntity article = query.getSingleResult();
+            return article;
+        }catch (NoResultException e){
+            return null;
+        }
     }
 
     public List<ArticleEntity> topTen(){
@@ -118,6 +122,17 @@ public class ArticleDAO {
     public ArticleEntity update(ArticleEntity article){
         em.merge(article);
         return article;
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public int deleteByName(String name){
+        try{
+        Query query= em.createQuery("delete from ArticleEntity p where p.articleName = '"+name+"'");
+        query.executeUpdate();
+        return 1;
+        }catch (NoResultException e){
+            return 0;
+        }
     }
 
     public ArticleEntity read(int id){

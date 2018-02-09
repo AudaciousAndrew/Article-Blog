@@ -92,7 +92,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
      if (rolesAllowed.length > 0 && !isAuthenticated(requestContext)){
          refuseRequest(requestContext);
      }
-    //TODO CHECK ROLE
+
      for(String role : rolesAllowed){
          for(UserRolesEntity entity: rolesService.readByLogin(login)){
              if(entity.getRole().equals(role)){

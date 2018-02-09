@@ -109,6 +109,12 @@ public class UserController {
     }
 
 
+    @POST
+    @Path("/roles/{login}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getRolesByLogin(@PathParam("login") String login){
+        return rolesService.readByLogin(login).size();
+    }
 
     @POST
     @Path("/load/{login}")

@@ -36,6 +36,12 @@ public class ArticleController {
         return service.readByTypeAndOffset(type , offset);
     }
 
+    @POST
+    @Path("/{login}/all/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ArticleEntity> articleByUser(@PathParam("login") String login){
+        return service.readByAuthor(login);
+    }
 
     @GET
     @Path("/all/verified")
@@ -77,6 +83,7 @@ public class ArticleController {
         }
 
     }
+
 
 //    @POST
 //    @Path("/vote/minus/{login}")

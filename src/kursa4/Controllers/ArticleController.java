@@ -25,7 +25,18 @@ public class ArticleController {
     @Path("/name")
     @Produces(MediaType.APPLICATION_JSON)
     public ArticleEntity articleByName(articleName name){
-        return service.readByName(name.getName());
+        ArticleEntity articleEntity = service.readByName(name.getName());
+        if(articleEntity == null) return null;
+        else return articleEntity;
+    }
+
+    @POST
+    @Path("/search/name")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ArticleEntity> search(articleName name){
+        List<ArticleEntity> list = service.searchByName(name.getName());
+        if(list == null) return null;
+        else return list;
     }
 
 

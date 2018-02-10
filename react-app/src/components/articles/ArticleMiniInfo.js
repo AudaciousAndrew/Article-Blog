@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import '../../css/Article.css';
 
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
@@ -8,28 +9,25 @@ class MyAccount extends Component{
 
     constructor(props){
         super(props);
-        this.state = {
-            user: {
-                //login: ''
-            }
-        };
     }
 
     render(){
         return(
-            <div>
-                <div className="infoDiv">
-                    <div className="mainDiv">
-                        <div className="imgDiv">
-                            <img src={this.props.avatar}
-                                 style={{height: '75px', width: '75px'}} alt="noAvatar" />                    </div>
-                        <div className="mainInfo">
-                            <Link to={`/user/${this.props.login}`}
-                                  userlogin={this.props.login}>{this.props.login}</Link>
-                            {this.props.rating}
-                        </div>
+            <div className="articleInfoMini">
+                    <div className="articleNameMini">
+                        <Link to={'article/'+this.props.article.articleName}
+                            articlename={this.props.article.articleName}>
+                            {this.props.article.articleName}
+                        </Link>
+                            </div>
+                    <div className="smallDescMini">{this.props.article.small_desc}</div>
+                    <div className="authorMini">
+                        <label>Автор: </label>
+                        <Link to={'user/' + this.props.article.author}>
+                            {this.props.article.author}
+                        </Link>
                     </div>
-                </div>
+                    <div className="ratingMini">Рейтинг: {this.props.article.rating}</div>
             </div>
         )
     }

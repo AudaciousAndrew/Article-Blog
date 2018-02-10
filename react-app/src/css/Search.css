@@ -74,6 +74,10 @@
   opacity: 0.5;
 }
 
+.search .submit:focus, .userSearch .submit:focus {
+  outline: none;
+}
+
 /* при наведении курсора меняем прозрачность кнопки отправки */
 .search .submit:hover, .userSearch .submit:hover{
   opacity: 0.8;

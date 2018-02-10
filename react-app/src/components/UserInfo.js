@@ -19,11 +19,7 @@ class MyAccount extends Component{
   }
 
   loadFromServer() {
-      axios.get(apiPath + '/user/' + this.props.login , {
-        params: {
-          login: this.props.login
-        }
-      })
+      axios.get(apiPath + '/user/' + this.props.login)
       .then((response) => {
         this.setState({user: response.data});
         console.log(this.state.user);

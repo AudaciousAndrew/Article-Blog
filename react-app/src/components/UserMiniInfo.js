@@ -21,7 +21,7 @@ class UserMiniInfo extends Component{
                 <div className="miniInfo">
                     <div className="miniMainDiv">
                             <img src={this.props.avatar}
-                                 style={{height: '75px', width: '75px'}} alt="noAvatar" />                    </div>
+                                 style={{height: '60px', width: '60px'}} alt="noAvatar" />                    </div>
                         <div className="miniMainInfo">
                             <Link to={`/user/${this.props.login}`}
                                 userlogin={this.props.login}>{this.props.login}</Link>

@@ -50,10 +50,14 @@ public class UsersDAO {
     }
 
     public UsersEntity readByLogin(String name){
-        TypedQuery<UsersEntity> query = em.createQuery(
-                "select p from UsersEntity p where p.login ='"+name+"'"
-                ,UsersEntity.class);
-        return query.getSingleResult();
+        try {
+            TypedQuery<UsersEntity> query = em.createQuery(
+                    "select p from UsersEntity p where p.login ='" + name + "'"
+                    , UsersEntity.class);
+            return query.getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
     }
 
     public UsersEntity readByEmail(String email){
@@ -74,7 +78,7 @@ public class UsersDAO {
         TypedQuery<UsersEntity> query = em.createQuery(
                 "SELECT p from UsersEntity  p order by p.rating desc "
                 , UsersEntity.class).setMaxResults(i);
-        query.executeUpdate();
+        
         List<UsersEntity> users = query.getResultList();
         return users;
     }

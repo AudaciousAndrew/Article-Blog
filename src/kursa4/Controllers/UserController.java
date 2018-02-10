@@ -86,8 +86,13 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     public UsersEntity getUser(@PathParam("login") String login){
         UsersEntity existingUser = service.readByLogin(login);
-        existingUser.setPassword(null);
-        return existingUser;
+        if(existingUser != null){
+            existingUser.setPassword(null);
+            return existingUser;
+        } else {
+            return null;
+        }
+
     }
 
     @POST

@@ -13,25 +13,6 @@ class MyAccount extends Component{
     super(props);
   }
 
-  //
-  // loadFromServer() {
-  //   return new Promise((resolve, reject) => {
-  //     var instance = axios.create({
-  //       baseURL: apiPath
-  //     });
-  //     instance.defaults.headers.common['Authorization'] = 'Basic ' + this.state.userToken;
-  //     instance.get('/secured/test', {
-  //     })
-  //     .then(function (response) {
-  //       console.log(response);
-  //       console.log(response.data.firstName);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  //   });
-  // }
-
   render(){
     return(
       <div>

@@ -4,7 +4,8 @@ import Menu from "./Menu";
 import {connect} from 'react-redux';
 import axios from "axios/index";
 import UserMiniInfo from './UserMiniInfo';
-
+import UserSearch from './UserSearch';
+import Search from "./Search";
 const defaultAvatar = require('../resources/user.png');
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
@@ -14,9 +15,6 @@ class Users extends Component {
         super(props);
         this.state = {
             users: [
-                {
-                    avatarpath: ''
-                }
             ]
         };
         this.loadFromServer = this.loadFromServer.bind(this);
@@ -24,7 +22,7 @@ class Users extends Component {
     }
 
     loadFromServer() {
-        axios.get(apiPath + '/user/top100')
+        axios.get(apiPath + '/user/top/100')
             .then((response) => {
                 console.log(response.data);
                 this.setState({users: response.data});
@@ -41,13 +39,14 @@ class Users extends Component {
         return(
             <div>
                 <Menu />
+                <UserSearch />
                 {this.state.users.map((el, index) => {
                     let path;
                     if(typeof el.avatarpath !== 'undefined')
                         path="http://localhost:8080/"+el.login;
                     else path=defaultAvatar;
                     return <UserMiniInfo key={index} login={el.login}
-                                         rating={el.rating} avatar={path} />
+                                email={el.email} rating={el.rating} avatar={path} />
                 })}
             </div>
         )

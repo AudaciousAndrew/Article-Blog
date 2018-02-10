@@ -18,24 +18,19 @@ export default class Anime extends Component{
   }
 
   loadFromServer(){
-      axios.post(apiPath + '/article/name', {
-
-              name: 'loool'
-
-      })
-          .then((response) => {
-              console.log(response.data);
-              this.setState({text: response.data.articleDesc});
-              //  resolve();
+      return new Promise((resolve, reject) => {
+          axios({
+              method:'post',
+              url: apiPath+'/article/type/anime',
           })
-          .catch((error) => {
-              console.log(error);
+              .then((response) => {
+                  console.log(response.data);
+                  resolve();
+              }).catch(error => {
+              console.log(error.message);
           });
+      });
   }
-
-    createMarkup() {
-        return {__html: 'First &middot; Second'};
-    }
 
     render(){
     return(

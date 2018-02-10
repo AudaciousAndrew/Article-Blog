@@ -28,7 +28,6 @@ public class ArticleController {
         return service.readByName(name.getName());
     }
 
-
     @POST
     @Path("/type/{type}/{offset}")
     @Produces(MediaType.APPLICATION_JSON)

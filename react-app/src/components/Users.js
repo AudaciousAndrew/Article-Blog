@@ -43,8 +43,7 @@ class Users extends Component {
             console.log(login);
         axios.get(apiPath + '/user/' + login)
             .then((response) => {
-                if(response.data === 'No such user')alert("no such user");
-                else this.setState({founded: response.data});
+                this.setState({founded: response.data});
                 //  resolve();
             })
             .catch((error) => {
@@ -61,14 +60,14 @@ class Users extends Component {
 
     render(){
         var userslist;
-        if(this.state.founded !== null){
+        if(this.state.founded !== null && this.state.founded !==''){
                 let path, el = this.state.founded;
                 if(typeof el.avatarpath !== 'undefined')
                     path="http://localhost:8080/"+el.login;
                 else path=defaultAvatar;
                 userslist = <UserMiniInfo login={el.login}
                                      email={el.email} rating={el.rating} avatar={path} />
-        } else
+        } else if(this.state.founded !== '')
         userslist = this.state.users.map((el, index) => {
             let path;
             if(typeof el.avatarpath !== 'undefined')

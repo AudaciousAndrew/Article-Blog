@@ -11,10 +11,13 @@ class MyAccount extends Component{
     this.state = {
       user: {
         //login: ''
-      }
+      },
+      amount: null
     };
     this.loadFromServer = this.loadFromServer.bind(this);
     this.getInfo = this.getInfo.bind(this);
+    this.getAmount = this.getAmount.bind(this);
+    this.getAmount();
     this.loadFromServer();
   }
 
@@ -29,6 +32,17 @@ class MyAccount extends Component{
         console.log(error);
       });
   }
+
+    getAmount() {
+        axios.get(apiPath + '/author/'+this.props.login)
+            .then((response) => {
+                console.log(response.data);
+                //  resolve();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
   
   getInfo(){
     this.login = <p>Никнейм: {this.state.user.login}</p>;

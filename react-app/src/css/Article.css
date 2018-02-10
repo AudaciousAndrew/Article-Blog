@@ -77,6 +77,13 @@
     font-weight: bold;
 }
 
+.pager .ui-button {
+    display: none;
+}
+.pager .ui-inputtext {
+    width: 3em;
+}
+
 .pagination {
     display: block;
     height: 3em;

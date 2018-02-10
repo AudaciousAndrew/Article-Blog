@@ -95,7 +95,7 @@ public class UserController {
 
     }
 
-    @POST
+    @GET
     @Path("/author/{login}")
     @Produces(MediaType.TEXT_PLAIN)
     public Number countByAuthor(@PathParam("login") String login){

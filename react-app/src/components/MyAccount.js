@@ -13,8 +13,6 @@ class MyAccount extends Component{
     super(props);
   }
 
-<<<<<<< Updated upstream
-=======
   //
   // loadFromServer() {
   //   return new Promise((resolve, reject) => {
@@ -34,7 +32,6 @@ class MyAccount extends Component{
   //   });
   // }
 
->>>>>>> Stashed changes
   render(){
     return(
       <div>

@@ -13,17 +13,15 @@ import Games from './components/articles/Games';
 import Movies from './components/articles/Movies';
 import TVSeries from './components/articles/TVSeries';
 import Anime from './components/articles/Anime';
-<<<<<<< Updated upstream
 import Users from './components/Users';
 import AddArticle from './components/AddArticle';
 import UserAccount from './components/UserAccount'
 import Article from './components/articles/Article';
 import reducer from './reducers';
-=======
-import { BrowserRouter, Route, browserHistory } from 'react-router-dom';
->>>>>>> Stashed changes
+import Author from './components/articles/Author';
 
-import { BrowserRouter, Route, browserHistory } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -44,6 +42,7 @@ ReactDOM.render(
         <Route path="/users" component={Users} />
         <Route path="/add" component={AddArticle} />
         <Route path="/user/:id" component={UserAccount}/>
+        <Route path="/author/:id" component={Author} />
         <Route path="/article/:id" component={Article}/>
       </div>
     </BrowserRouter>

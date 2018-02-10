@@ -35,7 +35,7 @@ public class ArticleDAO {
 
     public Number countByAuthor(String author){
         Query query = em.createQuery(
-                "select count(p.articleName) from ArticleEntity p where  p.author = '"+author+"'");
+                "select count(p.articleName) from ArticleEntity p where  p.author = '"+author+"' and p.verified = true" );
         Number articlesNumber = (Number) query.getSingleResult();
         return articlesNumber;
     }
@@ -47,6 +47,13 @@ public class ArticleDAO {
                 ,ArticleEntity.class).setMaxResults(10).setFirstResult((offset-1)*10);
         List<ArticleEntity> articles = query.getResultList();
         return articles;
+    }
+
+    public Number countByType(String type){
+         Query query = em.createQuery(
+                "select count(p.articleName) from ArticleEntity p where p.articleType ='" +type+"' and p.verified = true" );
+         Number count = (Number) query.getSingleResult();
+        return count;
     }
 
 

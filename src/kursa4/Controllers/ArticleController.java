@@ -37,6 +37,13 @@ public class ArticleController {
     }
 
     @POST
+    @Path("/number/{type}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Number articlesCount(@PathParam("type") String type){
+        return service.countByType(type);
+    }
+
+    @POST
     @Path("/{login}/all/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArticleEntity> articleByUser(@PathParam("login") String login){

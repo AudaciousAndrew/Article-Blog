@@ -99,6 +99,7 @@ public class UserController {
     @Path("/author/{login}")
     @Produces(MediaType.TEXT_PLAIN)
     public Number countByAuthor(@PathParam("login") String login){
+
         return articleService.countByAuthor(login);
     }
 

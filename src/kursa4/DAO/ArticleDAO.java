@@ -68,10 +68,22 @@ public class ArticleDAO {
     public ArticleEntity readByName(String name){
         try {
             TypedQuery<ArticleEntity> query = em.createQuery(
-                    "SELECT p from ArticleEntity p where p.articleName like '%" + name + "%' and p.verified = true"
+                    "SELECT p from ArticleEntity p where p.articleName = '" + name + "' and p.verified = true"
                     , ArticleEntity.class);
             ArticleEntity article = query.getSingleResult();
             return article;
+        }catch (NoResultException e){
+            return null;
+        }
+    }
+
+    public List<ArticleEntity> searchByName(String name){
+        try {
+            TypedQuery<ArticleEntity> query = em.createQuery(
+                    "SELECT p from ArticleEntity p where p.articleName like '%" + name + "%' and p.verified = true"
+                    , ArticleEntity.class);
+            List<ArticleEntity> articles = query.getResultList();
+            return articles;
         }catch (NoResultException e){
             return null;
         }

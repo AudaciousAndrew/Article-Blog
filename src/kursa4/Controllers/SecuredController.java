@@ -153,6 +153,27 @@ public class SecuredController {
     }
 
     @POST
+    @Path("/vote/check/{login}")
+    @RolesAllowed("USER")
+    @Produces(MediaType.APPLICATION_JSON)
+    public voteResponse checkVote(@PathParam("login") String login , articleName name){
+        voteResponse voteResponse;
+       UserArticleEntity userArticleEntity = voteService.readByAuthorAndName(login , name);
+       if (userArticleEntity == null){
+           voteResponse = new voteResponse("null" , "no such article");
+           return  voteResponse;
+       }
+       if (userArticleEntity.isVote() == true ){
+           voteResponse = new voteResponse("true" , "null");
+           return voteResponse;
+       }
+       else {
+           voteResponse = new voteResponse( "false" , "null");
+           return voteResponse;
+       }
+    }
+
+    @POST
     @Path("/vote/{type}/{login}")
     @RolesAllowed({"USER" , "MODERATOR" , "ADMIN"})
     @Produces(MediaType.APPLICATION_JSON)

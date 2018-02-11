@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../css/UserInfo.css';
+import { Link } from 'react-router-dom';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
@@ -34,9 +35,9 @@ class MyAccount extends Component{
   }
 
     getAmount() {
-        axios.get(apiPath + '/author/'+this.props.login)
+        axios.get(apiPath + '/user/author/'+this.props.login)
             .then((response) => {
-                console.log(response.data);
+                this.setState({amount: response.data});
                 //  resolve();
             })
             .catch((error) => {
@@ -51,6 +52,8 @@ class MyAccount extends Component{
     this.rating = <p>Рейтинг: {this.state.user.rating}</p>;
     this.jabber = <p>Jabber: {this.state.user.jabber}</p>
     this.desc = <p>{this.state.user.description}</p>;
+    if(this.state.amout === 0)this.amount = <p>Статьи: 0</p>;
+    else this.amount = <p>Статьи: <Link to={'/author/' + this.state.user.login}>{this.state.amount}</Link></p>
     console.log(`${this.state.user.avatarpath}`);
     const path = "http://localhost:8080/kursa4_war_exploded/rest/user/load/"+this.state.user.login;
     console.log(typeof this.state.user.avatarpath === 'undefined');
@@ -74,6 +77,7 @@ class MyAccount extends Component{
                 {this.email}
                 {this.jabber}
                 {this.rating}
+                {this.amount}
             </div>
           </div>
           <div className="moreInfo">

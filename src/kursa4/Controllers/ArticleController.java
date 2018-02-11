@@ -53,7 +53,7 @@ public class ArticleController {
         return service.countByType(type);
     }
 
-    @POST
+    @GET
     @Path("/{login}/all/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArticleEntity> articleByUser(@PathParam("login") String login){

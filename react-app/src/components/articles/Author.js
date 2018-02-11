@@ -27,12 +27,12 @@ export default class Anime extends Component{
     loadFromServer(){
         return new Promise((resolve, reject) => {
             axios({
-                method:'post',
-                url: apiPath+'/article/type/anime/' + this.state.pageNumber,
+                method:'get',
+                url: apiPath+'/article/' + this.props.match.params.id +'/all',
             })
                 .then((response) => {
                     console.log(response.data);
-                    this.setState({articles: response.data});
+                    //this.setState({articles: response.data});
                     resolve();
                 }).catch(error => {
                 console.log(error.message);

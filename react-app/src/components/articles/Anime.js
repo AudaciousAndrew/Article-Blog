@@ -125,7 +125,7 @@ export default class Anime extends Component{
                 <div className="pagination">
                     <div className="pager">
                       <button onClick={this.decPage.bind(this)}>&#8592;Сюда</button>
-                        <label> Страница {this.state.pageNumber} из {this.state.totalPages}</label>
+                        <label> Страница {this.state.pageNumber} из {this.state.totalPages} </label>
                       <button onClick={this.incPage.bind(this)}>Туда&#8594;</button>
                     </div>
                 </div>

@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+
 
 module.exports = {
   entry: './src/index.js',
@@ -20,7 +22,14 @@ module.exports = {
             {
               test: /(\.scss|\.css)$/,
               loader: 'style-loader!css-loader!sass-loader'
-            }
+            },
+            { test: /\.(png|woff|woff2|eot|ttf|svg|gif)$/, loader: 'url-loader?limit=100000' }
+
         ]
-    }
+    },
+    plugins: [
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
+    ]
 };

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Menu from '../Menu';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {cookieFunctions} from '../../cookieFunctions';
 import {SelectButton} from 'primereact/components/selectbutton/SelectButton';
 
 
@@ -23,6 +24,7 @@ export default class Article extends Component{
             }
         };
         this.loadFromServer = this.loadFromServer.bind(this);
+        this.loadVote = this.loadVote.bind(this)
         this.loadFromServer();
     }
 
@@ -45,8 +47,36 @@ export default class Article extends Component{
       //  });
     }
 
-    vote(){
-        
+    loadVote(){
+        return new Promise((resolve, reject) => {
+
+            var instance = axios.create({
+                baseURL: apiPath
+            });
+            instance.defaults.headers.common['Authorization'] = 'Basic ' + cookieFunctions.getCookie('userToken');
+            instance.post('/secured/vote/'+this.state.vote+ '/' + cookieFunctions.getCookie('user'),
+                {
+                    name: this.state.article.articleName
+                }
+            )
+                .then((response) => {
+                    this.setState({checkResponse: response.data});
+                    console.log(response.data);
+                    resolve();
+
+                }).catch(error => {
+                console.log(error.message);
+            });
+        });
+
+
+    }
+
+    vote(e){
+        console.log(e.value);
+        this.setState({vote: e.value}, ()=>{
+            this.loadVote();
+        })
     }
 
     render(){

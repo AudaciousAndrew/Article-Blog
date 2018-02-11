@@ -74,33 +74,6 @@ public class ArticleController {
         return service.topTen();
     }
 
-    @POST
-    @Path("/vote/{type}/{login}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public voteResponse articlePlusVote(@PathParam("type") String type , @PathParam("login") String login , articleName name){
-        voteResponse voteResponse;
-        if(!voteService.ExistsByAuthorAndName(login,name)) {
-            ArticleEntity articleEntity = service.readByName(name.getName());
-            if(type.equals("plus")) {
-                articleEntity.setRating(articleEntity.getRating() + 1);
-            } else
-                if(type.equals("minus")){
-                    articleEntity.setRating(articleEntity.getRating() - 1);
-                } else {
-                    voteResponse = new voteResponse("false" , "wrong url");
-                    return voteResponse;
-                }
-            UserArticleEntity userArticleEntity = new UserArticleEntity(login, name.getName());
-            voteService.create(userArticleEntity);
-            voteResponse = new voteResponse("true" , "null");
-            return voteResponse;
-        } else {
-            voteResponse = new voteResponse("false" , "alrdy voted");
-            return voteResponse;
-        }
-
-    }
-
 
 //    @POST
 //    @Path("/vote/minus/{login}")

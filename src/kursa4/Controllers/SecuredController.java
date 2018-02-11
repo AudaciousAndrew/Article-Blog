@@ -2,14 +2,17 @@ package kursa4.Controllers;
 
 import com.sun.jersey.core.util.Base64;
 import kursa4.DAO.ArticleDAO;
+import kursa4.DAO.UserArticleDAO;
 import kursa4.DAO.UserRolesDAO;
 import kursa4.DAO.UsersDAO;
 import kursa4.Entities.ArticleEntity;
+import kursa4.Entities.UserArticleEntity;
 import kursa4.Entities.UserRolesEntity;
 import kursa4.Entities.UsersEntity;
 import kursa4.Jabber.Jabber;
 import kursa4.response_models.Credentials;
 import kursa4.response_models.articleName;
+import kursa4.response_models.voteResponse;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
@@ -38,6 +41,9 @@ public class SecuredController {
 
     @EJB
     private UserRolesDAO rolesService;
+
+    @EJB
+    private UserArticleDAO voteService;
 
 
     @POST
@@ -144,6 +150,34 @@ public class SecuredController {
         int i =  articleService.deleteByName(name.getName());
         if (i == 1)return "deleter";
         else return "No such article";
+    }
+
+    @POST
+    @Path("/vote/{type}/{login}")
+    @RolesAllowed({"USER" , "MODERATOR" , "ADMIN"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public voteResponse articlePlusVote(@PathParam("type") String type , @PathParam("login") String login , articleName name){
+        voteResponse voteResponse;
+        if(!voteService.ExistsByAuthorAndName(login,name)) {
+            ArticleEntity articleEntity = articleService.readByName(name.getName());
+            if(type.equals("plus")) {
+                articleEntity.setRating(articleEntity.getRating() + 1);
+            } else
+            if(type.equals("minus")){
+                articleEntity.setRating(articleEntity.getRating() - 1);
+            } else {
+                voteResponse = new voteResponse("false" , "wrong url");
+                return voteResponse;
+            }
+            UserArticleEntity userArticleEntity = new UserArticleEntity(login, name.getName());
+            voteService.create(userArticleEntity);
+            voteResponse = new voteResponse("true" , "null");
+            return voteResponse;
+        } else {
+            voteResponse = new voteResponse("false" , "alrdy voted");
+            return voteResponse;
+        }
+
     }
 
     @POST

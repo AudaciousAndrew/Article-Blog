@@ -17,13 +17,22 @@
   margin-left: 8%;
 
 }
-.search input, .userSearch input {
+
+.articleSearch{
+  width: 50%;
+  position: absolute;
+  float: left;
+  margin-top: 1em;
+  margin-left: 8%;
+
+}
+.search input, .userSearch input, .articleSearch input {
   /* отключаем бордюры у инпутов */
   border: none;
 }
 
 /* стили для поля ввода */
-.search .input, .userSearch .input {
+.search .input, .userSearch .input, .articleSearch .input {
   /* растягиваем поле ввода на всю ширину формы */
   width: 100%;
 
@@ -50,14 +59,14 @@
 }
 
 /* меняем оформление поля ввода при фокусе */
-.search .input:focus, .userSearch .input:focus {
+.search .input:focus, .userSearch .input:focus, .articleSearch .input:focus {
   box-shadow: inset 0 0 5px rgba(0,0,0,0.2), inset 0 1px 2px rgba(0,0,0,0.4);
   background: #E8E8E8;
   color: #333;
 }
 
 /* оформляем кнопку отправки */
-.search .submit, .userSearch .submit {
+.search .submit, .userSearch .submit, .articleSearch .submit {
   /* позиционируем кнопку абсолютно от правого края формы */
   position: absolute;
   top: 0;
@@ -74,12 +83,12 @@
   opacity: 0.5;
 }
 
-.search .submit:focus, .userSearch .submit:focus {
+.search .submit:focus, .userSearch .submit:focus, .articleSearch .submit:focus {
   outline: none;
 }
 
 /* при наведении курсора меняем прозрачность кнопки отправки */
-.search .submit:hover, .userSearch .submit:hover{
+.search .submit:hover, .userSearch .submit:hover, .articleSearch .submit:hover {
   opacity: 0.8;
 }
 

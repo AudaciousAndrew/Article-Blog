@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Main</title>
+</head>
+<body>
+
+<form method="get" action="/kursa4_war_exploded/rest/user/top/100">
+    <h3>top 100</h3>
+    <button type="submit">get</button>
+</form>
+<form method="get" action="/kursa4_war_exploded/rest/secured/test">
+    <h3>Permission Form</h3><br>
+    <button type="submit" value="Login">Permissions check</button>
+</form>
+
+<form method="post" action="/kursa4_war_exploded/rest/article/type/anime">
+    <h3>type article Form</h3><br>
+    <button type="submit" value="Login">type uri check</button>
+</form>
+
+<form method="post" action="/kursa4_war_exploded/rest/article/update">
+    <h3>Check update verified</h3>
+    <input type="text" name="name" placeholder="name..">
+    <BUTTON type="submit">update</BUTTON>
+</form>
+
+<form method="post" action="/kursa4_war_exploded/rest/user/load/test123" enctype="multipart/form-data">
+    <h3>Load img on server</h3>
+    <input type="file" size="45" name="file">
+    <input type="submit" value="upload" >
+</form>
+
+<script type="text/javascript" src="resources/js/test.js"></script>
+</body>
+</html>

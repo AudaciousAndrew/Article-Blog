@@ -27,23 +27,23 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter >
       <div>
-        <Route exact path="/" component={App} />
-        <Route path="/signup" component={RegistrationForm} />
-        <Route path="/signin" component={LoginForm} />
-        <Route path="/regsuccess" component={RegistrationSuccessful} />
-        <Route path="/myAccount" component={MyAccount} />
-        <Route path="/settings" component={UserSettings} />
-        <Route path="/games" component={Games} />
-        <Route path="/movies" component={Movies} />
-        <Route path="/tvshows" component={TVSeries} />
-        <Route path="/anime" component={Anime} />
-        <Route path="/users" component={Users} />
-        <Route path="/add" component={AddArticle} />
-        <Route path="/user/:id" component={UserAccount}/>
-        <Route path="/author/:id" component={Author} />
-        <Route path="/article/:id" component={Article}/>
+          <Route exact path="/" component={App} />
+          <Route exact path="/signup" component={RegistrationForm} />
+          <Route exact path="/signin" component={LoginForm} />
+          <Route exact path="/regsuccess" component={RegistrationSuccessful} />
+          <Route exact path="/myAccount" component={MyAccount} />
+          <Route exact path="/settings" component={UserSettings} />
+          <Route exact path="/games" component={Games} />
+          <Route exact path="/movies" component={Movies} />
+          <Route exact path="/tvshows" component={TVSeries} />
+          <Route exact path="/anime" component={Anime} />
+          <Route exact path="/users" component={Users} />
+          <Route exact path="/add" component={AddArticle} />
+          <Route exact path="/user/:id" component={UserAccount}/>
+          <Route exact path="/author/:id" component={Author} />
+          <Route exact path="/article/:id" component={Article}/>
       </div>
     </BrowserRouter>
     </Provider>,

@@ -14,6 +14,7 @@ class App extends Component{
         <Menu />
         home page
         <img src={require('./resources/user.png')} height={'200px'} />
+
       </div>
     )
   }

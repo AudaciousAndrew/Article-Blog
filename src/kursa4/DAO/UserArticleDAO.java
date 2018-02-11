@@ -44,6 +44,15 @@ public class UserArticleDAO {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void updateVote(String login , articleName name , boolean vote){
+        Query query = em.createQuery(
+                "update UserArticleEntity p set p.vote = "+vote+" where p.login ='"+login+"' and p.article_name ='"+name.getName()+"'"
+        );
+        query.executeUpdate();
+
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public UserArticleEntity create(UserArticleEntity article){
         em.persist(article);
         return article;

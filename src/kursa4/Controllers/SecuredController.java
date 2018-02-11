@@ -154,7 +154,7 @@ public class SecuredController {
 
     @POST
     @Path("/vote/check/{login}")
-    @RolesAllowed("USER")
+    @RolesAllowed({"USER" , "MODERATOR" , "ADMIN"})
     @Produces(MediaType.APPLICATION_JSON)
     public voteResponse checkVote(@PathParam("login") String login , articleName name){
         voteResponse voteResponse;
@@ -204,13 +204,15 @@ public class SecuredController {
             voteService.create(userArticleEntity);
             voteResponse = new voteResponse("true" , "null");
             return voteResponse;
-        }  //if voted check on difference
+        }
+        //if voted check on difference
         if(voteService.readByAuthorAndName(login,name).isVote() && type.equals("minus")){
                 articleEntity.setRating(articleEntity.getRating() - 1);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
                 voteResponse = new voteResponse("true" , "null");
                 return voteResponse;
-        } if( !voteService.readByAuthorAndName(login,name).isVote() && type.equals("plus")){
+        }
+        if( !voteService.readByAuthorAndName(login,name).isVote() && type.equals("plus")){
             articleEntity.setRating(articleEntity.getRating() + 1);
             articleService.updateRating(name.getName() , articleEntity.getRating());
             voteResponse = new voteResponse("true" , "null");
@@ -218,7 +220,6 @@ public class SecuredController {
         }
             voteResponse = new voteResponse("false" , "alrdy voted same");
             return voteResponse;
-
 
     }
 

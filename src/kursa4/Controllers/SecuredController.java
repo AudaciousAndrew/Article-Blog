@@ -163,7 +163,7 @@ public class SecuredController {
            voteResponse = new voteResponse("null" , "no such article");
            return  voteResponse;
        }
-       if (userArticleEntity.isVote() == true ){
+       if (userArticleEntity.isVote()){
            voteResponse = new voteResponse("true" , "null");
            return voteResponse;
        }
@@ -204,21 +204,21 @@ public class SecuredController {
             voteService.create(userArticleEntity);
             voteResponse = new voteResponse("true" , "null");
             return voteResponse;
-        } else  //if voted check on difference
-            if(voteService.readByAuthorAndName(login,name).isVote() == true && type.equals("minus")){
+        }  //if voted check on difference
+        if(voteService.readByAuthorAndName(login,name).isVote() && type.equals("minus")){
                 articleEntity.setRating(articleEntity.getRating() - 1);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
                 voteResponse = new voteResponse("true" , "null");
                 return voteResponse;
-        } if( voteService.readByAuthorAndName(login,name).isVote() == false && type.equals("plus")){
+        } if( !voteService.readByAuthorAndName(login,name).isVote() && type.equals("plus")){
             articleEntity.setRating(articleEntity.getRating() + 1);
             articleService.updateRating(name.getName() , articleEntity.getRating());
             voteResponse = new voteResponse("true" , "null");
             return voteResponse;
-        } else {
+        }
             voteResponse = new voteResponse("false" , "alrdy voted same");
             return voteResponse;
-        }
+
 
     }
 

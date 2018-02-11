@@ -16,11 +16,10 @@ export default class Anime extends Component{
             articles: [],
             text: '',
             pageNumber: 1,
-            totalPages: 1
-        };
+            totalPages: 1,
+            founded: []
+        }
         this.loadFromServer = this.loadFromServer.bind(this);
-        this.getPages = this.getPages.bind(this);
-        this.getPages();
         this.loadFromServer();
     }
 
@@ -32,7 +31,7 @@ export default class Anime extends Component{
             })
                 .then((response) => {
                     console.log(response.data);
-                    //this.setState({articles: response.data});
+                    this.setState({articles: response.data});
                     resolve();
                 }).catch(error => {
                 console.log(error.message);
@@ -40,36 +39,6 @@ export default class Anime extends Component{
         });
     }
 
-    getPages(){
-        return new Promise((resolve, reject) => {
-            axios({
-                method:'post',
-                url: apiPath+'/article/number/anime/',
-            })
-                .then((response) => {
-                    console.log(response.data);
-                    let pages = Math.floor(response.data / 10);
-                    if(response.data % 10 !== 0) ++pages;
-                    this.setState({totalPages: pages});
-                    resolve();
-                }).catch(error => {
-                console.log(error.message);
-            });
-        });
-    }
-
-    decPage(){
-        if(this.state.pageNumber > 1)this.setState({pageNumber: this.state.pageNumber - 1},() => {
-            this.loadFromServer();
-        });
-    }
-
-    incPage(){
-        if(this.state.pageNumber < this.state.totalPages)
-            this.setState({pageNumber: this.state.pageNumber + 1},() => {
-                this.loadFromServer();
-            });
-    }
 
     onChange(event){
         let c=event.target.value;
@@ -85,13 +54,15 @@ export default class Anime extends Component{
         return new Promise((resolve, reject) => {
             axios({
                 method:'post',
-                url: apiPath+'/article/name',
+                url: apiPath+'/article/search/name',
                 data: {
-                    name: 'В'
+                    name: val
                 }
             })
                 .then((response) => {
                     console.log(response.data);
+                    let pgs = Math.floor(response.data.length / 10);
+                    if(response.data.length % 10 !== 0) ++pgs;
                     this.setState({founded: response.data});
                     resolve();
                 }).catch(error => {
@@ -107,7 +78,22 @@ export default class Anime extends Component{
         }
     }
 
+
+    checkSearch(){
+        let val = document.getElementById('search').value;
+        if(val.length === 0){
+            this.setState({founded: null});
+        }
+    }
+
     render(){
+        let list = [];
+        if(this.state.totalPages !== 0){
+            list = this.state.articles;
+        }
+        if(this.state.founded !== null && this.state.founded.length !== 0){
+            list=this.state.founded;
+        }
         return(
             <div>
                 <Menu />
@@ -120,14 +106,7 @@ export default class Anime extends Component{
                 </div>
 
                 <div>
-                    <ArticlesList articles={this.state.articles} />
-                    <div className="pagination">
-                        <div className="pager">
-                            <button onClick={this.decPage.bind(this)}>&#8592;Сюда</button>
-                            <label> Страница {this.state.pageNumber} из {this.state.totalPages}</label>
-                            <button onClick={this.incPage.bind(this)}>Туда&#8594;</button>
-                        </div>
-                    </div>
+                    <ArticlesList articles={list} />
                 </div>
             </div>
         )

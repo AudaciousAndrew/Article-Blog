@@ -3,7 +3,7 @@ import Menu from '../Menu';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {cookieFunctions} from '../../cookieFunctions';
-import {SelectButton} from 'primereact/components/selectbutton/SelectButton';
+import {RadioButton} from 'primereact/components/radiobutton/RadioButton';
 
 
 const vote = [
@@ -24,7 +24,9 @@ export default class Article extends Component{
             }
         };
         this.loadFromServer = this.loadFromServer.bind(this);
-        this.loadVote = this.loadVote.bind(this)
+        this.checkVote = this.checkVote.bind(this);
+        this.loadVote = this.loadVote.bind(this);
+        this.checkVote();
         this.loadFromServer();
     }
 
@@ -47,8 +49,32 @@ export default class Article extends Component{
       //  });
     }
 
+    checkVote(){
+
+        var instance = axios.create({
+            baseURL: apiPath
+        });
+        instance.defaults.headers.common['Authorization'] = 'Basic ' + cookieFunctions.getCookie('userToken');
+        instance.post('/secured/vote/check/' + cookieFunctions.getCookie('user'),
+            {
+                name: this.props.match.params.id
+            }
+        )
+            .then((response) => {
+                console.log(response.data);
+                if(response.data.vote === "true")
+                this.setState({vote: "plus"}); else
+                if(response.data.vote === "false")
+                this.setState({vote: "minus"}); else
+                this.setState({vote: ""});
+
+            }).catch(error => {
+            console.log(error.message);
+        });
+
+    }
+
     loadVote(){
-        return new Promise((resolve, reject) => {
 
             var instance = axios.create({
                 baseURL: apiPath
@@ -62,19 +88,21 @@ export default class Article extends Component{
                 .then((response) => {
                     this.setState({checkResponse: response.data});
                     console.log(response.data);
-                    resolve();
 
                 }).catch(error => {
                 console.log(error.message);
             });
-        });
-
 
     }
 
-    vote(e){
-        console.log(e.value);
-        this.setState({vote: e.value}, ()=>{
+    vote1(){
+        this.setState({vote: "plus"}, () => {
+            this.loadVote();
+        })
+    }
+
+    vote2(){
+        this.setState({vote: "minus"}, () => {
             this.loadVote();
         })
     }
@@ -102,7 +130,12 @@ export default class Article extends Component{
                     </div>
                     <div className="vote">
                         <label>Вам понравилась эта статья? </label>
-                        <SelectButton value={this.state.vote} options={vote} onChange={this.vote.bind(this)}/>
+                        <input type="radio" id="rb1" checked={this.state.vote === "plus"}
+                               onChange={this.vote1.bind(this)}/>
+                        <label htmlFor="rb1">Да</label>
+                        <input type="radio" id="rb2" checked={this.state.vote === "minus"}
+                               onChange={this.vote2.bind(this)}/>
+                        <label htmlFor="rb1">Нет</label>
                     </div>
                 </div>
             </div>

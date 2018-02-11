@@ -21,8 +21,8 @@ export default class AccountDropdown extends Component {
   }
 
   signOut(){
-    cookieFunctions.setCookie('user', '', 0);
-    cookieFunctions.setCookie('userToken', '', 0);
+    cookieFunctions.setCookie('user', '', 1);
+    cookieFunctions.setCookie('userToken', '', 1);
     this.props.history.push("/");
   }
 

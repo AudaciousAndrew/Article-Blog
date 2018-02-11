@@ -2,6 +2,7 @@ package kursa4.DAO;
 
 import kursa4.Entities.ArticleEntity;
 import kursa4.Entities.UserArticleEntity;
+import kursa4.Entities.UserRolesEntity;
 import kursa4.response_models.articleName;
 
 import javax.ejb.Stateless;
@@ -19,15 +20,26 @@ public class UserArticleDAO {
     public boolean ExistsByAuthorAndName(String login , articleName name){
         try{
 
-        TypedQuery<ArticleEntity> query = em.createQuery(
+        TypedQuery<UserArticleEntity> query = em.createQuery(
                 "select p from UserArticleEntity p where " +
                         "p.login ='"+login+"' and p.article_name='"+name.getName()+"'"
-                , ArticleEntity.class);
-        ArticleEntity article = query.getSingleResult();
+                , UserArticleEntity.class);
+        UserArticleEntity article = query.getSingleResult();
         if(article == null) return false;
         else return true;
         }catch (NoResultException e){
             return false;
+        }
+    }
+
+    public UserArticleEntity readByAuthorAndName(String login , articleName name){
+        try{
+            TypedQuery<UserArticleEntity> query = em.createQuery(
+                    "select p from UserArticleEntity p where p.login = '"+login+"' and p.article_name='"+name.getName()+"'"
+                    , UserArticleEntity.class);
+            return query.getSingleResult();
+        }catch (NoResultException e){
+            return null;
         }
     }
 

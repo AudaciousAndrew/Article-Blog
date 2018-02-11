@@ -75,23 +75,4 @@ public class ArticleController {
     }
 
 
-//    @POST
-//    @Path("/vote/minus/{login}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public voteResponse articleMinusVote(@PathParam("login") String login , articleName name){
-//        voteResponse voteResponse;
-//        if(!voteService.ExistsByAuthorAndName(login,name)) {
-//            ArticleEntity articleEntity = service.readByName(name.getName());
-//            articleEntity.setRating(articleEntity.getRating() - 1);
-//            UserArticleEntity userArticleEntity = new UserArticleEntity(login, name.getName());
-//            voteService.create(userArticleEntity);
-//            voteResponse = new voteResponse("true" , "null");
-//            return voteResponse;
-//        } else {
-//            voteResponse = new voteResponse("false" , "alrdy voted");
-//            return voteResponse;
-//        }
-//
-//    }
-
 }

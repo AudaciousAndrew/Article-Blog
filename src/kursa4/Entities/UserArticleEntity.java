@@ -20,12 +20,25 @@ public class UserArticleEntity implements Serializable {
     @Column(name = "article_name")
     private String article_name;
 
+    @Basic
+    @Column(name = "vote" , nullable = false)
+    private boolean vote;
+
     public UserArticleEntity() {
     }
 
-    public UserArticleEntity(String login, String article_name) {
+    public UserArticleEntity(String login, String article_name, boolean vote) {
         this.login = login;
         this.article_name = article_name;
+        this.vote = vote;
+    }
+
+    public boolean isVote() {
+        return vote;
+    }
+
+    public void setVote(boolean vote) {
+        this.vote = vote;
     }
 
     public int getUser_article_id() {

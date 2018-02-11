@@ -33,8 +33,12 @@ public class UserRolesEntity implements Serializable {
         this.role = role;
     }
 
+
+
     public UserRolesEntity() {
     }
+
+
 
     public int getUser_role_id() {
         return user_role_id;
@@ -58,26 +62,6 @@ public class UserRolesEntity implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserRolesEntity that = (UserRolesEntity) o;
-
-        if (user_role_id != that.user_role_id) return false;
-        if (userByLogin != null ? !userByLogin.equals(that.userByLogin) : that.userByLogin != null) return false;
-        return role != null ? role.equals(that.role) : that.role == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = user_role_id;
-        result = 31 * result + (userByLogin != null ? userByLogin.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        return result;
     }
 
     @Override

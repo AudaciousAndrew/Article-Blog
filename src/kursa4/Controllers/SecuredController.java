@@ -158,23 +158,44 @@ public class SecuredController {
     @Produces(MediaType.APPLICATION_JSON)
     public voteResponse articlePlusVote(@PathParam("type") String type , @PathParam("login") String login , articleName name){
         voteResponse voteResponse;
+        boolean vote;
+        ArticleEntity articleEntity = articleService.readByName(name.getName());
+        if(articleEntity == null){
+            voteResponse = new voteResponse("false" , "No such article");
+            return voteResponse;
+        }
+        //check if not  voted
         if(!voteService.ExistsByAuthorAndName(login,name)) {
-            ArticleEntity articleEntity = articleService.readByName(name.getName());
             if(type.equals("plus")) {
+                vote = true;
                 articleEntity.setRating(articleEntity.getRating() + 1);
+                articleService.updateRating(name.getName() , articleEntity.getRating());
             } else
             if(type.equals("minus")){
+                vote = false;
                 articleEntity.setRating(articleEntity.getRating() - 1);
+                articleService.updateRating(name.getName() , articleEntity.getRating());
             } else {
                 voteResponse = new voteResponse("false" , "wrong url");
                 return voteResponse;
             }
-            UserArticleEntity userArticleEntity = new UserArticleEntity(login, name.getName());
+            UserArticleEntity userArticleEntity = new UserArticleEntity(login, name.getName() ,vote);
             voteService.create(userArticleEntity);
             voteResponse = new voteResponse("true" , "null");
             return voteResponse;
+        } else  //if voted check on difference
+            if(voteService.readByAuthorAndName(login,name).isVote() == true && type.equals("minus")){
+                articleEntity.setRating(articleEntity.getRating() - 1);
+                articleService.updateRating(name.getName() , articleEntity.getRating());
+                voteResponse = new voteResponse("true" , "null");
+                return voteResponse;
+        } if( voteService.readByAuthorAndName(login,name).isVote() == false && type.equals("plus")){
+            articleEntity.setRating(articleEntity.getRating() + 1);
+            articleService.updateRating(name.getName() , articleEntity.getRating());
+            voteResponse = new voteResponse("true" , "null");
+            return voteResponse;
         } else {
-            voteResponse = new voteResponse("false" , "alrdy voted");
+            voteResponse = new voteResponse("false" , "alrdy voted same");
             return voteResponse;
         }
 

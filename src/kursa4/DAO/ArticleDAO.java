@@ -120,6 +120,14 @@ public class ArticleDAO {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void updateRating(String name , int rating){
+        Query query = em.createQuery(
+                "update ArticleEntity p set p.rating ="+rating+" where p.articleName ='"+name+"'"
+        );
+        query.executeUpdate();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateVerified(String name){
         Query query = em.createQuery(
                 "update ArticleEntity p set p.verified = true where p.articleName = '"+name+"'");

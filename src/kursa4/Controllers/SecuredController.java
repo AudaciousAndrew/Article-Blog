@@ -61,6 +61,17 @@ public class SecuredController {
     }
 
     @POST
+    @Path("/user/delete/{login}")
+    @RolesAllowed("ADMIN")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteByLogin(@PathParam("login") String login){
+        UsersEntity user = usersService.readByLogin(login);
+        if(user == null) return "false";
+        usersService.delete(user.getUserId());
+        return "deleted";
+    }
+
+    @POST
     @Path("/article/all/{login}/unverified")
     @RolesAllowed({"USER" , "ADMIN" , "MODERATOR"})
     @Produces(MediaType.APPLICATION_JSON)

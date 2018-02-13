@@ -1,0 +1,45 @@
+.tops{
+    width: 20%;
+    margin-top: 3rem;
+    margin-left: 10%;
+    bottom: 0;
+}
+
+.top10{
+    border: 1px solid silver;
+    border-radius: 10%;
+    padding: 1rem 1rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.top10 h3{
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 16px;
+    box-shadow: #595959;
+}
+
+.tops a{
+    text-decoration: none;
+    color: #262626;
+    font-weight: bold;
+}
+
+.tops a:hover{
+    color: #595959;
+}
+
+.topEntry {
+    margin-bottom: 0.1rem;
+    margin-left: 7%;
+}
+
+.topEntry label{
+    font-weight: bold;
+}
+
+
+.topEntry a{
+    font-weight: bold;
+    margin-left: 1rem;
+}

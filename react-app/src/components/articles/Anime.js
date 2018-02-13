@@ -5,6 +5,7 @@ import ArticlesList from './ArticlesList';
 import '../../css/Article.css';
 import '../../css/Search.css'
 import {InputText} from 'primereact/components/inputtext/InputText';
+import Tops from '../Tops';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 var total;
@@ -142,9 +143,12 @@ export default class Anime extends Component{
                 </div>
             </div>
 
-            <div>
-                <ArticlesList articles={list} />
-                {pagination}
+            <div className="flex-container">
+                <div className="articlesList">
+                    <ArticlesList articles={list} />
+                    {pagination}
+                </div>
+                <Tops />
             </div>
           </div>
     )

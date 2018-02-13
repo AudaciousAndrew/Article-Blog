@@ -6,6 +6,7 @@ import axios from "axios/index";
 import UserMiniInfo from './UserMiniInfo';
 import UserSearch from './UserSearch';
 import '../css/Search.css';
+import Tops from './Tops';
 const defaultAvatar = require('../resources/user.png');
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
@@ -59,7 +60,7 @@ class Users extends Component {
     }
 
     render(){
-        var userslist;
+        var userslist = <div><h3>По вашему запросу ничего не найдено.</h3></div> ;
         if(this.state.founded !== null && this.state.founded !==''){
                 let path, el = this.state.founded;
                 if(typeof el.avatarpath !== 'undefined')
@@ -86,8 +87,11 @@ class Users extends Component {
                         <input type="submit" name="" value="" className="submit" onClick={this.search.bind(this)}/>
                     </div>
                 </div>
-                <div className="usersList">
-                    {userslist}
+                <div className="flex-container">
+                    <div className="usersList">
+                        {userslist}
+                    </div>
+                    <Tops />
                 </div>
             </div>
         )

@@ -12,6 +12,7 @@
 .usersList {
   margin-top: 5em;
   margin-left: 8%;
+  width: 50%;
 }
 
 .miniInfo{
@@ -20,10 +21,13 @@
   background: #fff;
   color: #404040;
   display: flex;
-  max-width: 500px;
+  width: 100%;
   margin-top: 2em;
   flex-direction: row;
   max-height: 200px;
+  border: 1px solid silver;
+  border-radius: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem;
 }
 .mainDiv{
   display: flex;

@@ -4,14 +4,20 @@
     background: #fff;
     color: #404040;
     display: flex;
-    max-width: 600px;
+    width: 50%;
     margin-top: 2em;
     flex-direction: column;
     margin-left: 8%;
 }
 
+.articleInfo img{
+    max-width: 600px;
+}
+
 .articlesList {
     margin-top: 5em;
+    margin-left: 8%;
+    width: 50%;
 }
 
 .articleName {
@@ -46,13 +52,11 @@
     background: #fff;
     color: #404040;
     display: flex;
-    max-width: 500px;
     margin-top: 1em;
     flex-direction: column;
     max-height: 200px;
     border: 1px solid silver;
     border-radius: 1rem;
-    margin-left: 8%;
 }
 
 .articleInfoMini *{
@@ -129,4 +133,26 @@
 
 .pagination button:focus{
     outline: none;
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: row;
+}
+.vote {
+    margin-top: 1em;
+}
+.vote .choice{
+    margin-top: 0.3rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.vote .choice .var{
+    margin-right: 1em;
+}
+
+.mes{
+    color: red;
+    margin-top: 1rem;
 }

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {cookieFunctions} from '../../cookieFunctions';
 import {RadioButton} from 'primereact/components/radiobutton/RadioButton';
-
+import Tops from '../Tops';
 
 const vote = [
     {label: 'Да', value: 'plus'},
@@ -21,7 +21,9 @@ export default class Article extends Component{
         this.state = {
             article: {
 
-            }
+            },
+            user: cookieFunctions.getCookie('user'),
+            message: ''
         };
         this.loadFromServer = this.loadFromServer.bind(this);
         this.checkVote = this.checkVote.bind(this);
@@ -50,12 +52,12 @@ export default class Article extends Component{
     }
 
     checkVote(){
-
+        if(this.state.user === '')return false;
         var instance = axios.create({
             baseURL: apiPath
         });
         instance.defaults.headers.common['Authorization'] = 'Basic ' + cookieFunctions.getCookie('userToken');
-        instance.post('/secured/vote/check/' + cookieFunctions.getCookie('user'),
+        instance.post('/secured/vote/check/' + this.state.user,
             {
                 name: this.props.match.params.id
             }
@@ -75,7 +77,12 @@ export default class Article extends Component{
     }
 
     loadVote(){
+            this.setState({message: ''});
 
+            if(this.state.user === ''){
+                this.setState({message: 'Голосовать могут только авторизованные пользователи'});
+                return false
+            }
             var instance = axios.create({
                 baseURL: apiPath
             });
@@ -111,6 +118,7 @@ export default class Article extends Component{
         return(
             <div>
                 <Menu />
+                <div className="flex-container">
                 <div className="articleInfo">
                     <div className="articleName">
                         {this.state.article.articleName}
@@ -130,13 +138,22 @@ export default class Article extends Component{
                     </div>
                     <div className="vote">
                         <label>Вам понравилась эта статья? </label>
-                        <input type="radio" id="rb1" checked={this.state.vote === "plus"}
-                               onChange={this.vote1.bind(this)}/>
-                        <label htmlFor="rb1">Да</label>
-                        <input type="radio" id="rb2" checked={this.state.vote === "minus"}
-                               onChange={this.vote2.bind(this)}/>
-                        <label htmlFor="rb1">Нет</label>
+                        <div className="choice">
+                            <div className="var">
+                                <RadioButton id="rb1" checked={this.state.vote === "plus"}
+                                       onChange={this.vote1.bind(this)}/>
+                                <label htmlFor="rb1">Да</label>
+                            </div>
+                            <div className="var">
+                                <RadioButton id="rb2" checked={this.state.vote === "minus"}
+                                       onChange={this.vote2.bind(this)}/>
+                                <label htmlFor="rb1">Нет</label>
+                            </div>
+                        </div>
+                        <div className="mes">{this.state.message}</div>
                     </div>
+                </div>
+                    <Tops />
                 </div>
             </div>
         )

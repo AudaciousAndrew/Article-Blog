@@ -56,17 +56,16 @@ class Menu extends Component{
   render(){
     let btn;
     if(cookieFunctions.getCookie('userToken') === '')
-     btn = <Link to="/signin" className="usrLink">Вход</Link>;
+     btn = <Link to="/signin" className="usrLink" style={{width: '5em'}}>Вход</Link>;
     else btn = <AccountDropdown classname="dropdown2" id="dd2" name="Профиль" links={usrLinks}/>;
     return(
       <div className="navbar">
         <div className="links">
           <Link to="/">Главная</Link>
           <Dropdown classname="dropdown" id="dd1" name="Статьи" links={Links}/>
-          <Link to="/users">Пользователи</Link>
+          <Link to="/users" >Пользователи</Link>
         </div>
       {btn}
-      <Search />
       </div>
 
     )

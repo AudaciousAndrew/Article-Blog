@@ -19,8 +19,10 @@ import UserAccount from './components/UserAccount'
 import Article from './components/articles/Article';
 import reducer from './reducers';
 import Author from './components/articles/Author';
+import Signout from './components/Signout';
+import NotFound from './components/NotFound';
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -29,6 +31,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter >
       <div>
+          <Switch>
           <Route exact path="/" component={App} />
           <Route exact path="/signup" component={RegistrationForm} />
           <Route exact path="/signin" component={LoginForm} />
@@ -44,6 +47,9 @@ ReactDOM.render(
           <Route exact path="/user/:id" component={UserAccount}/>
           <Route exact path="/author/:id" component={Author} />
           <Route exact path="/article/:id" component={Article}/>
+          <Route exact path="/signout" component={Signout} />
+          <Route component={NotFound} />
+          </Switch>
       </div>
     </BrowserRouter>
     </Provider>,

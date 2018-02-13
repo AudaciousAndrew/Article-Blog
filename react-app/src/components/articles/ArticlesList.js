@@ -11,7 +11,7 @@ export default class ArticlesList extends Component{
             return <ArticleMiniInfo key={index} article={el} />
         });
         return(
-            <div className="articlesList">
+            <div>
                 {list}
             </div>
         )

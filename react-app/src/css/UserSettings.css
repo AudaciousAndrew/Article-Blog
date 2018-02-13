@@ -194,14 +194,3 @@
     height: 9em;
 }
 
-@media (max-width: 820px) {
-    .previews {
-        display: flex;
-    }
-
-    .preview {
-        flex:1;
-        flex-direction: column;
-    }
-
-}

@@ -21,8 +21,10 @@ export default class AccountDropdown extends Component {
   }
 
   signOut(){
-    cookieFunctions.setCookie('user', '', 1);
-    cookieFunctions.setCookie('userToken', '', 1);
+    cookieFunctions.setCookie('user', '', 0);
+    cookieFunctions.setCookie('userToken', '', 0);
+    console.log(this.props);
+    console.log(this.context);
     this.props.history.push("/");
   }
 
@@ -36,7 +38,7 @@ export default class AccountDropdown extends Component {
           {this.props.links.map((el, index) => {
             return <Link to={el.path} key={index}>{el.desc}</Link>
           })}
-        <Link to="/" onClick={this.signOut.bind(this)}>Выйти</Link>
+            <Link to="/signout" >Выйти</Link>
         </div>
       </div>
     )

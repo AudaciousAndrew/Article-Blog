@@ -92,8 +92,8 @@ class Users extends Component {
                 <Menu />
                 <div className="add">
                     <h3>Добавить статью</h3>
-                    <div className="articleInfo">
-                        <div className="articleName">
+                    <div>
+                        <div className="addName">
                             <label>Название статьи:</label>
                             <input type="text" id="aN" maxLength={150} />
                         </div>

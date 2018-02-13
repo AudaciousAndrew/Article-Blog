@@ -207,14 +207,14 @@ public class SecuredController {
         } else
         //if voted check on difference
         if(voteService.readByAuthorAndName(login,name).isVote() && type.equals("minus")){
-                articleEntity.setRating(articleEntity.getRating() - 1);
+                articleEntity.setRating(articleEntity.getRating() - 2);
                 voteService.updateVote(login , name , false);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
                 voteResponse = new voteResponse("true" , "null");
                 return voteResponse;
         } else
         if( !voteService.readByAuthorAndName(login,name).isVote() && type.equals("plus")){
-            articleEntity.setRating(articleEntity.getRating() + 1);
+            articleEntity.setRating(articleEntity.getRating() + 2);
             voteService.updateVote(login , name , true);
             articleService.updateRating(name.getName() , articleEntity.getRating());
             voteResponse = new voteResponse("true" , "null");

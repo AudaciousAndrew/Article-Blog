@@ -43,7 +43,7 @@ body{
     margin: 0;
 }
 
-.dropbtn a{
+.dropbtn a {
   float: left;
   font-size: 15px;
   color: white;
@@ -87,16 +87,20 @@ body{
 }
 
 
-.dropdown-content a {
+.dropdown-content a, .dropdown-content button{
     float: none;
+    font-size: 16px;
     color: black;
     padding: 12px 16px;
     text-decoration: none;
+    background-color: #f9f9f9;
+    border: none;
     display: block;
     text-align: left;
+    width: 100%;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:hover, .dropdown-content button:hover {
     background-color: #ddd;
 }
 

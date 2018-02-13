@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Menu from './components/Menu';
+import Tops from './components/Tops';
 
 class App extends Component{
   addTrack(){
@@ -12,9 +13,7 @@ class App extends Component{
     return (
       <div>
         <Menu />
-        home page
-        <img src={require('./resources/user.png')} height={'200px'} />
-
+        <Tops />
       </div>
     )
   }

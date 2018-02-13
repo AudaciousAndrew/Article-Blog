@@ -57,7 +57,7 @@ public class ArticleController {
     @Path("/{login}/all/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArticleEntity> articleByUser(@PathParam("login") String login){
-        return service.readByAuthor(login);
+        return service.readByAuthor(login , true);
     }
 
     @GET

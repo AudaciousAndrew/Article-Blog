@@ -25,9 +25,9 @@ public class ArticleDAO {
         query.executeUpdate();
     }
 
-    public List<ArticleEntity> readByAuthor(String author){
+    public List<ArticleEntity> readByAuthor(String author , boolean verified){
         TypedQuery<ArticleEntity> query = em.createQuery(
-                "select p from ArticleEntity p where  p.author = '"+author+"'"
+                "select p from ArticleEntity p where  p.author = '"+author+"' and p.verified ="+verified
                 ,ArticleEntity.class);
         List<ArticleEntity> articles = query.getResultList();
         return articles;

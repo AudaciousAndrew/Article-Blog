@@ -60,6 +60,14 @@ public class SecuredController {
 
     }
 
+    @POST
+    @Path("/article/all/{login}/unverified")
+    @RolesAllowed({"USER" , "ADMIN" , "MODERATOR"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ArticleEntity> readByAuthorUnverified(@PathParam("login") String login){
+        return articleService.readByAuthor(login , false);
+    }
+
     @GET
     @Path("/article/all/unverified")
     @RolesAllowed({"MODERATOR" ,"ADMIN"})
@@ -180,6 +188,7 @@ public class SecuredController {
     public voteResponse articlePlusVote(@PathParam("type") String type , @PathParam("login") String login , articleName name){
         voteResponse voteResponse;
         boolean vote;
+        UserArticleEntity userArticleEntity;
         ArticleEntity articleEntity = articleService.readByName(name.getName());
         if(articleEntity == null){
             voteResponse = new voteResponse("false" , "No such article");
@@ -191,6 +200,7 @@ public class SecuredController {
                 vote = true;
                 articleEntity.setRating(articleEntity.getRating() + 1);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
+
             } else
             if(type.equals("minus")){
                 vote = false;
@@ -200,29 +210,26 @@ public class SecuredController {
                 voteResponse = new voteResponse("false" , "wrong url");
                 return voteResponse;
             }
-            UserArticleEntity userArticleEntity = new UserArticleEntity(login, name.getName() ,vote);
+            userArticleEntity = new UserArticleEntity(login, name.getName() ,vote);
             voteService.create(userArticleEntity);
             voteResponse = new voteResponse("true" , "null");
-            return voteResponse;
         } else
-        //if voted check on difference
-        if(voteService.readByAuthorAndName(login,name).isVote() && type.equals("minus")){
-                articleEntity.setRating(articleEntity.getRating() - 1);
+            //if voted check on difference
+            if(voteService.readByAuthorAndName(login,name).isVote() && type.equals("minus")){
+                articleEntity.setRating(articleEntity.getRating() - 2);
                 voteService.updateVote(login , name , false);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
                 voteResponse = new voteResponse("true" , "null");
-                return voteResponse;
-        } else
-        if( !voteService.readByAuthorAndName(login,name).isVote() && type.equals("plus")){
-            articleEntity.setRating(articleEntity.getRating() + 1);
-            voteService.updateVote(login , name , true);
-            articleService.updateRating(name.getName() , articleEntity.getRating());
-            voteResponse = new voteResponse("true" , "null");
-            return voteResponse;
-        } else {
-            voteResponse = new voteResponse("false", "alrdy voted same");
-            return voteResponse;
-        }
+            } else
+            if( !voteService.readByAuthorAndName(login,name).isVote() && type.equals("plus")){
+                articleEntity.setRating(articleEntity.getRating() + 2);
+                voteService.updateVote(login , name , true);
+                articleService.updateRating(name.getName() , articleEntity.getRating());
+                voteResponse = new voteResponse("true" , "null");
+            } else {
+                voteResponse = new voteResponse("false", "alrdy voted same");
+            }
+        return voteResponse;
 
     }
 

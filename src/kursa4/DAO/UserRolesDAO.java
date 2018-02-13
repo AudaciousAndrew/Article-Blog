@@ -3,6 +3,7 @@ package kursa4.DAO;
 import kursa4.Entities.ArticleEntity;
 import kursa4.Entities.UserRolesEntity;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -14,6 +15,7 @@ public class UserRolesDAO {
 
     @PersistenceContext(name = "NewPersistenceUnit")
     private EntityManager em;
+
 
     public UserRolesDAO() {
     }
@@ -29,6 +31,7 @@ public class UserRolesDAO {
             return null;
         }
     }
+
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteAll(){

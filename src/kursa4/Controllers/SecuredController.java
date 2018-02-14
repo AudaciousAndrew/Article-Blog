@@ -26,6 +26,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -145,6 +146,21 @@ public class SecuredController {
     }
 
     /** USER RESOURCES **/
+
+    @GET
+    @Path("/user/role/user")
+    @RolesAllowed({"MODERATOR" , "ADMIN"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UsersEntity> allRoleUser(){
+        List<UsersEntity> users = usersService.readAll();
+        List<UsersEntity> roleUser = new ArrayList<>();
+        for ( UsersEntity user : users){
+            if(rolesService.readByLogin(user.getLogin()).size() == 1){
+                roleUser.add(user);
+            }
+        }
+        return roleUser;
+    }
 
     @GET
     @Path("/user/all")

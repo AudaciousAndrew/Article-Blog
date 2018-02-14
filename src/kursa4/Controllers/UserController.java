@@ -122,6 +122,8 @@ public class UserController {
         return rolesService.readByLogin(login).size();
     }
 
+
+
     @POST
     @Path("/load/{login}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)

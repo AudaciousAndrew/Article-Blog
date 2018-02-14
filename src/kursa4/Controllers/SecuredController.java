@@ -254,13 +254,13 @@ public class SecuredController {
                 vote = true;
                 articleEntity.setRating(articleEntity.getRating() + 1);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
-                usersService.updateRating(login , 1);
+                usersService.updateRating(articleEntity.getAuthor() , 1);
             } else
             if(type.equals("minus")){
                 vote = false;
                 articleEntity.setRating(articleEntity.getRating() - 1);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
-                usersService.updateRating(login , -1);
+                usersService.updateRating(articleEntity.getAuthor() , -1);
             } else {
                 voteResponse = new voteResponse("false" , "wrong url");
                 return voteResponse;
@@ -274,14 +274,14 @@ public class SecuredController {
                 articleEntity.setRating(articleEntity.getRating() - 2);
                 voteService.updateVote(login , name , false);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
-                usersService.updateRating(login , -2);
+                usersService.updateRating(articleEntity.getAuthor() , -2);
                 voteResponse = new voteResponse("true" , "null");
             } else
             if( !voteService.readByAuthorAndName(login,name).isVote() && type.equals("plus")){
                 articleEntity.setRating(articleEntity.getRating() + 2);
                 voteService.updateVote(login , name , true);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
-                usersService.updateRating(login , 2);
+                usersService.updateRating(articleEntity.getAuthor() , 2);
                 voteResponse = new voteResponse("true" , "null");
             } else {
                 voteResponse = new voteResponse("false", "alrdy voted same");

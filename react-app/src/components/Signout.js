@@ -6,10 +6,9 @@ import  { cookieFunctions } from '../cookieFunctions';
 export default class Signout extends Component {
 
     static signOut(){
-        cookieFunctions.setCookie('user', '', -1);
-        cookieFunctions.setCookie('userToken', '', -1);
-        cookieFunctions.setCookie('role', '', -1);
-
+        cookieFunctions.removeCookie('user');
+        cookieFunctions.removeCookie('userToken');
+        cookieFunctions.removeCookie('role');
         console.log(document.cookie);
     }
 

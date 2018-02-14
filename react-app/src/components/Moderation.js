@@ -25,7 +25,7 @@ class Moderation extends Component{
     }
 
     componentDidMount(){
-        if(this.state.role === '' || this.state.role === '1')
+        if(typeof this.state.role === 'undefined' || this.state.role === '1')
             this.props.history.push('/accessdenied');
     }
 

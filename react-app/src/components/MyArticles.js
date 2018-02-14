@@ -26,6 +26,11 @@ class MyArticles extends Component{
         this.loadFromServer2();
     }
 
+    componentDidMount(){
+        if(typeof this.state.userToken === 'undefined')
+            this.props.history.push('/accessdenied');
+    }
+
     loadFromServer() {
         axios.get(apiPath + '/article/' + this.state.login + '/all')
             .then((response) => {

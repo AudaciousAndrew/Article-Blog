@@ -5,6 +5,8 @@ import Dropdown from './Dropdown';
 import AccountDropdown from './AccountDropdown';
 import Search from './Search';
 import { cookieFunctions } from '../cookieFunctions.js';
+import Cookies from 'js-cookie';
+
 
 const Links = [
   {
@@ -31,7 +33,6 @@ class Menu extends Component{
 
   constructor(props){
     super(props);
-    this.state = { user : document.cookie};
   }
 
   render(){
@@ -80,7 +81,7 @@ class Menu extends Component{
               userToken: cookieFunctions.getCookie('userToken')
           });
       }
-    if(cookieFunctions.getCookie('userToken') === '')
+    if(typeof cookieFunctions.getCookie('userToken') === 'undefined')
      btn = <Link to="/signin" className="usrLink" style={{width: '5em'}}>Вход</Link>;
     else btn = <AccountDropdown classname="dropdown2" id="dd2" name="Профиль" links={usrLinks}/>;
     return(

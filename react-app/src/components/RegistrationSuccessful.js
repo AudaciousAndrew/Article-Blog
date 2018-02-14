@@ -7,7 +7,7 @@ class RegistrationSuccessful extends Component{
 
     componentDidMount(){
         let role = cookieFunctions.getCookie('role');
-        if(role !== '') this.props.history.push('/home');
+        if(typeof role !== 'undefined') this.props.history.push('/home');
     }
 
   render(){

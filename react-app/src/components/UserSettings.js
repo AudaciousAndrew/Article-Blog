@@ -41,7 +41,7 @@ class UserSettings extends Component{
   }
 
     componentDidMount(){
-        if(this.state.userToken === '')
+        if(typeof this.state.userToken === 'undefined')
             this.props.history.push('/accessdenied');
     }
 

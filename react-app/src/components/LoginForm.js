@@ -25,7 +25,7 @@ class LoginForm extends Component{
   }
 
     componentDidMount(){
-        if(this.state.role !== '')
+        if(typeof this.state.role !== 'undefined')
             this.props.history.push('/home');
     }
 

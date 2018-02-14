@@ -43,7 +43,6 @@ export default class ModerList extends Component{
 
     handleSubmit2(e){
         let arName = e.target.id;
-        alert(this.state.userToken);
 
         return new Promise((resolve, reject) => {
 

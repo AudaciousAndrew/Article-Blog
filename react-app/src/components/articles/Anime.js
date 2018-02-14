@@ -117,7 +117,7 @@ export default class Anime extends Component{
 
     render(){
         let list = [],
-            pagination = <div className="pagination"><h3>По вашему запросу ничего не найдено.</h3></div> ;
+            pagination = <div className="pagination"><h3>Нет статей :(</h3></div> ;
       if(this.state.totalPages !== 0){
           list = this.state.articles;
           pagination =  <div className="pagination">

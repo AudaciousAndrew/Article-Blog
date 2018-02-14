@@ -5,7 +5,7 @@ import '../../css/Article.css';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
-class MyAccount extends Component{
+class ArticleMiniInfo extends Component{
 
     constructor(props){
         super(props);
@@ -33,4 +33,4 @@ class MyAccount extends Component{
     }
 }
 
-export default MyAccount;
+export default ArticleMiniInfo;

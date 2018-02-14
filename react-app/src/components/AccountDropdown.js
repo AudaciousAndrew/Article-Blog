@@ -38,7 +38,7 @@ export default class AccountDropdown extends Component {
           {this.props.links.map((el, index) => {
             return <Link to={el.path} key={index}>{el.desc}</Link>
           })}
-            <Link to="/signout" >Выйти</Link>
+            <Link to="/signout">Выйти</Link>
         </div>
       </div>
     )

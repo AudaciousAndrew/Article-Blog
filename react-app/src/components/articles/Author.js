@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Menu from '../Menu';
 import axios from 'axios';
 import ArticlesList from './ArticlesList';
+import Tops from '../Tops';
 import '../../css/Article.css';
+import '../../css/Search.css';
 import {InputText} from 'primereact/components/inputtext/InputText';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
@@ -105,8 +107,11 @@ export default class Anime extends Component{
                     </div>
                 </div>
 
-                <div>
-                    <ArticlesList articles={list} />
+                <div className="flex-container">
+                    <div className="articlesList">
+                        <ArticlesList articles={list} />
+                    </div>
+                    <Tops />
                 </div>
             </div>
         )

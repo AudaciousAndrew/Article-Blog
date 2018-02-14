@@ -19,6 +19,7 @@ class LoginForm extends Component{
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLoginChange = this.handleLoginChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.getRole = this.getRole.bind(this);
     this.login = this.login.bind(this);
   }
 
@@ -38,12 +39,31 @@ class LoginForm extends Component{
       else {
         cookieFunctions.setCookie('user', response.data.login, 1);
         cookieFunctions.setCookie('userToken', response.data.token, 1);
+        this.getRole();
         console.log(document.cookie);
-        this.props.history.push("/");
+          window.location.reload();
+
+          this.props.history.push("/");
       }
     }).catch(error => {
       console.log(error.message);
     });
+  }
+
+  getRole(){
+      let login = cookieFunctions.getCookie('user');
+
+      axios({
+          method:'post',
+          url: 'http://localhost:8080/kursa4_war_exploded/rest/user/roles/' + login
+      })
+          .then((response) => {
+              console.log(response);
+              cookieFunctions.setCookie('role', response.data, 1);
+
+          }).catch(error => {
+          console.log(error.message);
+      });
   }
 
   handleSubmit(event){

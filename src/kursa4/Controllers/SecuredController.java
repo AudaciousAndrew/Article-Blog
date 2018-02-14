@@ -46,6 +46,19 @@ public class SecuredController {
     private UserArticleDAO voteService;
 
 
+    /** ARTICLE RESOURCES **/
+
+    @POST
+    @Path("/article/name/unverified")
+    @RolesAllowed({"MODERATOR" , "ADMIN"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArticleEntity articleByName(articleName name){
+        ArticleEntity articleEntity = articleService.readByName(name.getName() , false);
+        if(articleEntity == null) return null;
+        else return articleEntity;
+    }
+
+
     @POST
     @Path("/article/add")
     @RolesAllowed({"USER" , "ADMIN" , "MODERATOR"})
@@ -85,6 +98,35 @@ public class SecuredController {
     }
 
     @POST
+    @Path("/article/moderator/delete")
+    @RolesAllowed({"MODERATOR" , "ADMIN"})
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteArticleModerator(articleName name){
+        int i =  articleService.deleteByName(name.getName());
+        if (i == 1)return "deleter";
+        else return "No such article";
+    }
+
+    @POST
+    @Path("/article/user/delete/{token}")
+    @RolesAllowed("USER")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteArticleUser(articleName name ,@PathParam("token") String token) throws UnsupportedEncodingException{
+        String login;
+        ArticleEntity articleEntity = articleService.readByName(name.getName() , true);
+        if(articleEntity != null) {
+            String decodedString = new String(Base64.decode(token), "UTF8");
+            StringTokenizer tokenizer = new StringTokenizer(decodedString, ":");
+            login = tokenizer.nextToken();
+            if (login.equals(articleEntity.getAuthor())) {
+                articleService.deleteByName(name.getName());
+                return "article deleted";
+            } else return "permission denied";
+        } else return "No such article";
+    }
+
+
+    @POST
     @Path("/article/approve")
     @RolesAllowed({"MODERATOR" , "ADMIN"})
     @Produces(MediaType.TEXT_PLAIN)
@@ -94,12 +136,22 @@ public class SecuredController {
             Jabber jabber = new Jabber();
             jabber.sendNotification(
                     usersService.readByLogin(
-                            articleService.readByName(name.getName()).getAuthor()).getJabber() ,
+                            articleService.readByName(name.getName() , true).getAuthor()).getJabber() ,
             name.getName());
             return "true";
         }catch (Exception e){
             return "Error on server side";
         }
+    }
+
+    /** USER RESOURCES **/
+
+    @GET
+    @Path("/user/all")
+    @RolesAllowed("ADMIN")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UsersEntity> allUsers(){
+        return usersService.readAll();
     }
 
     @POST
@@ -150,15 +202,7 @@ public class SecuredController {
         } else return "No such user";
     }
 
-    @POST
-    @Path("/article/moderator/delete")
-    @RolesAllowed({"MODERATOR" , "ADMIN"})
-    @Produces(MediaType.TEXT_PLAIN)
-    public String deleteArticleModerator(articleName name){
-        int i =  articleService.deleteByName(name.getName());
-        if (i == 1)return "deleter";
-        else return "No such article";
-    }
+    /** VOTE RESOURCES **/
 
     @POST
     @Path("/vote/check/{login}")
@@ -189,7 +233,7 @@ public class SecuredController {
         voteResponse voteResponse;
         boolean vote;
         UserArticleEntity userArticleEntity;
-        ArticleEntity articleEntity = articleService.readByName(name.getName());
+        ArticleEntity articleEntity = articleService.readByName(name.getName() , true);
         if(articleEntity == null){
             voteResponse = new voteResponse("false" , "No such article");
             return voteResponse;
@@ -233,21 +277,5 @@ public class SecuredController {
 
     }
 
-    @POST
-    @Path("/article/user/delete/{token}")
-    @RolesAllowed("USER")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String deleteArticleUser(articleName name ,@PathParam("token") String token) throws UnsupportedEncodingException{
-        String login;
-        ArticleEntity articleEntity = articleService.readByName(name.getName());
-        if(articleEntity != null) {
-            String decodedString = new String(Base64.decode(token), "UTF8");
-            StringTokenizer tokenizer = new StringTokenizer(decodedString, ":");
-            login = tokenizer.nextToken();
-                if (login.equals(articleEntity.getAuthor())) {
-                    articleService.deleteByName(name.getName());
-                    return "article deleted";
-                } else return "permission denied";
-        } else return "No such article";
-    }
+
 }

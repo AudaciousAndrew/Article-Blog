@@ -65,10 +65,10 @@ public class ArticleDAO {
         return articles;
     }
 
-    public ArticleEntity readByName(String name){
+    public ArticleEntity readByName(String name , boolean verified){
         try {
             TypedQuery<ArticleEntity> query = em.createQuery(
-                    "SELECT p from ArticleEntity p where p.articleName = '" + name + "' and p.verified = true"
+                    "SELECT p from ArticleEntity p where p.articleName = '" + name + "' and p.verified ="+verified
                     , ArticleEntity.class);
             ArticleEntity article = query.getSingleResult();
             return article;

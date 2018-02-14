@@ -25,7 +25,7 @@ public class ArticleController {
     @Path("/name")
     @Produces(MediaType.APPLICATION_JSON)
     public ArticleEntity articleByName(articleName name){
-        ArticleEntity articleEntity = service.readByName(name.getName());
+        ArticleEntity articleEntity = service.readByName(name.getName() , true);
         if(articleEntity == null) return null;
         else return articleEntity;
     }

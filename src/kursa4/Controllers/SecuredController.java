@@ -103,7 +103,7 @@ public class SecuredController {
     @Produces(MediaType.TEXT_PLAIN)
     public String deleteArticleModerator(articleName name){
         int i =  articleService.deleteByName(name.getName());
-        if (i == 1)return "deleter";
+        if (i == 1)return "deleted";
         else return "No such article";
     }
 

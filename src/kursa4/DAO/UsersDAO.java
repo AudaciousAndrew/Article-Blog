@@ -34,7 +34,8 @@ public class UsersDAO {
     public boolean existsByLogin(String login){
         try {
             UsersEntity usersEntity = readByLogin(login);
-            return true;
+            if(usersEntity ==null) return false;
+            else return true;
         }catch (NoResultException e){
             return false;
         }

@@ -14,7 +14,8 @@ class LoginForm extends Component{
       email: '',
       login: '',
       password: '',
-      error: ''
+      error: '',
+        role: cookieFunctions.getCookie('role')
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLoginChange = this.handleLoginChange.bind(this);
@@ -22,6 +23,11 @@ class LoginForm extends Component{
     this.getRole = this.getRole.bind(this);
     this.login = this.login.bind(this);
   }
+
+    componentDidMount(){
+        if(this.state.role !== '')
+            this.props.history.push('/home');
+    }
 
   login(){
     axios({
@@ -40,10 +46,7 @@ class LoginForm extends Component{
         cookieFunctions.setCookie('user', response.data.login, 1);
         cookieFunctions.setCookie('userToken', response.data.token, 1);
         this.getRole();
-        console.log(document.cookie);
-          window.location.reload();
-
-          this.props.history.push("/");
+        setTimeout(()=>{this.props.history.push("/")}, 500);
       }
     }).catch(error => {
       console.log(error.message);

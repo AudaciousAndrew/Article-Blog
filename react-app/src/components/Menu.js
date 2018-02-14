@@ -86,7 +86,7 @@ class Menu extends Component{
     return(
       <div className="navbar">
         <div className="links">
-          <Link to="/">Главная</Link>
+          <Link to="/home">Главная</Link>
           <Dropdown classname="dropdown" id="dd1" name="Статьи" links={Links}/>
           <Link to="/users" >Пользователи</Link>
         </div>

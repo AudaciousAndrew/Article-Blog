@@ -12,7 +12,7 @@ export default class ModerList extends Component{
         super(props);
         this.state = {
             login: cookieFunctions.getCookie('user'),
-            userToken: cookieFunctions.getCookie('userToken'),
+            userToken: cookieFunctions.getCookie('userToken')
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSubmit2 = this.handleSubmit2.bind(this);
@@ -43,6 +43,8 @@ export default class ModerList extends Component{
 
     handleSubmit2(e){
         let arName = e.target.id;
+        alert(this.state.userToken);
+
         return new Promise((resolve, reject) => {
 
             var instance = axios.create({
@@ -68,8 +70,9 @@ export default class ModerList extends Component{
         let list = this.props.articles.map((el, index) => {
             return <div className="myListItem" key={index}>
                 <AuthorMiniInfo  article={el} />
-                <input type="submit" value="Опубликовать" id={el.articleName}
-                       className="submitBtn" onClick={this.handleSubmit2} />
+                <input type="submit" value="Принять" id={el.articleName}
+                       className="submitBtn"
+                       onClick={this.handleSubmit2} />
                 <input type="submit" value="Удалить" id={el.articleName}
                        className="submitBtn" onClick={this.handleSubmit} />
             </div>

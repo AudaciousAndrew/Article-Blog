@@ -34,6 +34,11 @@ class AddArticle extends Component {
         this.loadOnServer = this.loadOnServer.bind(this);
     }
 
+    componentDidMount(){
+        if(this.state.userToken === '')
+            this.props.history.push('/accessdenied');
+    }
+
     loadOnServer() {
         this.setState({checkResponse: "", check: ''});
         if(this.state.type === null){

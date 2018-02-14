@@ -25,7 +25,7 @@ import MyArticles from './components/MyArticles';
 import Administration from './components/Administration';
 import Moderation from './components/Moderation';
 import Unverified from './components/articles/Unverified';
-
+import AccessDenied from './components/AccessDenied';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
@@ -33,10 +33,11 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter >
+    <BrowserRouter baseName="">
       <div>
           <Switch>
           <Route exact path="/" component={App} />
+          <Route exact path="/home" component={App} />
           <Route exact path="/signup" component={RegistrationForm} />
           <Route exact path="/signin" component={LoginForm} />
           <Route exact path="/regsuccess" component={RegistrationSuccessful} />
@@ -56,7 +57,7 @@ ReactDOM.render(
           <Route exact path="/myArticles" component={MyArticles} />
           <Route exact path="/moderation" component={Moderation} />
           <Route exact path="/administration" component={Administration} />
-
+          <Route exact path="/accessdenied" component={AccessDenied} />
           <Route component={NotFound} />
           </Switch>
       </div>

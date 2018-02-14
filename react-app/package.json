@@ -10,6 +10,7 @@
     "babel-preset-react": "^6.24.1",
     "belle": "^4.0.0",
     "classnames": "^2.2.5",
+    "html-react-parser": "^0.4.1",
     "node-sass": "^4.7.2",
     "primereact": "^1.4.0",
     "quill": "^1.3.5",

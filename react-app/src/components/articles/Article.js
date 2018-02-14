@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import {cookieFunctions} from '../../cookieFunctions';
 import {RadioButton} from 'primereact/components/radiobutton/RadioButton';
 import Tops from '../Tops';
+import Parser from 'html-react-parser';
 
 const vote = [
     {label: 'Да', value: 'plus'},
@@ -20,15 +21,16 @@ export default class Article extends Component{
         super(props);
         this.state = {
             article: {
+                articleDesc: ''
 
             },
             user: cookieFunctions.getCookie('user'),
+            userToken: cookieFunctions.getCookie('userToken'),
             message: ''
         };
         this.loadFromServer = this.loadFromServer.bind(this);
         this.checkVote = this.checkVote.bind(this);
         this.loadVote = this.loadVote.bind(this);
-        this.checkVote();
         this.loadFromServer();
     }
 
@@ -43,7 +45,9 @@ export default class Article extends Component{
             })
                 .then((response) => {
                     console.log(response.data);
-                    this.setState({article: response.data})
+                    this.setState({article: response.data}, () => {
+                        this.checkVote();
+                    })
                     //resolve();
                 }).catch(error => {
                 console.log(error.message);
@@ -56,7 +60,7 @@ export default class Article extends Component{
         var instance = axios.create({
             baseURL: apiPath
         });
-        instance.defaults.headers.common['Authorization'] = 'Basic ' + cookieFunctions.getCookie('userToken');
+        instance.defaults.headers.common['Authorization'] = 'Basic ' + this.state.userToken;
         instance.post('/secured/vote/check/' + this.state.user,
             {
                 name: this.props.match.params.id
@@ -79,6 +83,7 @@ export default class Article extends Component{
     loadVote(){
             this.setState({message: ''});
 
+
             if(this.state.user === ''){
                 this.setState({message: 'Голосовать могут только авторизованные пользователи'});
                 return false
@@ -86,8 +91,8 @@ export default class Article extends Component{
             var instance = axios.create({
                 baseURL: apiPath
             });
-            instance.defaults.headers.common['Authorization'] = 'Basic ' + cookieFunctions.getCookie('userToken');
-            instance.post('/secured/vote/'+this.state.vote+ '/' + cookieFunctions.getCookie('user'),
+            instance.defaults.headers.common['Authorization'] = 'Basic ' + this.state.userToken;
+            instance.post('/secured/vote/'+this.state.vote+ '/' + this.state.user,
                 {
                     name: this.state.article.articleName
                 }
@@ -130,7 +135,7 @@ export default class Article extends Component{
                         </Link>
                     </div>
                     <div className="article">
-                        <div dangerouslySetInnerHTML={{__html: this.state.article.articleDesc}} />
+                        {Parser(this.state.article.articleDesc)}
                     </div>
                     <div className="rating">
                         <label>Рейтинг: </label>

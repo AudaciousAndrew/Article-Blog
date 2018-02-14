@@ -3,6 +3,7 @@ import Menu from './Menu';
 import '../css/SignUp.css';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {cookieFunctions} from "../cookieFunctions";
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest/user/register';
 
@@ -15,6 +16,7 @@ class RegistrationForm extends Component{
       password: '',
       passwordConf: '',
       error: '',
+      role: cookieFunctions.getCookie('role')
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -27,6 +29,11 @@ class RegistrationForm extends Component{
     this.passwordCheck = this.passwordCheck.bind(this);
     this.createUser = this.createUser.bind(this);
   }
+
+    componentDidMount(){
+        if(this.state.role !== '')
+            this.props.history.push('/home');
+    }
 
   createUser(){
     return new Promise((resolve, reject) => {

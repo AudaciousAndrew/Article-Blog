@@ -22,7 +22,7 @@ export default class Article extends Component{
             article: {
 
             },
-            user: cookieFunctions.getCookie('user'),
+            userToken: cookieFunctions.getCookie('userToken'),
             message: ''
         };
         this.loadFromServer = this.loadFromServer.bind(this);

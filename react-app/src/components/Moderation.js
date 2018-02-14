@@ -15,12 +15,18 @@ class Moderation extends Component{
         this.state = {
             login: cookieFunctions.getCookie('user'),
             userToken: cookieFunctions.getCookie('userToken'),
+            role: cookieFunctions.getCookie('role'),
             user: {
             },
             articles: []
         };
         this.loadFromServer = this.loadFromServer.bind(this);
         this.loadFromServer();
+    }
+
+    componentDidMount(){
+        if(this.state.role === '' || this.state.role === '1')
+            this.props.history.push('/accessdenied');
     }
 
     loadFromServer() {

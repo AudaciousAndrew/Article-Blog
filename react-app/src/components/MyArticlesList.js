@@ -17,6 +17,12 @@ export default class MyArticlesList extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount(){
+        if(this.state.userToken === '')
+            this.props.history.push('/accessdenied');
+    }
+
+
     handleSubmit(e){
         let arName = e.target.id;
         return new Promise((resolve, reject) => {

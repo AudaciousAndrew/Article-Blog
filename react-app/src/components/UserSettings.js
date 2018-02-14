@@ -40,6 +40,11 @@ class UserSettings extends Component{
     this.loadFromServer();
   }
 
+    componentDidMount(){
+        if(this.state.userToken === '')
+            this.props.history.push('/accessdenied');
+    }
+
   loadFromServer() {
       axios.get(apiPath + '/user/' + this.state.login , {
         params: {

@@ -23,7 +23,8 @@ class Administration extends Component {
             users: [
             ],
             userToken: cookieFunctions.getCookie('userToken'),
-            founded: null
+            founded: null,
+            role: cookieFunctions.getCookie('role')
         };
         this.loadFromServer = this.loadFromServer.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,6 +49,12 @@ class Administration extends Component {
                 console.log(error);
             });
     }
+
+    componentDidMount(){
+        if(this.state.role !== '3')
+            this.props.history.push('/accessdenied');
+    }
+
 
     search(){
         let login = document.getElementById('search').value;

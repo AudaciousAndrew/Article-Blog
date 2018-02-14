@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "article", schema = "public", catalog = "postgres")
 @NamedQueries({
-        @NamedQuery(name = "Article.readAll" , query = "SELECT u from ArticleEntity u") ,
+        @NamedQuery(name = "Article.readAll" , query = "SELECT u from ArticleEntity u where u.verified = true order by u.id desc ") ,
         @NamedQuery(name = "Article.deleteAll" , query = "delete from ArticleEntity p")
 })
 @XmlRootElement

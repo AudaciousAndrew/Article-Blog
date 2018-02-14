@@ -83,24 +83,9 @@ public class UsersDAO {
         return users;
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public UsersEntity create(UsersEntity user){
-        em.persist(user);
-        return user;
-    }
 
     public UsersEntity read(int id){
         return em.find(UsersEntity.class , id);
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void update(UsersEntity user){
-        em.merge(user);
-   }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void delete(int id){
-        em.remove(em.find(UsersEntity.class , id));
     }
 
     public List<UsersEntity> readAll(){
@@ -108,6 +93,22 @@ public class UsersDAO {
                 "Users.readAll"
                 ,UsersEntity.class);
         return query.getResultList();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public UsersEntity create(UsersEntity user){
+        em.persist(user);
+        return user;
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void update(UsersEntity user){
+        em.merge(user);
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void delete(int id){
+        em.remove(em.find(UsersEntity.class , id));
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -156,6 +157,14 @@ public class UsersDAO {
     public void updateJabber(String login, String jabber){
         Query query = em.createQuery(
                 "update UsersEntity p set p.jabber = '"+jabber+"' where p.login ='"+login+"'" );
+        query.executeUpdate();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void updateRating(String login, int i){
+        int rating = readByLogin(login).getRating() + i;
+        Query query = em.createQuery(
+                "update UsersEntity p set p.rating = '"+rating+"' where p.login ='"+login+"'" );
         query.executeUpdate();
     }
 

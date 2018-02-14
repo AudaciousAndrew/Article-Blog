@@ -40,10 +40,25 @@ public class ArticleDAO {
         return articlesNumber;
     }
 
+    public Number countAll(){
+        Query query = em.createQuery(
+                "select count(p.articleName) from ArticleEntity p where p.verified = true" );
+        Number articlesNumber = (Number) query.getSingleResult();
+        return articlesNumber;
+    }
+
 
     public List<ArticleEntity> readByTypeAndOffset(String type , int offset){
         TypedQuery<ArticleEntity> query = em.createQuery(
                 "select p from ArticleEntity p where p.articleType ='" + type+"' and p.verified = true order by p.articleId desc"
+                ,ArticleEntity.class).setMaxResults(10).setFirstResult((offset-1)*10);
+        List<ArticleEntity> articles = query.getResultList();
+        return articles;
+    }
+
+    public List<ArticleEntity> readByTypeAndOffset(int offset){
+        TypedQuery<ArticleEntity> query = em.createQuery(
+                "select p from ArticleEntity p where   p.verified = true order by p.articleId desc"
                 ,ArticleEntity.class).setMaxResults(10).setFirstResult((offset-1)*10);
         List<ArticleEntity> articles = query.getResultList();
         return articles;
@@ -69,6 +84,18 @@ public class ArticleDAO {
         try {
             TypedQuery<ArticleEntity> query = em.createQuery(
                     "SELECT p from ArticleEntity p where p.articleName = '" + name + "' and p.verified ="+verified
+                    , ArticleEntity.class);
+            ArticleEntity article = query.getSingleResult();
+            return article;
+        }catch (NoResultException e){
+            return null;
+        }
+    }
+
+    public ArticleEntity readByName(String name){
+        try {
+            TypedQuery<ArticleEntity> query = em.createQuery(
+                    "SELECT p from ArticleEntity p where p.articleName = '" + name + "'"
                     , ArticleEntity.class);
             ArticleEntity article = query.getSingleResult();
             return article;

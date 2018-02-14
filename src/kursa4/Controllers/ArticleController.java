@@ -74,5 +74,19 @@ public class ArticleController {
         return service.topTen();
     }
 
+    @GET
+    @Path("/all/{page}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ArticleEntity> articleAll(@PathParam("page") int page){
+        return service.readByTypeAndOffset(page);
+    }
+
+    @GET
+    @Path("/all/amount")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Number articleAllAmount(){
+        return service.countAll();
+    }
+
 
 }

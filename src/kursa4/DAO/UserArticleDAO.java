@@ -53,6 +53,13 @@ public class UserArticleDAO {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void deleteByArticle(String articleName){
+        Query query = em.createQuery(
+                "delete from UserArticleEntity p where p.article_name ='"+articleName+"'");
+        query.executeUpdate();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public UserArticleEntity create(UserArticleEntity article){
         em.persist(article);
         return article;

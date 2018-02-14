@@ -90,13 +90,6 @@ public class SecuredController {
         return articleService.readUnverified();
     }
 
-    @GET
-    @Path("/article/all")
-    @RolesAllowed({"MODERATOR" , "ADMIN"})
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<ArticleEntity> articleAll(){
-        return articleService.readAll();
-    }
 
     @POST
     @Path("/article/moderator/delete")
@@ -114,12 +107,13 @@ public class SecuredController {
     @Produces(MediaType.TEXT_PLAIN)
     public String deleteArticleUser(articleName name ,@PathParam("token") String token) throws UnsupportedEncodingException{
         String login;
-        ArticleEntity articleEntity = articleService.readByName(name.getName() , true);
+        ArticleEntity articleEntity = articleService.readByName(name.getName());
         if(articleEntity != null) {
             String decodedString = new String(Base64.decode(token), "UTF8");
             StringTokenizer tokenizer = new StringTokenizer(decodedString, ":");
             login = tokenizer.nextToken();
             if (login.equals(articleEntity.getAuthor())) {
+                voteService.deleteByArticle(name.getName());
                 articleService.deleteByName(name.getName());
                 return "article deleted";
             } else return "permission denied";
@@ -260,12 +254,13 @@ public class SecuredController {
                 vote = true;
                 articleEntity.setRating(articleEntity.getRating() + 1);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
-
+                usersService.updateRating(login , 1);
             } else
             if(type.equals("minus")){
                 vote = false;
                 articleEntity.setRating(articleEntity.getRating() - 1);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
+                usersService.updateRating(login , -1);
             } else {
                 voteResponse = new voteResponse("false" , "wrong url");
                 return voteResponse;
@@ -279,12 +274,14 @@ public class SecuredController {
                 articleEntity.setRating(articleEntity.getRating() - 2);
                 voteService.updateVote(login , name , false);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
+                usersService.updateRating(login , -2);
                 voteResponse = new voteResponse("true" , "null");
             } else
             if( !voteService.readByAuthorAndName(login,name).isVote() && type.equals("plus")){
                 articleEntity.setRating(articleEntity.getRating() + 2);
                 voteService.updateVote(login , name , true);
                 articleService.updateRating(name.getName() , articleEntity.getRating());
+                usersService.updateRating(login , 2);
                 voteResponse = new voteResponse("true" , "null");
             } else {
                 voteResponse = new voteResponse("false", "alrdy voted same");

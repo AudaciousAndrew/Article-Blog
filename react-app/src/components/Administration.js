@@ -32,7 +32,11 @@ class Administration extends Component {
     }
 
     loadFromServer() {
-        axios.get(apiPath + '/user/top/1000')
+        var instance = axios.create({
+            baseURL: apiPath
+        });
+        instance.defaults.headers.common['Authorization'] = 'Basic ' + this.state.userToken;
+        instance.get('/secured/user/role/user')
             .then((response) => {
                 console.log(response.data);
                 this.setState({users: response.data}, ()=>{
@@ -67,7 +71,6 @@ class Administration extends Component {
     }
 
     handleSubmit(e){
-        alert("allo")
         let val = e.target.id;
         return new Promise((resolve, reject) => {
 

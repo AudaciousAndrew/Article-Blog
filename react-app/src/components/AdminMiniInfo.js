@@ -4,7 +4,7 @@ import '../css/UserInfo.css';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
-class UserMiniInfo extends Component{
+class AdminMiniInfo extends Component{
 
     constructor(props){
         super(props);
@@ -29,4 +29,4 @@ class UserMiniInfo extends Component{
     }
 }
 
-export default UserMiniInfo;
+export default AdminMiniInfo;

@@ -21,7 +21,7 @@ const types = [
     {label: 'Аниме', value: 'anime'}
 ];
 
-class Users extends Component {
+class AddArticle extends Component {
 
     constructor(props) {
         super(props);
@@ -121,6 +121,6 @@ class Users extends Component {
     }
 }
 
-export default Users;
+export default AddArticle;
 
 

@@ -23,6 +23,9 @@ import Signout from './components/Signout';
 import NotFound from './components/NotFound';
 import MyArticles from './components/MyArticles';
 import Administration from './components/Administration';
+import Moderation from './components/Moderation';
+import Unverified from './components/articles/Unverified';
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
@@ -48,8 +51,10 @@ ReactDOM.render(
           <Route exact path="/user/:id" component={UserAccount}/>
           <Route exact path="/author/:id" component={Author} />
           <Route exact path="/article/:id" component={Article}/>
+          <Route exact path="/unverified/:id" component={Unverified}/>
           <Route exact path="/signout" component={Signout} />
           <Route exact path="/myArticles" component={MyArticles} />
+          <Route exact path="/moderation" component={Moderation} />
           <Route exact path="/administration" component={Administration} />
 
           <Route component={NotFound} />
@@ -61,4 +66,4 @@ document.getElementById('root'));
 
 ReactDOM.render(
   <Footer />,
-document.getElementById('footer'));
+    document.getElementById('footer'));

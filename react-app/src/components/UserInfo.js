@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
-class MyAccount extends Component{
+class UserInfo extends Component{
 
   constructor(props){
     super(props);
@@ -91,4 +91,4 @@ class MyAccount extends Component{
   }
 }
 
-export default MyAccount;
+export default UserInfo;

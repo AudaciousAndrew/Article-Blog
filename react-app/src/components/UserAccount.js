@@ -7,7 +7,7 @@ import UserInfo from './UserInfo';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
-class MyAccount extends Component{
+class UserAccount extends Component{
 
     constructor(props){
         super(props);
@@ -43,4 +43,4 @@ class MyAccount extends Component{
     }
 }
 
-export default MyAccount;
+export default UserAccount;

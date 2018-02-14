@@ -8,7 +8,7 @@ import MyArticlesList from "./MyArticlesList";
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
-class UserSettings extends Component{
+class MyArticles extends Component{
 
     constructor(props){
         super(props);
@@ -77,4 +77,4 @@ class UserSettings extends Component{
     }
 }
 
-export default UserSettings;
+export default MyArticles;

@@ -5,7 +5,7 @@ import '../../css/Article.css';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
-class ArticleMiniInfo extends Component{
+class AuthorMiniInfo extends Component{
 
     constructor(props){
         super(props);
@@ -15,7 +15,7 @@ class ArticleMiniInfo extends Component{
         return(
             <div className="articleInfoMini">
                 <div className="articleNameMini">
-                    <Link to={'article/'+this.props.article.articleName}
+                    <Link to={'unverified/'+this.props.article.articleName}
                           articlename={this.props.article.articleName}>
                         {this.props.article.articleName}
                     </Link>
@@ -25,4 +25,4 @@ class ArticleMiniInfo extends Component{
     }
 }
 
-export default ArticleMiniInfo;
+export default AuthorMiniInfo;

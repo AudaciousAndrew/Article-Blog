@@ -63,7 +63,6 @@ class Menu extends Component{
           }
 
       ];
-      console.log(role);
       if(role === '2' || role === '3'){
           usrLinks = usrLinks.concat({
               path: "/moderation",

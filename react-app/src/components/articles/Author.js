@@ -9,7 +9,7 @@ import {InputText} from 'primereact/components/inputtext/InputText';
 
 const apiPath='http://localhost:8080/kursa4_war_exploded/rest';
 
-export default class Anime extends Component{
+export default class Author extends Component{
 
 
     constructor(props){

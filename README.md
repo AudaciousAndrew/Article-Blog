@@ -1,5 +1,5 @@
 # Article-Blog
-Simple Web application imitating habr.com functionality. 
-FrontEnd: ReactJS
-BackEnd: EJB+JAX-RS
-Database: PostgreSQL
+Simple Web application imitating habr.com functionality. <br />
+FrontEnd: ReactJS <br />
+BackEnd: EJB+JAX-RS <br />
+Database: PostgreSQL <br />
